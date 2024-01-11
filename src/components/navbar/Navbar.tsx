@@ -20,7 +20,9 @@ const Navbar: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     <div className="border-b-border flex h-16 items-center justify-between border-b px-6 lg:px-14">
       <div className="flex items-center">
         <Link href={"/"} className="shrink-0">
-          <h1 className="text-accent-foreground text-2xl font-bold">devlink</h1>
+          <h1 className="text-accent-foreground text-2xl font-bold">
+            spark royalty
+          </h1>
         </Link>
         <div className="bg-background hidden w-full justify-end gap-1 px-4 py-2 sm:flex">
           {routes.map((route, index) => (
