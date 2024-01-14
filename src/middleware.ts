@@ -12,20 +12,20 @@ export async function middleware(request: NextRequest) {
     "https://lbcubcyvjdzufnvuynno.supabase.co/auth/v1/callback";
 
   const requestedUrl = new URL(request.url).pathname;
-
-  if (
-    !unprotectedRoutes.includes(requestedUrl) &&
-    request.url !== callbackUrl
-  ) {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    if (!user) {
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
+  console.log(request.url);
+  // if (
+  //   !(unprotectedRoutes.includes(requestedUrl) || request.url === callbackUrl)
+  // ) {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    return NextResponse.redirect(new URL("/login", request.url));
   }
+  // }
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
+  matcher:
+    "/((?!api|_next/static|_next/image|favicon.ico|$|login|signup|auth).*)",
 };
