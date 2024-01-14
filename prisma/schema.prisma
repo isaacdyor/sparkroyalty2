@@ -58,16 +58,18 @@ model Investment {
 model Investor {
     id        String @id
     createdAt DateTime @default(now())
-    fullName String 
-    firstName      String 
-    lastName      String 
+    firstName String 
+    lastName  String 
     email     String @unique
-    imageUrl  String
-    title     String
+    // imageUrl  String
     bio       String 
     skills    String[]
     country   String
     educationAndExperience String
+
+    github String?
+    linkedin String?
+    website String?
 
     investments Investment[]
     application Application[]
@@ -81,11 +83,10 @@ model Investor {
 model Founder {
     id String @id 
     createdAt DateTime @default(now())
-    fullName String 
-    firstName      String 
-    lastName      String 
+    firstName String 
+    lastName  String 
     email     String @unique
-    imageUrl  String
+    // imageUrl  String
     bio       String @db.Text
     country   String
     educationAndExperience String @db.Text

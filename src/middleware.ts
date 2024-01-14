@@ -1,12 +1,29 @@
-import { type NextRequest } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 import { createClient } from "@/utils/supabase/middleware";
+import { env } from "./env";
+import { headers } from "next/headers";
 
 export async function middleware(request: NextRequest) {
-  const { supabase, response } = createClient(request);
-
+  const { supabase } = createClient(request);
   await supabase.auth.getSession();
 
-  return response;
+  const unprotectedRoutes = ["/", "/login", "/signup"];
+  const callbackUrl =
+    "https://lbcubcyvjdzufnvuynno.supabase.co/auth/v1/callback";
+
+  const requestedUrl = new URL(request.url).pathname;
+
+  if (
+    !unprotectedRoutes.includes(requestedUrl) &&
+    request.url !== callbackUrl
+  ) {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
+  }
 }
 
 export const config = {

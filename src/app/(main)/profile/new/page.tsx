@@ -31,24 +31,24 @@ import { Textarea } from "@/components/ui/textarea";
 import { useFieldArray, useForm } from "react-hook-form";
 import type { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { newProfileSchema } from "@/lib/validators/newProfile";
+import { investorSchema } from "@/lib/validators/investorSchema";
 
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import { api } from "@/trpc/react";
 import { capitalizeFirstLetter } from "@/lib/utils";
 
-export type NewProfileInput = z.infer<typeof newProfileSchema>;
+export type NewInvestorInput = z.infer<typeof investorSchema>;
 
-export default function NewProfileForm() {
-  const form = useForm<NewProfileInput>({
-    resolver: zodResolver(newProfileSchema),
+export default function NewInvestorForm() {
+  const form = useForm<NewInvestorInput>({
+    resolver: zodResolver(investorSchema),
     defaultValues: {
       firstName: "",
       lastName: "",
-      role: undefined,
-      skills: [{ name: "" }],
       bio: "",
+      skills: [{ name: "" }],
+      educationAndExperience: "",
       github: "",
       linkedin: "",
       website: "",
@@ -64,24 +64,24 @@ export default function NewProfileForm() {
 
   const router = useRouter();
 
-  const { mutate } = api.profiles.create.useMutation({
+  const { mutate } = api.investors.create.useMutation({
     onSuccess: () => {
       router.push("/profile");
     },
     onError: (e) => {
       const errorMessage = e.data?.zodError?.fieldErrors.content;
-      console.error("Error creating investment:", errorMessage);
+      console.error("Error creating investor profile:", errorMessage);
     },
   });
 
-  const onSubmit = async (data: NewProfileInput) => {
-    const skillsList = data.skills.map((skill) => skill.name);
+  const onSubmit = async (data: NewInvestorInput) => {
     mutate({
       firstName: capitalizeFirstLetter(data.firstName),
       lastName: capitalizeFirstLetter(data.lastName),
-      role: data.role,
-      skills: skillsList,
       bio: data.bio,
+      skills: data.skills,
+      country: data.country,
+      educationAndExperience: data.educationAndExperience,
       github: data.github,
       linkedin: data.linkedin,
       website: data.website,
@@ -90,7 +90,7 @@ export default function NewProfileForm() {
 
   return (
     <div className="flex w-screen justify-center p-8">
-      <Card className="border-border w-full max-w-2xl border">
+      <Card className="w-full max-w-2xl border border-border">
         <CardHeader>
           <CardTitle>Create Profile</CardTitle>
           <CardDescription>Yabba dabba doo</CardDescription>
@@ -99,7 +99,7 @@ export default function NewProfileForm() {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="text-muted-foreground flex w-full flex-1 flex-col justify-center gap-6"
+              className="flex w-full flex-1 flex-col justify-center gap-6 text-muted-foreground"
             >
               <div className="flex flex-row gap-4">
                 <FormField
@@ -131,31 +131,21 @@ export default function NewProfileForm() {
               </div>
               <FormField
                 control={form.control}
-                name="role"
+                name="bio"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Role</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select your role" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="FULLSTACK">Full Stack</SelectItem>
-                        <SelectItem value="FRONTEND">Frontend</SelectItem>
-                        <SelectItem value="BACKEND">Backend</SelectItem>
-                        <SelectItem value="DESIGN">Design</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <FormLabel>Bio</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Tell us a little bit about yourself"
+                        className="resize-none"
+                        {...field}
+                      />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-
               <FormField
                 control={form.control}
                 name="skills"
@@ -177,14 +167,14 @@ export default function NewProfileForm() {
                             </FormControl>
                             {fields.length > 1 && (
                               <TrashIcon
-                                className="hover:text-muted-foreground/30 text-muted-foreground/40 invisible absolute right-1 h-6 w-6 hover:cursor-pointer group-hover:visible"
+                                className="invisible absolute right-1 h-6 w-6 text-muted-foreground/40 hover:cursor-pointer hover:text-muted-foreground/30 group-hover:visible"
                                 onClick={() => remove(index)}
                               />
                             )}
                           </div>
 
                           {form.formState.errors.skills?.[index]?.name && (
-                            <p className="text-destructive text-sm font-medium">
+                            <p className="text-sm font-medium text-destructive">
                               This can&apos;t be empty
                             </p>
                           )}
@@ -202,17 +192,15 @@ export default function NewProfileForm() {
                   </FormItem>
                 )}
               />
-
               <FormField
                 control={form.control}
-                name="bio"
+                name="country"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Bio</FormLabel>
+                    <FormLabel>Country</FormLabel>
                     <FormControl>
-                      <Textarea
-                        placeholder="Tell us a little bit about yourself"
-                        className="resize-none"
+                      <Input
+                        placeholder="The country in which you reside"
                         {...field}
                       />
                     </FormControl>
@@ -220,6 +208,7 @@ export default function NewProfileForm() {
                   </FormItem>
                 )}
               />
+
               <div className="flex flex-row gap-4">
                 <FormField
                   control={form.control}

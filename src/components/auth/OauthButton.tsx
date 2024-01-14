@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { redirect, usePathname } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
-import React from "react";
+import React, { useState } from "react";
 import type { Provider } from "@supabase/supabase-js";
 import { FaGithub } from "react-icons/fa";
 import { createClient } from "@/utils/supabase/client";
@@ -11,6 +11,8 @@ import { createClient } from "@/utils/supabase/client";
 const OauthButton: React.FC<{ provider: Provider }> = ({ provider }) => {
   const pathname = usePathname();
   const supabase = createClient();
+
+  const [error, setError] = useState<string | null>(null);
 
   const handleLogin = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
@@ -21,7 +23,7 @@ const OauthButton: React.FC<{ provider: Provider }> = ({ provider }) => {
     });
 
     if (error) {
-      return redirect("/login?message=Could not authenticate user");
+      setError(error.message);
     }
   };
 
@@ -29,7 +31,7 @@ const OauthButton: React.FC<{ provider: Provider }> = ({ provider }) => {
     return (
       <Button
         variant="outline"
-        className="text-muted-foreground mb-2 w-full font-normal"
+        className="mb-2 w-full font-normal text-muted-foreground"
         onClick={() => handleLogin().catch(console.error)}
       >
         <div className="flex items-center gap-2">
@@ -44,7 +46,7 @@ const OauthButton: React.FC<{ provider: Provider }> = ({ provider }) => {
     return (
       <Button
         variant="outline"
-        className="text-muted-foreground mb-2 w-full font-normal"
+        className="mb-2 w-full font-normal text-muted-foreground"
         onClick={handleLogin}
       >
         <div className="flex items-center gap-2">
@@ -52,6 +54,16 @@ const OauthButton: React.FC<{ provider: Provider }> = ({ provider }) => {
           <p>Sign in with GitHub</p>
         </div>
       </Button>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="mb-3 mt-1 rounded-md border border-destructive bg-destructive/10 p-3">
+        <p className="text-center text-sm font-medium text-destructive">
+          {error}
+        </p>
+      </div>
     );
   }
 };
