@@ -48,6 +48,7 @@ export default function NewInvestorForm() {
       lastName: "",
       bio: "",
       skills: [{ name: "" }],
+      country: "",
       educationAndExperience: "",
       github: "",
       linkedin: "",
@@ -138,7 +139,6 @@ export default function NewInvestorForm() {
                     <FormControl>
                       <Textarea
                         placeholder="Tell us a little bit about yourself"
-                        className="resize-none"
                         {...field}
                       />
                     </FormControl>
@@ -208,7 +208,22 @@ export default function NewInvestorForm() {
                   </FormItem>
                 )}
               />
-
+              <FormField
+                control={form.control}
+                name="educationAndExperience"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Education and Experience</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Tell us about your education and experience"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <div className="flex flex-row gap-4">
                 <FormField
                   control={form.control}

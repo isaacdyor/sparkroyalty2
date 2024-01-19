@@ -9,13 +9,13 @@ import { capitalizeFirstLetter } from "@/lib/utils";
 import { api } from "@/trpc/server";
 
 export default async function ProfilePage() {
-  const profile = await api.profiles.getCurrent.query();
+  // const profile = await api.profiles.getCurrent.query();
 
-  if (!profile) return null;
+  // if (!profile) return null;
 
   return (
     <div className="flex w-full justify-center ">
-      <Card className="mt-12 w-full max-w-xl">
+      {/* <Card className="mt-12 w-full max-w-xl">
         <CardHeader>
           <CardTitle>
             {profile.firstName} {profile.firstName}
@@ -50,7 +50,7 @@ export default async function ProfilePage() {
             <p>Website: {profile.website}</p>
           </CardContent>
         </div>
-      </Card>
+      </Card> */}
     </div>
   );
 }
