@@ -18,13 +18,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 import { Textarea } from "@/components/ui/textarea";
 
@@ -37,10 +30,15 @@ import { TrashIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import { api } from "@/trpc/react";
 import { capitalizeFirstLetter } from "@/lib/utils";
+import { createClient } from "@/utils/supabase/client";
+import { ActiveType, MetadataType } from "@/types/types";
+import { getMetadata } from "@/utils/metadata/client";
 
 export type NewInvestorInput = z.infer<typeof investorSchema>;
 
-export default function NewInvestorForm() {
+export function NewInvestorForm({ metadata }: { metadata: MetadataType }) {
+  const supabase = createClient();
+
   const form = useForm<NewInvestorInput>({
     resolver: zodResolver(investorSchema),
     defaultValues: {
@@ -66,8 +64,19 @@ export default function NewInvestorForm() {
   const router = useRouter();
 
   const { mutate } = api.investors.create.useMutation({
-    onSuccess: () => {
-      router.push("/profile");
+    onSuccess: async () => {
+      const { error } = await supabase.auth.updateUser({
+        data: {
+          active: ActiveType.INVESTOR,
+          investor: true,
+          founder: metadata.founder,
+        },
+      });
+      if (!error) {
+        router.push("/profile");
+      } else {
+        console.error("Error updating user:", error);
+      }
     },
     onError: (e) => {
       const errorMessage = e.data?.zodError?.fieldErrors.content;
@@ -93,7 +102,7 @@ export default function NewInvestorForm() {
     <div className="flex w-screen justify-center p-8">
       <Card className="w-full max-w-2xl border border-border">
         <CardHeader>
-          <CardTitle>Create Profile</CardTitle>
+          <CardTitle>Create Investor Profile</CardTitle>
           <CardDescription>Yabba dabba doo</CardDescription>
         </CardHeader>
         <CardContent>
