@@ -1,5 +1,4 @@
-import FounderProfile from "@/components/founder/profile";
-import InvestorProfile from "@/components/investor/profile";
+import { EditFounder } from "@/components/founder/edit";
 import { ActiveType } from "@/types/types";
 import { getMetadata } from "@/utils/metadata/server";
 
@@ -9,8 +8,8 @@ export default async function profilePage() {
   if (metadata.active === ActiveType.NONE) return null;
 
   return metadata.active === ActiveType.FOUNDER ? (
-    <FounderProfile />
+    <EditFounder />
   ) : (
-    <InvestorProfile />
+    <EditInvestor />
   );
 }

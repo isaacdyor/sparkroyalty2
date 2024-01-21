@@ -21,6 +21,22 @@ export const founderRouter = createTRPCRouter({
 
       return founder;
     }),
+  update: privateProcedure
+    .input(founderSchema)
+    .mutation(async ({ ctx, input }) => {
+      const founder = await ctx.db.founder.update({
+        where: { id: ctx.user.id },
+        data: {
+          firstName: input.firstName,
+          lastName: input.lastName,
+          bio: input.bio,
+          country: input.country,
+          educationAndExperience: input.educationAndExperience,
+        },
+      });
+
+      return founder;
+    }),
   getCurrent: privateProcedure.query(async ({ ctx }) => {
     const founder = await ctx.db.founder.findUnique({
       where: { id: ctx.user.id },
