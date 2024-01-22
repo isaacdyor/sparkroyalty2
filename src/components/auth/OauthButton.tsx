@@ -15,7 +15,7 @@ const OauthButton: React.FC<{ provider: Provider }> = ({ provider }) => {
   const [error, setError] = useState<string | null>(null);
 
   const handleLogin = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
+    const { data, error } = await supabase.auth.signInWithOAuth({
       provider: provider,
       options: {
         redirectTo: `${location.origin}/auth/callback?next=${pathname}`,
