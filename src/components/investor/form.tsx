@@ -10,7 +10,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import { Input } from "@/components/ui/input";
 import {
   Card,
   CardContent,
@@ -18,41 +17,29 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 
 import { Textarea } from "@/components/ui/textarea";
 
+import { investorSchema } from "@/lib/validators/investorSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
 import type { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { investorSchema } from "@/lib/validators/investorSchema";
 
 import { TrashIcon } from "@heroicons/react/24/outline";
-import { useRouter } from "next/navigation";
-import { api } from "@/trpc/react";
-import { capitalizeFirstLetter } from "@/lib/utils";
-import { createClient } from "@/utils/supabase/client";
-import { ActiveType, MetadataType } from "@/types/types";
-import { Investor } from "@prisma/client";
+
+import type { Investor } from "@prisma/client";
 
 export type NewInvestorInput = z.infer<typeof investorSchema>;
 
 type InvestorFormProps = {
-  metadata: MetadataType;
   investor?: Investor;
   onSubmit: (data: NewInvestorInput) => Promise<void>;
 };
 
-export function InvestorForm({
-  metadata,
-  investor,
-  onSubmit,
-}: InvestorFormProps) {
-  const supabase = createClient();
-
+export function InvestorForm({ investor, onSubmit }: InvestorFormProps) {
   const defaultValues = investor
     ? {
-        firstName: investor.firstName,
-        lastName: investor.lastName,
         bio: investor.bio,
         skills: investor.skills.map((skill) => ({ name: skill })),
         country: investor.country,
@@ -62,8 +49,6 @@ export function InvestorForm({
         website: investor.website ?? "",
       }
     : {
-        firstName: "",
-        lastName: "",
         bio: "",
         skills: [{ name: "" }],
         country: "",
@@ -98,34 +83,6 @@ export function InvestorForm({
               onSubmit={form.handleSubmit(onSubmit)}
               className="flex w-full flex-1 flex-col justify-center gap-6 text-muted-foreground"
             >
-              <div className="flex flex-row gap-4">
-                <FormField
-                  control={form.control}
-                  name="firstName"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel className="">First name</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Your first name" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="lastName"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel className="">Last name</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Your last name" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
               <FormField
                 control={form.control}
                 name="bio"

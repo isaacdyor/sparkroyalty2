@@ -55,13 +55,28 @@ model Investment {
     founder Founder @relation(fields: [founderId], references: [id], onDelete: Cascade)
 }
 
+
+enum ActiveType {
+  NONE
+  INVESTOR
+  FOUNDER
+}
+
+model User {
+  id        String @id
+  createdAt DateTime @default(now())
+  firstName String
+  lastName  String
+  email     String @unique
+  // imageUrl  String
+  active    ActiveType
+  investor  Investor?
+  founder   Founder?
+}
+
 model Investor {
     id        String @id
     createdAt DateTime @default(now())
-    firstName String 
-    lastName  String 
-    email     String @unique
-    // imageUrl  String
     bio       String 
     skills    String[]
     country   String
@@ -70,6 +85,9 @@ model Investor {
     github String?
     linkedin String?
     website String?
+
+    userId String @unique
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     investments Investment[]
     application Application[]
@@ -83,13 +101,12 @@ model Investor {
 model Founder {
     id String @id 
     createdAt DateTime @default(now())
-    firstName String 
-    lastName  String 
-    email     String @unique
-    // imageUrl  String
-    bio       String @db.Text
+    bio       String
     country   String
-    educationAndExperience String @db.Text
+    educationAndExperience String
+
+    userId String @unique
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     investments Investment[]
     reviews Review[]
@@ -166,8 +183,8 @@ model Report {
   createdAt DateTime @default(now())
  
   earnings Int
-  progress String @db.Text
-  plans String @db.Text
+  progress String
+  plans String
 
   investmentId String
   @@index([investmentId])
@@ -196,7 +213,7 @@ model Conversation {
 model Message {
   id String @id @default(cuid())
   createdAt DateTime @default(now())
-  content String @db.Text
+  content String
 
   conversationId String
   @@index([conversationId])

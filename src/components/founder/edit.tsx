@@ -1,17 +1,17 @@
 import { api } from "@/trpc/server";
-import { FounderForm, NewFounderInput } from "./form";
-import { getMetadata } from "@/utils/metadata/client";
-import { ActiveType } from "@/types/types";
+import { FounderForm, type NewFounderInput } from "./form";
 import { capitalizeFirstLetter } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { getActive } from "@/utils/getActive";
+import { ActiveType } from "@prisma/client";
 
 export async function EditFounder() {
   const founder = await api.founders.getCurrent.query();
   const router = useRouter();
-  const metadata = await getMetadata();
+  const active = await getActive();
 
-  if (!founder || metadata.active !== ActiveType.FOUNDER) return null;
+  if (!founder || active !== ActiveType.FOUNDER) return null;
 
   const onSubmit = async (data: NewFounderInput) => {
     try {
@@ -28,7 +28,5 @@ export async function EditFounder() {
     }
   };
 
-  return (
-    <FounderForm founder={founder} metadata={metadata} onSubmit={onSubmit} />
-  );
+  return <FounderForm founder={founder} onSubmit={onSubmit} />;
 }

@@ -1,8 +1,6 @@
 import { z } from "zod";
 
 export const investorSchema = z.object({
-  firstName: z.string().min(1),
-  lastName: z.string().min(1),
   bio: z.string().min(100).max(500),
   skills: z
     .object({ name: z.string().min(1) })

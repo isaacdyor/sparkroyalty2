@@ -1,12 +1,12 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { redirect, usePathname } from "next/navigation";
-import { FcGoogle } from "react-icons/fc";
-import React, { useState } from "react";
-import type { Provider } from "@supabase/supabase-js";
-import { FaGithub } from "react-icons/fa";
 import { createClient } from "@/utils/supabase/client";
+import type { Provider } from "@supabase/supabase-js";
+import { usePathname } from "next/navigation";
+import React, { useState } from "react";
+import { FaGithub } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 
 const OauthButton: React.FC<{ provider: Provider }> = ({ provider }) => {
   const pathname = usePathname();

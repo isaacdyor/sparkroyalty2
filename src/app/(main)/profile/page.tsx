@@ -1,14 +1,14 @@
 import FounderProfile from "@/components/founder/profile";
 import InvestorProfile from "@/components/investor/profile";
-import { ActiveType } from "@/types/types";
-import { getMetadata } from "@/utils/metadata/server";
+import { getActive } from "@/utils/getActive";
+import { ActiveType } from "@prisma/client";
 
 export default async function profilePage() {
-  const metadata = await getMetadata();
+  const active = await getActive();
+  if (!active) return <p>Bruh you needa sign in</p>;
+  if (active === ActiveType.NONE) return <p>Not active</p>;
 
-  if (metadata.active === ActiveType.NONE) return null;
-
-  return metadata.active === ActiveType.FOUNDER ? (
+  return active === ActiveType.FOUNDER ? (
     <FounderProfile />
   ) : (
     <InvestorProfile />

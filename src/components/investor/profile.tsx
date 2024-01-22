@@ -6,6 +6,8 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { api } from "@/trpc/server";
+import Link from "next/link";
+import { Button } from "../ui/button";
 
 export default async function InvestorProfile() {
   const investor = await api.investors.getCurrent.query();
@@ -17,9 +19,9 @@ export default async function InvestorProfile() {
       <Card className="mt-12 w-full max-w-xl">
         <CardHeader>
           <CardTitle>
-            {investor.firstName} {investor.lastName}
+            {investor.user.firstName} {investor.user.lastName}
           </CardTitle>
-          <CardDescription>{investor.email}</CardDescription>
+          <CardDescription>{investor.user.email}</CardDescription>
         </CardHeader>
         <CardContent className="flex items-center">
           <p className="pr-1">Skills:</p>
@@ -49,6 +51,9 @@ export default async function InvestorProfile() {
             <p>Website: {investor.website}</p>
           </CardContent>
         </div>
+        <Link href="/profile/edit">
+          <Button className="w-full">Edit</Button>
+        </Link>
       </Card>
     </div>
   );

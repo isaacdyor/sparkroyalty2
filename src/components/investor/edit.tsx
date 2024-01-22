@@ -1,23 +1,20 @@
 import { api } from "@/trpc/server";
-import { InvestorForm, NewInvestorInput } from "./form";
-import { getMetadata } from "@/utils/metadata/client";
-import { ActiveType } from "@/types/types";
-import { capitalizeFirstLetter } from "@/lib/utils";
+import { InvestorForm, type NewInvestorInput } from "./form";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { getActive } from "@/utils/getActive";
+import { ActiveType } from "@prisma/client";
 
-export async function EditInvestorPage() {
+export async function EditInvestor() {
   const investor = await api.investors.getCurrent.query();
   const router = useRouter();
-  const metadata = await getMetadata();
+  const active = await getActive();
 
-  if (!investor || metadata.active !== ActiveType.INVESTOR) return null;
+  if (!investor || active !== ActiveType.INVESTOR) return null;
 
   const onSubmit = async (data: NewInvestorInput) => {
     try {
       await api.investors.update.mutate({
-        firstName: capitalizeFirstLetter(data.firstName),
-        lastName: capitalizeFirstLetter(data.lastName),
         bio: data.bio,
         skills: data.skills,
         country: data.country,
@@ -32,7 +29,5 @@ export async function EditInvestorPage() {
     }
   };
 
-  return (
-    <InvestorForm investor={investor} metadata={metadata} onSubmit={onSubmit} />
-  );
+  return <InvestorForm investor={investor} onSubmit={onSubmit} />;
 }

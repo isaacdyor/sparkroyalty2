@@ -1,15 +1,12 @@
 import { EditFounder } from "@/components/founder/edit";
-import { ActiveType } from "@/types/types";
-import { getMetadata } from "@/utils/metadata/server";
+import { EditInvestor } from "@/components/investor/edit";
+import { getActive } from "@/utils/getActive";
+import { ActiveType } from "@prisma/client";
 
 export default async function profilePage() {
-  const metadata = await getMetadata();
+  const active = await getActive();
 
-  if (metadata.active === ActiveType.NONE) return null;
+  if (active === ActiveType.NONE) return null;
 
-  return metadata.active === ActiveType.FOUNDER ? (
-    <EditFounder />
-  ) : (
-    <EditInvestor />
-  );
+  return active === ActiveType.FOUNDER ? <EditFounder /> : <EditInvestor />;
 }

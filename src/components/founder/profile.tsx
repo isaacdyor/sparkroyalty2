@@ -6,6 +6,8 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { api } from "@/trpc/server";
+import { Button } from "../ui/button";
+import Link from "next/link";
 
 export default async function FounderProfile() {
   const founder = await api.founders.getCurrent.query();
@@ -17,9 +19,9 @@ export default async function FounderProfile() {
       <Card className="mt-12 w-full max-w-xl">
         <CardHeader>
           <CardTitle>
-            {founder.firstName} {founder.lastName}
+            {founder.user.firstName} {founder.user.lastName}
           </CardTitle>
-          <CardDescription>{founder.email}</CardDescription>
+          <CardDescription>{founder.user.email}</CardDescription>
         </CardHeader>
         <CardContent>
           <p>Bio: {founder.bio}</p>
@@ -27,6 +29,9 @@ export default async function FounderProfile() {
         <CardContent>
           <p>Country: {founder.country}</p>
         </CardContent>
+        <Link href="/profile/edit">
+          <Button className="w-full">Edit</Button>
+        </Link>
       </Card>
     </div>
   );

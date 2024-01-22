@@ -10,7 +10,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import { Input } from "@/components/ui/input";
 import {
   Card,
   CardContent,
@@ -18,43 +17,32 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 
 import { Textarea } from "@/components/ui/textarea";
 
+import { founderSchema } from "@/lib/validators/founderSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { founderSchema } from "@/lib/validators/founderSchema";
 
-import { useRouter } from "next/navigation";
-import { api } from "@/trpc/react";
-import { capitalizeFirstLetter } from "@/lib/utils";
-import { ActiveType, MetadataType } from "@/types/types";
-import { createClient } from "@/utils/supabase/client";
-import { Founder } from "@prisma/client";
+import type { Founder } from "@prisma/client";
 
 export type NewFounderInput = z.infer<typeof founderSchema>;
 
 type FounderFormProps = {
-  metadata: MetadataType;
   founder?: Founder;
   onSubmit: (data: NewFounderInput) => Promise<void>;
 };
 
-export function FounderForm({ metadata, founder, onSubmit }: FounderFormProps) {
-  const supabase = createClient();
-
+export function FounderForm({ founder, onSubmit }: FounderFormProps) {
   const defaultValues = founder
     ? {
-        firstName: founder.firstName,
-        lastName: founder.lastName,
         bio: founder.bio,
         country: founder.country,
         educationAndExperience: founder.educationAndExperience,
       }
     : {
-        firstName: "",
-        lastName: "",
         bio: "",
         country: "",
         educationAndExperience: "",

@@ -1,4 +1,3 @@
-import { z } from "zod";
 import { createTRPCRouter, privateProcedure } from "@/server/api/trpc";
 
 import { founderSchema } from "@/lib/validators/founderSchema";
@@ -10,12 +9,14 @@ export const founderRouter = createTRPCRouter({
       const founder = await ctx.db.founder.create({
         data: {
           id: ctx.user.id,
-          email: ctx.user.email!,
-          firstName: input.firstName,
-          lastName: input.lastName,
           bio: input.bio,
           country: input.country,
           educationAndExperience: input.educationAndExperience,
+          user: {
+            connect: {
+              id: ctx.user.id,
+            },
+          },
         },
       });
 
@@ -27,8 +28,6 @@ export const founderRouter = createTRPCRouter({
       const founder = await ctx.db.founder.update({
         where: { id: ctx.user.id },
         data: {
-          firstName: input.firstName,
-          lastName: input.lastName,
           bio: input.bio,
           country: input.country,
           educationAndExperience: input.educationAndExperience,
@@ -40,6 +39,9 @@ export const founderRouter = createTRPCRouter({
   getCurrent: privateProcedure.query(async ({ ctx }) => {
     const founder = await ctx.db.founder.findUnique({
       where: { id: ctx.user.id },
+      include: {
+        user: true,
+      },
     });
     return founder;
   }),

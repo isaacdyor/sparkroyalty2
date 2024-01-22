@@ -1,13 +1,35 @@
-import { Unauthorized } from "@/components/error-pages/unauthorized";
-import NewFounderForm from "@/components/founder/new";
-import { getMetadata } from "@/utils/metadata/server";
+"use client";
 
-export default async function NewFounderPage() {
-  const metadata = await getMetadata();
+import { FounderForm, type NewFounderInput } from "@/components/founder/form";
+import { capitalizeFirstLetter } from "@/lib/utils";
+import { api } from "@/trpc/react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
-  if (metadata.founder) {
-    return <Unauthorized />;
-  }
+export default function NewFounderForm() {
+  const router = useRouter();
 
-  return <NewFounderForm metadata={metadata} />;
+  const { mutate } = api.founders.create.useMutation({
+    onSuccess: () => {
+      router.push("/profile");
+      toast.success("Founder profile created!");
+    },
+    onError: (e) => {
+      const errorMessage = e.data?.zodError?.fieldErrors.content;
+      console.error("Error creating founder profile:", errorMessage);
+      toast.error("Error creating founder profile");
+    },
+  });
+
+  const onSubmit = async (data: NewFounderInput) => {
+    mutate({
+      firstName: capitalizeFirstLetter(data.firstName),
+      lastName: capitalizeFirstLetter(data.lastName),
+      bio: data.bio,
+      country: data.country,
+      educationAndExperience: data.educationAndExperience,
+    });
+  };
+
+  return <FounderForm onSubmit={onSubmit} />;
 }

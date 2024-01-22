@@ -1,4 +1,3 @@
-import { z } from "zod";
 import { createTRPCRouter, privateProcedure } from "@/server/api/trpc";
 
 import { investorSchema } from "@/lib/validators/investorSchema";
@@ -11,9 +10,6 @@ export const investorRouter = createTRPCRouter({
       const investor = await ctx.db.investor.create({
         data: {
           id: ctx.user.id,
-          email: ctx.user.email!,
-          firstName: input.firstName,
-          lastName: input.lastName,
           bio: input.bio,
           skills: skillsList,
           country: input.country,
@@ -21,6 +17,11 @@ export const investorRouter = createTRPCRouter({
           github: input.github,
           linkedin: input.linkedin,
           website: input.website,
+          user: {
+            connect: {
+              id: ctx.user.id,
+            },
+          },
         },
       });
 
@@ -34,8 +35,6 @@ export const investorRouter = createTRPCRouter({
       const investor = await ctx.db.investor.update({
         where: { id: ctx.user.id },
         data: {
-          firstName: input.firstName,
-          lastName: input.lastName,
           bio: input.bio,
           skills: skillsList,
           country: input.country,
@@ -52,6 +51,9 @@ export const investorRouter = createTRPCRouter({
   getCurrent: privateProcedure.query(async ({ ctx }) => {
     const investor = await ctx.db.investor.findUnique({
       where: { id: ctx.user.id },
+      include: {
+        user: true,
+      },
     });
     return investor;
   }),
