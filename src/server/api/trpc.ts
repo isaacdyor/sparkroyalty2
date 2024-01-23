@@ -8,7 +8,8 @@ import { cookies } from "next/headers";
 import { db } from "@/server/db";
 
 export const createTRPCContext = async (opts: { headers: Headers }) => {
-  const supabase = createClient(cookies());
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
 
   const {
     data: { user },

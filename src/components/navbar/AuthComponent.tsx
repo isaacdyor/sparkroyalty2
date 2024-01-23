@@ -5,7 +5,8 @@ import { Button } from "../ui/button";
 import ProfileButton from "./ProfileButton";
 
 const AuthComponent = async () => {
-  const supabase = createClient(cookies());
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
 
   const {
     data: { user },

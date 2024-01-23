@@ -1,8 +1,13 @@
-import { getActive } from "@/utils/getActive";
+import { createClient } from "@/utils/supabase/server";
+import { cookies } from "next/headers";
 
 export default async function AuthButton() {
-  const active = await getActive();
-  if (!active) return null;
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
 
-  return <p>{active}</p>;
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  return <p>{user?.email}</p>;
 }

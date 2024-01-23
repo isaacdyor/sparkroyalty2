@@ -62,16 +62,18 @@ enum ActiveType {
   FOUNDER
 }
 
-model User {
+model Profile {
   id        String @id
   createdAt DateTime @default(now())
   firstName String
   lastName  String
   email     String @unique
+  country   String
   // imageUrl  String
-  active    ActiveType
+  active    ActiveType @default(NONE)
   investor  Investor?
   founder   Founder?
+  @@map("comments")
 }
 
 model Investor {
@@ -79,15 +81,14 @@ model Investor {
     createdAt DateTime @default(now())
     bio       String 
     skills    String[]
-    country   String
     educationAndExperience String
 
     github String?
     linkedin String?
     website String?
 
-    userId String @unique
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+    profileId String @unique
+    profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
 
     investments Investment[]
     application Application[]
@@ -102,11 +103,10 @@ model Founder {
     id String @id 
     createdAt DateTime @default(now())
     bio       String
-    country   String
     educationAndExperience String
 
-    userId String @unique
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+    profileId String @unique
+    profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
 
     investments Investment[]
     reviews Review[]

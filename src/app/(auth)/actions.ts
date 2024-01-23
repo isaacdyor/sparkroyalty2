@@ -6,7 +6,9 @@ import { createClient } from "@/utils/supabase/server";
 import { cookies, headers } from "next/headers";
 import type { LoginInput } from "./login/page";
 import type { SignupInput } from "./signup/page";
-const supabase = createClient(cookies());
+
+const cookieStore = cookies();
+const supabase = createClient(cookieStore);
 const origin = headers().get("origin");
 
 export const signUp = async (formData: SignupInput) => {
