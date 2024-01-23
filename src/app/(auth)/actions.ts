@@ -1,11 +1,10 @@
 "use server";
 
-import { capitalizeFirstLetter } from "@/lib/utils";
-import { api } from "@/trpc/server";
 import { createClient } from "@/utils/supabase/server";
 import { cookies, headers } from "next/headers";
 import type { LoginInput } from "./login/page";
 import type { SignupInput } from "./signup/page";
+import { redirect } from "next/navigation";
 
 const cookieStore = cookies();
 const supabase = createClient(cookieStore);
@@ -24,19 +23,6 @@ export const signUp = async (formData: SignupInput) => {
     return {
       error: error.message,
     };
-  } else if (data.user) {
-    try {
-      await api.users.create.mutate({
-        id: data.user.id,
-        email: formData.email,
-        firstName: capitalizeFirstLetter(formData.firstName),
-        lastName: capitalizeFirstLetter(formData.lastName),
-      });
-    } catch (error) {
-      return {
-        error: "error creating user",
-      };
-    }
   }
 };
 
@@ -46,10 +32,13 @@ export const signIn = async (data: LoginInput) => {
   const { error } = await supabase.auth.signInWithPassword({
     email: data.email,
     password: data.password,
+    options: {},
   });
   if (error) {
     return {
       error: error.message,
     };
+  } else {
+    redirect("auth/callback");
   }
 };

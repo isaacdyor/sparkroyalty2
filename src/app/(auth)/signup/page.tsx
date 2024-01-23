@@ -21,8 +21,6 @@ import { signUp } from "../actions";
 import OauthButton from "@/components/auth/OauthButton";
 
 const registerSchema = z.object({
-  firstName: z.string().min(2).max(100),
-  lastName: z.string().min(2).max(100),
   email: z.string().email(),
   password: z.string().min(6).max(100),
 });
@@ -33,8 +31,6 @@ export default function Login() {
   const form = useForm<SignupInput>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      firstName: "",
-      lastName: "",
       email: "",
       password: "",
     },
@@ -64,46 +60,6 @@ export default function Login() {
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="flex w-full flex-1 flex-col justify-center gap-2 text-muted-foreground animate-in"
               >
-                <div className="flex flex-row gap-4">
-                  <FormField
-                    control={form.control}
-                    name="firstName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-muted-foreground">
-                          First Name
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="Your first name"
-                            {...field}
-                            autoComplete="on"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="lastName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-muted-foreground">
-                          Last Name
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="Your last name"
-                            {...field}
-                            autoComplete="on"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
                 <FormField
                   control={form.control}
                   name="email"
