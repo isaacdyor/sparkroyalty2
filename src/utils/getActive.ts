@@ -1,5 +1,5 @@
 import { api } from "@/trpc/server";
-import type { ActiveType } from "@prisma/client";
+import { ActiveType } from "@prisma/client";
 import { createClient } from "./supabase/server";
 import { cookies } from "next/headers";
 
@@ -10,7 +10,7 @@ export async function getActive(): Promise<ActiveType | null> {
   } = await supabase.auth.getUser();
   if (!authUser) return null;
   const user = await api.users.getCurrent.query();
-  if (!user) return null;
+  if (!user) return ActiveType.NONE;
 
   return user!.active;
 }

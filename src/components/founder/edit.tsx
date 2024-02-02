@@ -1,31 +1,33 @@
-import { api } from "@/trpc/server";
+"use client";
+
+import { api } from "@/trpc/react";
 import { FounderForm, type NewFounderInput } from "./form";
-import { capitalizeFirstLetter } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { getActive } from "@/utils/getActive";
 import { ActiveType } from "@prisma/client";
 
-export async function EditFounder() {
-  const founder = await api.founders.getCurrent.query();
+export function EditFounder() {
+  const { data: founder } = api.founders.getCurrent.useQuery();
   const router = useRouter();
-  const active = await getActive();
 
-  if (!founder || active !== ActiveType.FOUNDER) return null;
-
-  const onSubmit = async (data: NewFounderInput) => {
-    try {
-      await api.founders.update.mutate({
-        firstName: capitalizeFirstLetter(data.firstName),
-        lastName: capitalizeFirstLetter(data.lastName),
-        bio: data.bio,
-        country: data.country,
-        educationAndExperience: data.educationAndExperience,
-      });
+  const { mutate } = api.founders.update.useMutation({
+    onSuccess: async () => {
       router.push("/profile");
-    } catch {
-      toast.error("Error creating founder profile");
-    }
+      toast.success("Founder profile edited!");
+    },
+    onError: (e) => {
+      const errorMessage = e.data?.zodError?.fieldErrors.content;
+      console.error("Error editing founder profile:", errorMessage);
+      toast.error("Error editing founder profile");
+    },
+  });
+
+  if (!founder || founder.user.active !== ActiveType.FOUNDER) return null;
+  const onSubmit = async (data: NewFounderInput) => {
+    mutate({
+      bio: data.bio,
+      educationAndExperience: data.educationAndExperience,
+    });
   };
 
   return <FounderForm founder={founder} onSubmit={onSubmit} />;

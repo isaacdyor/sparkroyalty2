@@ -42,7 +42,6 @@ export function InvestorForm({ investor, onSubmit }: InvestorFormProps) {
     ? {
         bio: investor.bio,
         skills: investor.skills.map((skill) => ({ name: skill })),
-        country: investor.country,
         educationAndExperience: investor.educationAndExperience,
         github: investor.github ?? "",
         linkedin: investor.linkedin ?? "",
@@ -51,7 +50,6 @@ export function InvestorForm({ investor, onSubmit }: InvestorFormProps) {
     : {
         bio: "",
         skills: [{ name: "" }],
-        country: "",
         educationAndExperience: "",
         github: "",
         linkedin: "",
@@ -145,22 +143,7 @@ export function InvestorForm({ investor, onSubmit }: InvestorFormProps) {
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="country"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Country</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="The country in which you reside"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+
               <FormField
                 control={form.control}
                 name="educationAndExperience"

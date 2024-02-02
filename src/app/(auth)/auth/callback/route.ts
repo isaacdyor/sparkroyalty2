@@ -15,7 +15,10 @@ export async function GET(request: Request) {
 
   const user = await api.users.getCurrent.query();
   if (!user) {
-    return NextResponse.redirect(new URL("/welcome", request.url));
+    return NextResponse.redirect(new URL("/new-user", request.url));
+  }
+  if (!user.founder && !user.investor) {
+    return NextResponse.redirect(new URL("/new-profile", request.url));
   }
 
   // URL to redirect to after sign in process completes

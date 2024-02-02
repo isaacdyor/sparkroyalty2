@@ -6,7 +6,6 @@ export const investorSchema = z.object({
     .object({ name: z.string().min(1) })
     .array()
     .min(1),
-  country: z.string().min(1),
   educationAndExperience: z.string(),
   github: z.string(),
   linkedin: z.string(),

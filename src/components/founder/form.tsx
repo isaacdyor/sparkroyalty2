@@ -39,12 +39,10 @@ export function FounderForm({ founder, onSubmit }: FounderFormProps) {
   const defaultValues = founder
     ? {
         bio: founder.bio,
-        country: founder.country,
         educationAndExperience: founder.educationAndExperience,
       }
     : {
         bio: "",
-        country: "",
         educationAndExperience: "",
       };
 
@@ -66,34 +64,6 @@ export function FounderForm({ founder, onSubmit }: FounderFormProps) {
               onSubmit={form.handleSubmit(onSubmit)}
               className="flex w-full flex-1 flex-col justify-center gap-6 text-muted-foreground"
             >
-              <div className="flex flex-row gap-4">
-                <FormField
-                  control={form.control}
-                  name="firstName"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel className="">First name</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Your first name" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="lastName"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel className="">Last name</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Your last name" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
               <FormField
                 control={form.control}
                 name="bio"
@@ -110,22 +80,7 @@ export function FounderForm({ founder, onSubmit }: FounderFormProps) {
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="country"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Country</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="The country in which you reside"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+
               <FormField
                 control={form.control}
                 name="educationAndExperience"

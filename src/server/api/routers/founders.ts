@@ -10,13 +10,18 @@ export const founderRouter = createTRPCRouter({
         data: {
           id: ctx.user.id,
           bio: input.bio,
-          country: input.country,
           educationAndExperience: input.educationAndExperience,
           user: {
             connect: {
               id: ctx.user.id,
             },
           },
+        },
+      });
+      const user = await ctx.db.user.update({
+        where: { id: ctx.user.id },
+        data: {
+          active: "FOUNDER",
         },
       });
 
@@ -29,7 +34,6 @@ export const founderRouter = createTRPCRouter({
         where: { id: ctx.user.id },
         data: {
           bio: input.bio,
-          country: input.country,
           educationAndExperience: input.educationAndExperience,
         },
       });

@@ -1,12 +1,17 @@
 import { EditFounder } from "@/components/founder/edit";
 import { EditInvestor } from "@/components/investor/edit";
-import { getActive } from "@/utils/getActive";
+import { api } from "@/trpc/server";
 import { ActiveType } from "@prisma/client";
 
 export default async function profilePage() {
-  const active = await getActive();
+  // const user = await api.users.getCurrent.query();
 
-  if (active === ActiveType.NONE) return null;
+  // if (user?.active === ActiveType.NONE) return null;
 
-  return active === ActiveType.FOUNDER ? <EditFounder /> : <EditInvestor />;
+  // return user?.active === ActiveType.FOUNDER ? (
+  //   <EditFounder />
+  // ) : (
+  //   <EditInvestor />
+  // );
+  return <EditFounder />;
 }

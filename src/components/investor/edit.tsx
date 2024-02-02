@@ -1,32 +1,39 @@
-import { api } from "@/trpc/server";
+"use client";
+
+import { api } from "@/trpc/react";
 import { InvestorForm, type NewInvestorInput } from "./form";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { getActive } from "@/utils/getActive";
 import { ActiveType } from "@prisma/client";
+import { useRouter } from "next/navigation";
 
-export async function EditInvestor() {
-  const investor = await api.investors.getCurrent.query();
+export function EditInvestor() {
   const router = useRouter();
-  const active = await getActive();
+  const { data: investor, error } = api.investors.getCurrent.useQuery();
 
-  if (!investor || active !== ActiveType.INVESTOR) return null;
+  const { mutate } = api.investors.update.useMutation({
+    onSuccess: async () => {
+      router.push("/profile");
+      toast.success("Investor profile edited!");
+    },
+    onError: (e) => {
+      const errorMessage = e.data?.zodError?.fieldErrors.content;
+      console.error("Error editing investor profile:", errorMessage);
+      toast.error("Error editing investor profile");
+    },
+  });
+
+  if (!investor || investor.user.active !== ActiveType.INVESTOR) return null;
 
   const onSubmit = async (data: NewInvestorInput) => {
-    try {
-      await api.investors.update.mutate({
-        bio: data.bio,
-        skills: data.skills,
-        country: data.country,
-        educationAndExperience: data.educationAndExperience,
-        github: data.github,
-        linkedin: data.linkedin,
-        website: data.website,
-      });
-      router.push("/profile");
-    } catch {
-      toast.error("Error creating investor profile");
-    }
+    mutate({
+      bio: data.bio,
+      skills: data.skills,
+      educationAndExperience: data.educationAndExperience,
+      github: data.github,
+      linkedin: data.linkedin,
+      website: data.website,
+    });
+    // router.push("/profile");
   };
 
   return <InvestorForm investor={investor} onSubmit={onSubmit} />;

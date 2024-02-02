@@ -12,7 +12,6 @@ export const investorRouter = createTRPCRouter({
           id: ctx.user.id,
           bio: input.bio,
           skills: skillsList,
-          country: input.country,
           educationAndExperience: input.educationAndExperience,
           github: input.github,
           linkedin: input.linkedin,
@@ -22,6 +21,12 @@ export const investorRouter = createTRPCRouter({
               id: ctx.user.id,
             },
           },
+        },
+      });
+      const user = await ctx.db.user.update({
+        where: { id: ctx.user.id },
+        data: {
+          active: "INVESTOR",
         },
       });
 
@@ -37,7 +42,6 @@ export const investorRouter = createTRPCRouter({
         data: {
           bio: input.bio,
           skills: skillsList,
-          country: input.country,
           educationAndExperience: input.educationAndExperience,
           github: input.github,
           linkedin: input.linkedin,

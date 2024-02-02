@@ -7,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum InvestmentStatusType {
+enum VentureStatusType {
   PENDING
   BUILDING
   PAYOUT
@@ -26,12 +26,12 @@ enum FrequencyType {
   ANNUALLY
 }
 
-model Investment {
+model Venture {
     id        String   @id @default(cuid())
     createdAt DateTime @default(now())
     title String
     description String 
-    workType String
+    role String
     workDescription String 
 
     paymentBasis PaymentBasisType
@@ -42,7 +42,7 @@ model Investment {
     
     reports Report[]
 
-    status InvestmentStatusType
+    status VentureStatusType
     skills String[]
     applications Application[]
 
@@ -88,9 +88,9 @@ model Investor {
     website String?
 
     userId String @unique
-    profile User @relation(fields: [userId], references: [id], onDelete: Cascade)
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    investments Investment[]
+    ventures Venture[]
     application Application[]
     reviews Review[]
     notifications Notification[]
@@ -108,7 +108,7 @@ model Founder {
     userId String @unique
     user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    investments Investment[]
+    ventures Venture[]
     reviews Review[]
     notifications Notification[]
     conversations Conversation[]
@@ -130,7 +130,7 @@ model Application {
 
   investmentId String
   @@index([investmentId])
-  investment Investment @relation(fields: [investmentId], references: [id], onDelete: Cascade)
+  venture Venture @relation(fields: [investmentId], references: [id], onDelete: Cascade)
   
   investorId String
   @@index([investorId])
@@ -188,7 +188,7 @@ model Report {
 
   investmentId String
   @@index([investmentId])
-  investment Investment @relation(fields: [investmentId], references: [id], onDelete: Cascade)
+  venture Venture @relation(fields: [investmentId], references: [id], onDelete: Cascade)
 }
 
 model Conversation {

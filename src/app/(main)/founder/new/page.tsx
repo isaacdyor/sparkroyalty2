@@ -3,11 +3,13 @@
 import { FounderForm, type NewFounderInput } from "@/components/founder/form";
 import { capitalizeFirstLetter } from "@/lib/utils";
 import { api } from "@/trpc/react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 export default function NewFounderForm() {
   const router = useRouter();
+
+  const { data: user, isLoading } = api.users.getCurrent.useQuery();
 
   const { mutate } = api.founders.create.useMutation({
     onSuccess: () => {
@@ -20,13 +22,14 @@ export default function NewFounderForm() {
       toast.error("Error creating founder profile");
     },
   });
+  if (isLoading) return <p>Loading...</p>;
+  if (!user) redirect("/new-user");
+  if (user.founder) return <p>You already have a founder profile</p>;
 
   const onSubmit = async (data: NewFounderInput) => {
     mutate({
-      firstName: capitalizeFirstLetter(data.firstName),
-      lastName: capitalizeFirstLetter(data.lastName),
       bio: data.bio,
-      country: data.country,
+
       educationAndExperience: data.educationAndExperience,
     });
   };

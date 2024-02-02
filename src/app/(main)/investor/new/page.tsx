@@ -6,11 +6,13 @@ import {
   InvestorForm,
   type NewInvestorInput,
 } from "@/components/investor/form";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 export default function NewInvestorForm() {
   const router = useRouter();
+
+  const { data: user } = api.users.getCurrent.useQuery();
 
   const { mutate } = api.investors.create.useMutation({
     onSuccess: async () => {
@@ -24,11 +26,14 @@ export default function NewInvestorForm() {
     },
   });
 
+  if (!user) redirect("/new-user");
+
+  if (user.investor) return <p>You already have an investor profile</p>;
+
   const onSubmit = async (data: NewInvestorInput) => {
     mutate({
       bio: data.bio,
       skills: data.skills,
-      country: data.country,
       educationAndExperience: data.educationAndExperience,
       github: data.github,
       linkedin: data.linkedin,

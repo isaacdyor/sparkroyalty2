@@ -13,7 +13,7 @@ export const getRoutes = ({
     ];
   } else if (active === ActiveType.FOUNDER) {
     return [
-      { title: "Create Ventures", href: "/investment/new" },
+      { title: "Create Venture", href: "/investment/new" },
       { title: "My Ventures", href: "/founder/investments" },
     ];
   } else {

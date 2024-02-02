@@ -18,19 +18,20 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-
-import { Textarea } from "@/components/ui/textarea";
+import { toast } from "sonner";
 
 import { welcomeSchema } from "@/lib/validators/welcomeSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
-
-import type { Founder } from "@prisma/client";
+import { api } from "@/trpc/react";
+import { useRouter } from "next/navigation";
+import React from "react";
+import { User } from "@supabase/supabase-js";
 
 export type WelcomeInput = z.infer<typeof welcomeSchema>;
 
-export default function WelcomeForm() {
+export const WelcomeForm: React.FC<{ user: User }> = ({ user }) => {
   const form = useForm<WelcomeInput>({
     resolver: zodResolver(welcomeSchema),
     defaultValues: {
@@ -40,8 +41,26 @@ export default function WelcomeForm() {
     },
   });
 
+  const router = useRouter();
+
+  const { mutate } = api.users.create.useMutation({
+    onSuccess: () => {
+      router.push("new-profile");
+      toast.success("Founder profile created!");
+    },
+    onError: (e) => {
+      const errorMessage = e.data?.zodError?.fieldErrors.content;
+      console.error("Error creating user profile:", errorMessage);
+      toast.error("Error creating user profile");
+    },
+  });
+
   const onSubmit = async (values: WelcomeInput) => {
-    console.log(values);
+    mutate({
+      ...values,
+      id: user.id,
+      email: user.email!,
+    });
   };
 
   return (
@@ -112,4 +131,4 @@ export default function WelcomeForm() {
       </Card>
     </div>
   );
-}
+};

@@ -27,7 +27,10 @@ export default async function FounderProfile() {
           <p>Bio: {founder.bio}</p>
         </CardContent>
         <CardContent>
-          <p>Country: {founder.country}</p>
+          <p>Education: {founder.educationAndExperience}</p>
+        </CardContent>
+        <CardContent>
+          <p>Country: {founder.user.country}</p>
         </CardContent>
         <Link href="/profile/edit">
           <Button className="w-full">Edit</Button>
