@@ -17,7 +17,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 
 import { Textarea } from "@/components/ui/textarea";
 
@@ -36,19 +35,12 @@ type FounderFormProps = {
 };
 
 export function FounderForm({ founder, onSubmit }: FounderFormProps) {
-  const defaultValues = founder
-    ? {
-        bio: founder.bio,
-        educationAndExperience: founder.educationAndExperience,
-      }
-    : {
-        bio: "",
-        educationAndExperience: "",
-      };
-
   const form = useForm<NewFounderInput>({
     resolver: zodResolver(founderSchema),
-    defaultValues,
+    defaultValues: {
+      bio: founder?.bio ?? "",
+      educationAndExperience: founder?.educationAndExperience ?? "",
+    },
   });
 
   return (

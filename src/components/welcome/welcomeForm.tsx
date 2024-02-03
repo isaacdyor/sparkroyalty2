@@ -21,17 +21,16 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 
 import { welcomeSchema } from "@/lib/validators/welcomeSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import type { z } from "zod";
 import { api } from "@/trpc/react";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { User } from "@supabase/supabase-js";
+import { useForm } from "react-hook-form";
+import type { z } from "zod";
 
 export type WelcomeInput = z.infer<typeof welcomeSchema>;
 
-export const WelcomeForm: React.FC<{ user: User }> = ({ user }) => {
+export const WelcomeForm: React.FC = () => {
   const form = useForm<WelcomeInput>({
     resolver: zodResolver(welcomeSchema),
     defaultValues: {
@@ -55,12 +54,8 @@ export const WelcomeForm: React.FC<{ user: User }> = ({ user }) => {
     },
   });
 
-  const onSubmit = async (values: WelcomeInput) => {
-    mutate({
-      ...values,
-      id: user.id,
-      email: user.email!,
-    });
+  const onSubmit = async (data: WelcomeInput) => {
+    mutate(data);
   };
 
   return (

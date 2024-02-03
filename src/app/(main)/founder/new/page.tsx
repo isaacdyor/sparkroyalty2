@@ -1,7 +1,6 @@
 "use client";
 
 import { FounderForm, type NewFounderInput } from "@/components/founder/form";
-import { capitalizeFirstLetter } from "@/lib/utils";
 import { api } from "@/trpc/react";
 import { redirect, useRouter } from "next/navigation";
 import { toast } from "sonner";

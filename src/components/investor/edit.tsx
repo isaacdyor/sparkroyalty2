@@ -1,14 +1,14 @@
 "use client";
 
 import { api } from "@/trpc/react";
-import { InvestorForm, type NewInvestorInput } from "./form";
-import { toast } from "sonner";
 import { ActiveType } from "@prisma/client";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { InvestorForm, type NewInvestorInput } from "./form";
 
 export function EditInvestor() {
   const router = useRouter();
-  const { data: investor, error } = api.investors.getCurrent.useQuery();
+  const { data: investor } = api.investors.getCurrent.useQuery();
 
   const { mutate } = api.investors.update.useMutation({
     onSuccess: async () => {

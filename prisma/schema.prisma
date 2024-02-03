@@ -14,16 +14,12 @@ enum VentureStatusType {
   COMPLETED
 }
 
-enum PaymentBasisType {
-  PROFIT
-  REVENUE
-}
-
-enum FrequencyType {
-  MONTHLY
-  QUARTERLY
-  SEMI_ANNUALLY
-  ANNUALLY
+enum RoleType {
+  FRONTEND
+  BACKEND
+  FULLSTACK
+  DESIGN
+  MARKETING
 }
 
 model Venture {
@@ -31,19 +27,17 @@ model Venture {
     createdAt DateTime @default(now())
     title String
     description String 
-    role String
+    role RoleType
     workDescription String 
 
-    paymentBasis PaymentBasisType
     percent Int
     totalPayout Int
     currentPayout Float @default(0)
-    payoutFrequency FrequencyType
-    
-    reports Report[]
-
-    status VentureStatusType
     skills String[]
+    
+    status VentureStatusType
+
+    reports Report[]
     applications Application[]
 
     investorId String?

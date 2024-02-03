@@ -1,17 +1,10 @@
+import { createTRPCRouter, privateProcedure } from "@/server/api/trpc";
 import { z } from "zod";
-import {
-  createTRPCRouter,
-  privateProcedure,
-  publicProcedure,
-} from "@/server/api/trpc";
-import { ActiveType } from "@prisma/client";
 
 export const userRouter = createTRPCRouter({
-  create: publicProcedure
+  create: privateProcedure
     .input(
       z.object({
-        id: z.string(),
-        email: z.string().email(),
         firstName: z.string(),
         lastName: z.string(),
         country: z.string(),
@@ -20,8 +13,8 @@ export const userRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const user = await ctx.db.user.create({
         data: {
-          id: input.id,
-          email: input.email,
+          id: ctx.user.id,
+          email: ctx.user.email!,
           firstName: input.firstName,
           lastName: input.lastName,
           country: input.country,

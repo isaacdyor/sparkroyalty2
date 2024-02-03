@@ -12,7 +12,7 @@ const origin = headers().get("origin");
 
 export const signUp = async (formData: SignupInput) => {
   "use server";
-  const { data, error } = await supabase.auth.signUp({
+  const { error } = await supabase.auth.signUp({
     email: formData.email,
     password: formData.password,
     options: {

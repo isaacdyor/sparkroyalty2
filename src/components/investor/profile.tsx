@@ -37,9 +37,6 @@ export default async function InvestorProfile() {
         <CardContent>
           <p>Bio: {investor.bio}</p>
         </CardContent>
-        <CardContent>
-          <p>Country: {investor.country}</p>
-        </CardContent>
         <div className="flex">
           <CardContent>
             <p>Github: {investor.github}</p>

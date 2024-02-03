@@ -12,5 +12,5 @@ export async function getActive(): Promise<ActiveType | null> {
   const user = await api.users.getCurrent.query();
   if (!user) return ActiveType.NONE;
 
-  return user!.active;
+  return user.active;
 }

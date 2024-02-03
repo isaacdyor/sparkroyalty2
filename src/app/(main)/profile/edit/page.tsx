@@ -4,14 +4,13 @@ import { api } from "@/trpc/server";
 import { ActiveType } from "@prisma/client";
 
 export default async function profilePage() {
-  // const user = await api.users.getCurrent.query();
+  const user = await api.users.getCurrent.query();
 
-  // if (user?.active === ActiveType.NONE) return null;
+  if (user?.active === ActiveType.NONE) return null;
 
-  // return user?.active === ActiveType.FOUNDER ? (
-  //   <EditFounder />
-  // ) : (
-  //   <EditInvestor />
-  // );
-  return <EditFounder />;
+  return user?.active === ActiveType.FOUNDER ? (
+    <EditFounder />
+  ) : (
+    <EditInvestor />
+  );
 }

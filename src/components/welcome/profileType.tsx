@@ -1,12 +1,12 @@
 "use client";
 
-import Link from "next/link";
-import { Card, CardContent, CardTitle } from "../ui/card";
 import { ComputerDesktopIcon, LightBulbIcon } from "@heroicons/react/24/solid";
+import Link from "next/link";
+import { Card, CardTitle } from "../ui/card";
 
 export default function ProfileType() {
   return (
-    <div className="h-nav flex w-screen items-center justify-center pb-36 ">
+    <div className="flex h-nav w-screen items-center justify-center pb-36 ">
       <div className="flex-col rounded-lg border border-border p-14">
         <h1 className="pb-12 text-center text-4xl font-semibold">
           Join as an Investor or a Founder

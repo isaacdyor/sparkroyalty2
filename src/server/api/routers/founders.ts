@@ -18,7 +18,7 @@ export const founderRouter = createTRPCRouter({
           },
         },
       });
-      const user = await ctx.db.user.update({
+      await ctx.db.user.update({
         where: { id: ctx.user.id },
         data: {
           active: "FOUNDER",
