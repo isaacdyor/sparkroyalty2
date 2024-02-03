@@ -12,7 +12,7 @@ import { toast } from "sonner";
 export default function NewInvestorForm() {
   const router = useRouter();
 
-  const { data: user } = api.users.getCurrent.useQuery();
+  const { data: user, isLoading } = api.users.getCurrent.useQuery();
 
   const { mutate } = api.investors.create.useMutation({
     onSuccess: async () => {
@@ -25,10 +25,10 @@ export default function NewInvestorForm() {
       toast.error("Error creating investor profile");
     },
   });
-
+  if (isLoading) return <p>Loading...</p>;
   if (!user) redirect("/new-user");
 
-  if (user.investor) return <p>You already have an investor profile</p>;
+  if (user?.investor) return <p>You already have an investor profile</p>;
 
   const onSubmit = async (data: NewInvestorInput) => {
     mutate({

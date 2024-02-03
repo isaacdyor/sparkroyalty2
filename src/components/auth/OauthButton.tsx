@@ -19,7 +19,6 @@ const OauthButton: React.FC<{ provider: Provider }> = ({ provider }) => {
       provider: provider,
       options: {
         redirectTo: `${location.origin}/auth/callback?next=${pathname}`,
-        // redirectTo: `${location.origin}/login`,
       },
     });
 
