@@ -24,19 +24,24 @@ import { welcomeSchema } from "@/lib/validators/welcomeSchema";
 import { api } from "@/trpc/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import PfpInpt from "./pfpInpt";
 
 export type WelcomeInput = z.infer<typeof welcomeSchema>;
 
 export const WelcomeForm: React.FC = () => {
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+
   const form = useForm<WelcomeInput>({
     resolver: zodResolver(welcomeSchema),
     defaultValues: {
       firstName: "",
       lastName: "",
       country: "",
+      image: "",
     },
   });
 
@@ -55,7 +60,12 @@ export const WelcomeForm: React.FC = () => {
   });
 
   const onSubmit = async (data: WelcomeInput) => {
-    mutate(data);
+    mutate({
+      firstName: data.firstName,
+      lastName: data.lastName,
+      country: data.country,
+      image: imageUrl!,
+    });
   };
 
   return (
@@ -77,7 +87,7 @@ export const WelcomeForm: React.FC = () => {
                   name="firstName"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel className="">First name</FormLabel>
+                      <FormLabel mandatory>First name</FormLabel>
                       <FormControl>
                         <Input placeholder="Your first name" {...field} />
                       </FormControl>
@@ -90,7 +100,7 @@ export const WelcomeForm: React.FC = () => {
                   name="lastName"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel className="">Last name</FormLabel>
+                      <FormLabel mandatory>Last name</FormLabel>
                       <FormControl>
                         <Input placeholder="Your last name" {...field} />
                       </FormControl>
@@ -99,13 +109,12 @@ export const WelcomeForm: React.FC = () => {
                   )}
                 />
               </div>
-
               <FormField
                 control={form.control}
                 name="country"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Country</FormLabel>
+                    <FormLabel mandatory>Country</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="The country in which you reside"
@@ -115,6 +124,11 @@ export const WelcomeForm: React.FC = () => {
                     <FormMessage />
                   </FormItem>
                 )}
+              />
+              <PfpInpt
+                form={form}
+                imageUrl={imageUrl}
+                setImageUrl={setImageUrl}
               />
 
               <Button variant="default" className="my-4 w-full" type="submit">

@@ -47,8 +47,11 @@ export function FounderForm({ founder, onSubmit }: FounderFormProps) {
     <div className="flex w-screen justify-center p-8">
       <Card className="w-full max-w-2xl border border-border">
         <CardHeader>
-          <CardTitle>Create Founder Profile</CardTitle>
-          <CardDescription>Yabba dabba doo</CardDescription>
+          {founder ? (
+            <CardTitle>Edit Founder Profile</CardTitle>
+          ) : (
+            <CardTitle>Create Founder Profile</CardTitle>
+          )}
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -61,7 +64,7 @@ export function FounderForm({ founder, onSubmit }: FounderFormProps) {
                 name="bio"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Bio</FormLabel>
+                    <FormLabel mandatory>Bio</FormLabel>
                     <FormControl>
                       <Textarea
                         placeholder="Tell us a little bit about yourself"
@@ -78,7 +81,7 @@ export function FounderForm({ founder, onSubmit }: FounderFormProps) {
                 name="educationAndExperience"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Education and Experience</FormLabel>
+                    <FormLabel mandatory>Education and Experience</FormLabel>
                     <FormControl>
                       <Textarea
                         placeholder="Tell us about your education and experience"

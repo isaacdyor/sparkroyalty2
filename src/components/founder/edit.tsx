@@ -24,10 +24,7 @@ export function EditFounder() {
 
   if (!founder || founder.user.active !== ActiveType.FOUNDER) return null;
   const onSubmit = async (data: NewFounderInput) => {
-    mutate({
-      bio: data.bio,
-      educationAndExperience: data.educationAndExperience,
-    });
+    mutate(data);
   };
 
   return <FounderForm founder={founder} onSubmit={onSubmit} />;

@@ -25,15 +25,7 @@ export function EditInvestor() {
   if (!investor || investor.user.active !== ActiveType.INVESTOR) return null;
 
   const onSubmit = async (data: NewInvestorInput) => {
-    mutate({
-      bio: data.bio,
-      skills: data.skills,
-      educationAndExperience: data.educationAndExperience,
-      github: data.github,
-      linkedin: data.linkedin,
-      website: data.website,
-    });
-    // router.push("/profile");
+    mutate(data);
   };
 
   return <InvestorForm investor={investor} onSubmit={onSubmit} />;

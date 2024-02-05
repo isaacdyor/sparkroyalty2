@@ -31,14 +31,7 @@ export default function NewInvestorForm() {
   if (user?.investor) return <p>You already have an investor profile</p>;
 
   const onSubmit = async (data: NewInvestorInput) => {
-    mutate({
-      bio: data.bio,
-      skills: data.skills,
-      educationAndExperience: data.educationAndExperience,
-      github: data.github,
-      linkedin: data.linkedin,
-      website: data.website,
-    });
+    mutate(data);
   };
 
   return <InvestorForm onSubmit={onSubmit} />;

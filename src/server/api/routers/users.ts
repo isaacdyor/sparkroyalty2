@@ -1,15 +1,9 @@
+import { welcomeSchema } from "@/lib/validators/welcomeSchema";
 import { createTRPCRouter, privateProcedure } from "@/server/api/trpc";
-import { z } from "zod";
 
 export const userRouter = createTRPCRouter({
   create: privateProcedure
-    .input(
-      z.object({
-        firstName: z.string(),
-        lastName: z.string(),
-        country: z.string(),
-      }),
-    )
+    .input(welcomeSchema)
     .mutation(async ({ ctx, input }) => {
       const user = await ctx.db.user.create({
         data: {
@@ -18,6 +12,7 @@ export const userRouter = createTRPCRouter({
           firstName: input.firstName,
           lastName: input.lastName,
           country: input.country,
+          imageUrl: input.image,
         },
       });
 

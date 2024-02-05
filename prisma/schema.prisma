@@ -63,11 +63,10 @@ model User {
   lastName  String
   email     String @unique
   country   String
-  // imageUrl  String
+  imageUrl  String
   active    ActiveType @default(NONE)
   investor  Investor?
   founder   Founder?
-  @@map("comments")
 }
 
 model Investor {

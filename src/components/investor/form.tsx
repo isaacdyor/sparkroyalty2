@@ -63,8 +63,11 @@ export function InvestorForm({ investor, onSubmit }: InvestorFormProps) {
     <div className="flex w-screen justify-center p-8">
       <Card className="w-full max-w-2xl border border-border">
         <CardHeader>
-          <CardTitle>Create Investor Profile</CardTitle>
-          <CardDescription>Yabba dabba doo</CardDescription>
+          {investor ? (
+            <CardTitle>Edit Investor Profile</CardTitle>
+          ) : (
+            <CardTitle>Create Investor Profile</CardTitle>
+          )}
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -77,7 +80,7 @@ export function InvestorForm({ investor, onSubmit }: InvestorFormProps) {
                 name="bio"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Bio</FormLabel>
+                    <FormLabel mandatory>Bio</FormLabel>
                     <FormControl>
                       <Textarea
                         placeholder="Tell us a little bit about yourself"
@@ -93,7 +96,7 @@ export function InvestorForm({ investor, onSubmit }: InvestorFormProps) {
                 name="skills"
                 render={() => (
                   <FormItem>
-                    <FormLabel>Skills</FormLabel>
+                    <FormLabel mandatory>Skills</FormLabel>
                     <div className="grid grid-cols-2 gap-2">
                       {fields.map((field, index) => (
                         <div key={field.name}>
@@ -140,7 +143,7 @@ export function InvestorForm({ investor, onSubmit }: InvestorFormProps) {
                 name="educationAndExperience"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Education and Experience</FormLabel>
+                    <FormLabel mandatory>Education and Experience</FormLabel>
                     <FormControl>
                       <Textarea
                         placeholder="Tell us about your education and experience"

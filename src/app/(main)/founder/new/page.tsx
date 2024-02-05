@@ -26,11 +26,7 @@ export default function NewFounderForm() {
   if (user.founder) return <p>You already have a founder profile</p>;
 
   const onSubmit = async (data: NewFounderInput) => {
-    mutate({
-      bio: data.bio,
-
-      educationAndExperience: data.educationAndExperience,
-    });
+    mutate(data);
   };
 
   return <FounderForm onSubmit={onSubmit} />;

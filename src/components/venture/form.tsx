@@ -72,8 +72,11 @@ export function VentureForm({ venture, onSubmit }: VentureFormProps) {
     <div className="flex w-screen justify-center p-8">
       <Card className="w-full max-w-2xl border border-border">
         <CardHeader>
-          <CardTitle>Create New Venture</CardTitle>
-          <CardDescription>Yabba dabba doo</CardDescription>
+          {venture ? (
+            <CardTitle>Edit Venture</CardTitle>
+          ) : (
+            <CardTitle>Create New Venture</CardTitle>
+          )}
         </CardHeader>
         <CardContent>
           <Form {...form}>

@@ -148,28 +148,36 @@ const FormDescription = React.forwardRef<
 });
 FormDescription.displayName = "FormDescription";
 
-const FormMessage = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement>
->(({ className, children, ...props }, ref) => {
-  const { error, formMessageId } = useFormField();
-  const body = error ? String(error?.message) : children;
+type FormMessageProps = {
+  file?: boolean;
+} & React.HTMLAttributes<HTMLParagraphElement>;
 
-  if (!body) {
-    return null;
-  }
+const FormMessage = React.forwardRef<HTMLParagraphElement, FormMessageProps>(
+  ({ className, file, children, ...props }, ref) => {
+    const { error, formMessageId } = useFormField();
 
-  return (
-    <p
-      ref={ref}
-      id={formMessageId}
-      className={cn("text-sm font-medium text-destructive", className)}
-      {...props}
-    >
-      {body}
-    </p>
-  );
-});
+    const body = error
+      ? file
+        ? "You must upload a file"
+        : String(error?.message)
+      : children;
+
+    if (!body) {
+      return null;
+    }
+
+    return (
+      <p
+        ref={ref}
+        id={formMessageId}
+        className={cn("text-sm font-medium text-destructive", className)}
+        {...props}
+      >
+        {body}
+      </p>
+    );
+  },
+);
 FormMessage.displayName = "FormMessage";
 
 export {

@@ -21,16 +21,7 @@ export default function NewVentureForm() {
   });
 
   const onSubmit = async (data: NewVentureInput) => {
-    console.log(data);
-    mutate({
-      title: data.title,
-      description: data.description,
-      role: data.role,
-      workDescription: data.workDescription,
-      skills: data.skills,
-      percent: data.percent,
-      totalPayout: data.totalPayout,
-    });
+    mutate(data);
   };
 
   return <VentureForm onSubmit={onSubmit} />;
