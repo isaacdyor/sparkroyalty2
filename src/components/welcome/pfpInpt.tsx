@@ -1,23 +1,20 @@
 import { createClient } from "@/utils/supabase/client";
 import React from "react";
 import { UseFormReturn } from "react-hook-form";
-import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "../ui/form";
+import { FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { Input } from "../ui/input";
 import { WelcomeInput } from "./welcomeForm";
+import { Loader2 } from "lucide-react";
 
 const PfpInpt: React.FC<{
   form: UseFormReturn<WelcomeInput>;
   imageUrl: string | null;
   setImageUrl: React.Dispatch<React.SetStateAction<string | null>>;
-}> = ({ form, imageUrl, setImageUrl }) => {
+  submitted: boolean;
+  setFile: React.Dispatch<React.SetStateAction<File | null>>;
+  loading: boolean;
+}> = ({ form, imageUrl, setImageUrl, submitted, setFile, loading }) => {
   const supabase = createClient();
 
   const handleFileInputChange = async (
@@ -26,15 +23,8 @@ const PfpInpt: React.FC<{
     const file = e.target.files?.[0];
     if (!file) return;
 
-    const { data, error } = await supabase.storage
-      .from("profile-pictures")
-      .upload(`avatar_${Date.now()}.png`, file);
+    setFile(file);
 
-    if (error) {
-      console.error("Error uploading file:", error);
-      toast.error("Error uploading file");
-      return;
-    }
     setImageUrl(URL.createObjectURL(file));
   };
 
@@ -56,14 +46,23 @@ const PfpInpt: React.FC<{
             <FormItem>
               <FormLabel mandatory>Profile Picture</FormLabel>
               <FormControl>
-                <Input
-                  type="file"
-                  onChange={handleFileInputChange}
-                  placeholder="Select a profile picture"
-                  {...rest}
-                />
+                <div className="flex flex-row gap-2">
+                  <Input
+                    type="file"
+                    onChange={handleFileInputChange}
+                    placeholder="Select a profile picture"
+                    {...rest}
+                  />
+                  {loading && (
+                    <Loader2 className="h-8 w-8 animate-spin text-muted-foreground " />
+                  )}
+                </div>
               </FormControl>
-              <FormMessage file />
+              {submitted && !imageUrl && (
+                <p className="text-sm font-medium text-destructive">
+                  You must upload an image
+                </p>
+              )}
             </FormItem>
           )}
         />

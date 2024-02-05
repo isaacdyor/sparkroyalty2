@@ -3,11 +3,12 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import type { User } from "@supabase/supabase-js";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { createClient } from "@/utils/supabase/client";
+import { User } from "@prisma/client";
+import { getInitials } from "@/lib/utils";
 
-const ProfileButton: React.FC<{ user: User }> = ({ user }) => {
+const ProfileButton: React.FC<{ user: User | null }> = ({ user }) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const router = useRouter();
@@ -42,17 +43,21 @@ const ProfileButton: React.FC<{ user: User }> = ({ user }) => {
         className="hover:cursor-pointer"
         onClick={() => setMenuOpen(!menuOpen)}
       >
-        <AvatarImage src="https://wallpapers.com/images/high/funny-profile-picture-7k1legjukiz1lju7.webp" />
-        <AvatarFallback>CN</AvatarFallback>
+        <AvatarImage src={user.imageUrl} />
+        <AvatarFallback>
+          {getInitials(user.firstName, user.lastName)}
+        </AvatarFallback>
       </Avatar>
 
       {menuOpen && (
-        <div className="bg-secondary absolute right-5 top-16 z-50 flex w-72 flex-col rounded-lg bg-opacity-80 p-4">
+        <div className="absolute right-5 top-16 z-50 flex w-72 flex-col rounded-lg bg-secondary bg-opacity-80 p-4">
           <div className="flex items-center">
             <div className="pr-4">
               <Avatar onClick={() => setMenuOpen(!menuOpen)}>
-                <AvatarImage src="https://wallpapers.com/images/high/funny-profile-picture-7k1legjukiz1lju7.webp" />
-                <AvatarFallback>CN</AvatarFallback>
+                <AvatarImage src={user.imageUrl} />
+                <AvatarFallback>
+                  {getInitials(user.firstName, user.lastName)}
+                </AvatarFallback>
               </Avatar>
             </div>
             <div className="flex flex-col">
@@ -61,7 +66,7 @@ const ProfileButton: React.FC<{ user: User }> = ({ user }) => {
             </div>
           </div>
           <hr className="my-2 border-t-2 border-slate-600" />
-          <p className="text-muted-foreground py-2 text-lg">
+          <p className="py-2 text-lg text-muted-foreground">
             <Link
               onClick={() => setMenuOpen(false)}
               className="hover:text-muted-foreground/70"
@@ -70,7 +75,7 @@ const ProfileButton: React.FC<{ user: User }> = ({ user }) => {
               Profile
             </Link>
           </p>
-          <p className="text-muted-foreground py-2 text-lg">
+          <p className="py-2 text-lg text-muted-foreground">
             <Link
               onClick={() => setMenuOpen(false)}
               className="hover:text-muted-foreground/70"
@@ -80,7 +85,7 @@ const ProfileButton: React.FC<{ user: User }> = ({ user }) => {
             </Link>
           </p>
 
-          <div className="text-muted-foreground py-2 text-lg">
+          <div className="py-2 text-lg text-muted-foreground">
             <button
               className="hover:text-muted-foreground/70"
               onClick={() =>

@@ -3,16 +3,19 @@ import { cookies } from "next/headers";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import ProfileButton from "./ProfileButton";
+import { api } from "@/trpc/server";
 
 const AuthComponent = async () => {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
   const {
-    data: { user },
+    data: { user: authUser },
   } = await supabase.auth.getUser();
 
-  return user ? (
+  const user = await api.users.getCurrent.query();
+
+  return authUser ? (
     <ProfileButton user={user} />
   ) : (
     <div className="hidden items-center gap-2 sm:flex">

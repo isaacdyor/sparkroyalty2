@@ -1,13 +1,6 @@
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "@/components/ui/card";
 import { api } from "@/trpc/server";
-import { Button } from "../ui/button";
-import Link from "next/link";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { getInitials } from "@/lib/utils";
 
 export default async function FounderProfile() {
   const founder = await api.founders.getCurrent.query();
@@ -15,27 +8,17 @@ export default async function FounderProfile() {
   if (!founder) return null;
 
   return (
-    <div className="flex w-full justify-center ">
-      <Card className="mt-12 w-full max-w-xl">
-        <CardHeader>
-          <CardTitle>
-            {founder.user.firstName} {founder.user.lastName}
-          </CardTitle>
-          <CardDescription>{founder.user.email}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <p>Bio: {founder.bio}</p>
-        </CardContent>
-        <CardContent>
-          <p>Education: {founder.educationAndExperience}</p>
-        </CardContent>
-        <CardContent>
-          <p>Country: {founder.user.country}</p>
-        </CardContent>
-        <Link href="/profile/edit">
-          <Button className="w-full">Edit</Button>
-        </Link>
-      </Card>
+    <div className="flex w-full justify-center p-14">
+      <div className="w-full rounded-lg border border-border">
+        <div className="flex items-center p-4">
+          <Avatar size="xl">
+            <AvatarImage src={founder.user.imageUrl} />
+            <AvatarFallback>
+              {getInitials(founder.user.firstName, founder.user.lastName)}
+            </AvatarFallback>
+          </Avatar>
+        </div>
+      </div>
     </div>
   );
 }

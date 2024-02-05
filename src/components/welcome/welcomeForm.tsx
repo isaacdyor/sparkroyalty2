@@ -22,18 +22,21 @@ import { toast } from "sonner";
 
 import { welcomeSchema } from "@/lib/validators/welcomeSchema";
 import { api } from "@/trpc/react";
+import { createClient } from "@/utils/supabase/client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import PfpInpt from "./pfpInpt";
 
 export type WelcomeInput = z.infer<typeof welcomeSchema>;
 
 export const WelcomeForm: React.FC = () => {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [file, setFile] = useState<File | null>(null);
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const form = useForm<WelcomeInput>({
     resolver: zodResolver(welcomeSchema),
@@ -44,6 +47,8 @@ export const WelcomeForm: React.FC = () => {
       image: "",
     },
   });
+
+  const supabase = createClient();
 
   const router = useRouter();
 
@@ -59,13 +64,36 @@ export const WelcomeForm: React.FC = () => {
     },
   });
 
-  const onSubmit = async (data: WelcomeInput) => {
-    mutate({
-      firstName: data.firstName,
-      lastName: data.lastName,
-      country: data.country,
-      image: imageUrl!,
-    });
+  const onSubmit = async (formData: WelcomeInput) => {
+    setLoading(true);
+    if (imageUrl && file) {
+      const { data, error } = await supabase.storage
+        .from("avatars")
+        .upload(`avatar_${Date.now()}.png`, file);
+
+      if (error) {
+        console.error("Error uploading file:", error);
+        toast.error("Error uploading file");
+        return;
+      }
+      const { data: otherData } = supabase.storage
+        .from("avatars")
+        .getPublicUrl(data.path);
+
+      if (!otherData) {
+        toast.error("Error uploading file");
+      }
+
+      mutate({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        country: formData.country,
+        image: otherData.publicUrl,
+      });
+    } else {
+      setSubmitted(true);
+      setLoading(false);
+    }
   };
 
   return (
@@ -129,9 +157,17 @@ export const WelcomeForm: React.FC = () => {
                 form={form}
                 imageUrl={imageUrl}
                 setImageUrl={setImageUrl}
+                submitted={submitted}
+                setFile={setFile}
+                loading={loading}
               />
 
-              <Button variant="default" className="my-4 w-full" type="submit">
+              <Button
+                variant="default"
+                className="my-4 w-full"
+                type="submit"
+                disabled={loading}
+              >
                 Submit
               </Button>
             </form>

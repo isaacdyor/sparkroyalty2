@@ -3,8 +3,9 @@
 import * as React from "react";
 import * as AvatarPrimitive from "@radix-ui/react-avatar";
 
-import { cn } from "@/lib/utils";
+import { cn, getInitials } from "@/lib/utils";
 import { VariantProps, cva } from "class-variance-authority";
+import { User } from "@prisma/client";
 
 const avatarVariants = cva(
   "relative flex shrink-0 overflow-hidden rounded-full",
@@ -13,6 +14,7 @@ const avatarVariants = cva(
       size: {
         default: "h-10 w-10",
         lg: "h-14 w-14",
+        xl: "h-20 w-20",
       },
     },
     defaultVariants: {
