@@ -4,7 +4,7 @@ import { getInitials } from "@/lib/utils";
 import { LinkIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 
-type Account = {
+export type Account = {
   imageUrl: string;
   firstName: string;
   lastName: string;

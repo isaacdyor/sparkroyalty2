@@ -1,5 +1,7 @@
 import { welcomeSchema } from "@/lib/validators/welcomeSchema";
 import { createTRPCRouter, privateProcedure } from "@/server/api/trpc";
+import { ActiveType, User } from "@prisma/client";
+import { z } from "zod";
 
 export const userRouter = createTRPCRouter({
   create: privateProcedure
@@ -29,4 +31,21 @@ export const userRouter = createTRPCRouter({
     });
     return user;
   }),
+
+  switchActive: privateProcedure
+    .input(
+      z.object({
+        active: z.nativeEnum(ActiveType),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const user = await ctx.db.user.update({
+        where: { id: ctx.user.id },
+        data: {
+          active: input.active,
+        },
+      });
+
+      return user;
+    }),
 });

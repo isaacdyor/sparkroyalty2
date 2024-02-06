@@ -70,7 +70,24 @@ export const ventureRouter = createTRPCRouter({
               user: true,
             },
           },
+          investor: {
+            include: {
+              user: true,
+            },
+          },
         },
+      });
+      return venture;
+    }),
+  delete: privateProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const venture = await ctx.db.venture.delete({
+        where: { id: input.id },
       });
       return venture;
     }),
