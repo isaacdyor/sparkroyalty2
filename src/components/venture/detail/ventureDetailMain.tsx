@@ -8,13 +8,13 @@ export const VentureDetailMain: React.FC<{ venture: FullVenture }> = ({
   const payoutPercent = (venture.currentPayout / venture.totalPayout) * 100;
   return (
     <div className="flex w-3/4 flex-col">
-      <div className="flex flex-col border border-transparent border-b-border border-r-border  p-6">
-        <div className="flex items-center pb-6">
+      <div className="flex flex-col gap-2 border border-transparent border-b-border border-r-border p-6">
+        <div className="flex items-center">
           <h2 className="pr-4 text-2xl font-bold text-white ">
             {venture.title}
           </h2>
           {venture.status === VentureStatusType.PENDING && (
-            <p className="rounded-full bg-blue-400 px-3  text-center text-white">
+            <p className="rounded-full bg-secondary px-3  text-center text-white">
               Open
             </p>
           )}
@@ -58,7 +58,7 @@ export const VentureDetailMain: React.FC<{ venture: FullVenture }> = ({
                 style={{ width: payoutPercent + "%" }}
                 className={` h-full  ${
                   payoutPercent == 100 && "rounded-full"
-                } rounded-l-full bg-blue-500`}
+                } rounded-l-full bg-primary`}
               ></div>
             )}
           </div>

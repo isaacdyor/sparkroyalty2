@@ -9,5 +9,5 @@ export default async function AuthButton() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  return <p>{user?.email}</p>;
+  return <div className="h-screen w-screen bg-red-500"></div>;
 }

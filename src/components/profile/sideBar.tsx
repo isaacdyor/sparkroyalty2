@@ -1,9 +1,7 @@
-import { api } from "@/trpc/server";
 import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 
-import LinkedAccount from "../profile/linkedAccount";
-import { Investor } from "@prisma/client";
 import { InvestorWithUser } from "@/types/types";
+import LinkedAccount from "../profile/linkedAccount";
 
 export const SideBar: React.FC<{ investor: InvestorWithUser }> = async ({
   investor,
@@ -27,7 +25,7 @@ export const SideBar: React.FC<{ investor: InvestorWithUser }> = async ({
 
   return (
     <div className="flex w-1/3 flex-col gap-2 border-r border-border">
-      <div className="! flex items-center justify-between border-b border-border  p-8">
+      <div className="flex items-center justify-between border-b border-border  p-8">
         <div className="flex flex-col">
           <p className="text-2xl">$10k+</p>
           <p className="text-muted-foreground">Total Earnings</p>

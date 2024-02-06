@@ -68,6 +68,7 @@ export const ventureRouter = createTRPCRouter({
           founder: {
             include: {
               user: true,
+              ventures: true,
             },
           },
           investor: {

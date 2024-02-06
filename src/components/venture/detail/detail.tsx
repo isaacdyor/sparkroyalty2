@@ -6,8 +6,8 @@ export const VentureDetail: React.FC<{ venture: FullVenture }> = ({
   venture,
 }) => {
   return (
-    <div className="flex justify-center pb-32 pt-4">
-      <div className="flex w-3/4 items-center justify-center rounded border-2 border-border text-white">
+    <div className="flex justify-center px-14 py-14 lg:px-20">
+      <div className="flex w-full items-center justify-center rounded-lg border border-border">
         <VentureDetailMain venture={venture} />
         <VentureDetailSide venture={venture} />
       </div>

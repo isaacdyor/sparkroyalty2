@@ -7,6 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { createClient } from "@/utils/supabase/client";
 import { User } from "@prisma/client";
 import { getInitials } from "@/lib/utils";
+import { SwitchActiveButton } from "./switchAccount";
 
 const ProfileButton: React.FC<{ user: User | null }> = ({ user }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -50,53 +51,57 @@ const ProfileButton: React.FC<{ user: User | null }> = ({ user }) => {
       </Avatar>
 
       {menuOpen && (
-        <div className="absolute right-5 top-16 z-50 flex w-72 flex-col rounded-lg bg-secondary bg-opacity-80 p-4">
-          <div className="flex items-center">
-            <div className="pr-4">
-              <Avatar onClick={() => setMenuOpen(!menuOpen)}>
-                <AvatarImage src={user.imageUrl} />
-                <AvatarFallback>
-                  {getInitials(user.firstName, user.lastName)}
-                </AvatarFallback>
-              </Avatar>
+        // <div className="absolute right-5 top-16 z-50 flex w-72 flex-col rounded-lg bg-secondary bg-opacity-80 p-4">
+        <div className="absolute right-5 top-16 z-50 flex w-72 flex-col rounded-lg border border-border bg-background bg-opacity-80 p-4 shadow-2xl">
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center">
+              <div className="pr-4">
+                <Avatar onClick={() => setMenuOpen(!menuOpen)}>
+                  <AvatarImage src={user.imageUrl} />
+                  <AvatarFallback>
+                    {getInitials(user.firstName, user.lastName)}
+                  </AvatarFallback>
+                </Avatar>
+              </div>
+              <div className="flex flex-col">
+                <p className="text-xl">
+                  {user.firstName} {user.lastName}
+                </p>
+                <p className="text-md text-muted-foreground">{user?.email}</p>
+              </div>
             </div>
-            <div className="flex flex-col">
-              <p className="text-xl">Name Name</p>
-              <p className="text-md text-muted-foreground">{user?.email}</p>
-            </div>
+            <SwitchActiveButton user={user} setMenuOpen={setMenuOpen} />
           </div>
-          <hr className="my-2 border-t-2 border-slate-600" />
-          <p className="py-2 text-lg text-muted-foreground">
-            <Link
-              onClick={() => setMenuOpen(false)}
-              className="hover:text-muted-foreground/70"
-              href="/profile"
-            >
-              Profile
-            </Link>
-          </p>
-          <p className="py-2 text-lg text-muted-foreground">
-            <Link
-              onClick={() => setMenuOpen(false)}
-              className="hover:text-muted-foreground/70"
-              href="/settings"
-            >
-              Settings
-            </Link>
-          </p>
+          <hr className="my-4 border-t border-border" />
+          <div className="flex flex-col gap-3">
+            <p className="text-lg text-muted-foreground">
+              <Link
+                onClick={() => setMenuOpen(false)}
+                className="hover:text-muted-foreground/70"
+                href="/profile"
+              >
+                Profile
+              </Link>
+            </p>
 
-          <div className="py-2 text-lg text-muted-foreground">
-            <button
-              className="hover:text-muted-foreground/70"
+            <Link
               onClick={() =>
                 signOut().then(() => {
                   setMenuOpen(false);
                   router.refresh();
                 })
               }
+              className="text-lg text-muted-foreground hover:text-muted-foreground/70"
+              href="/settings"
+            >
+              Settings
+            </Link>
+            <p
+              onClick={() => setMenuOpen(false)}
+              className="text-lg text-muted-foreground hover:text-muted-foreground/70"
             >
               Sign out
-            </button>
+            </p>
           </div>
         </div>
       )}

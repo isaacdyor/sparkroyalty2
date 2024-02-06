@@ -2,98 +2,60 @@
 
 import { Button } from "@/components/ui/button";
 import {
-  Form,
-  FormControl,
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "@/components/ui/card";
+import {
   FormField,
   FormItem,
   FormLabel,
+  FormControl,
   FormMessage,
 } from "@/components/ui/form";
-
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { toast } from "sonner";
-
-import { welcomeSchema } from "@/lib/validators/welcomeSchema";
-import { api } from "@/trpc/react";
-import { createClient } from "@/utils/supabase/client";
+import PfpInpt from "@/components/welcome/pfpInpt";
+import { applicationSchema } from "@/lib/validators/applicationSchema";
+import { Input } from "postcss";
+import { Form, useForm } from "react-hook-form";
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "sonner";
+import { api } from "@/trpc/react";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import type { z } from "zod";
-import PfpInpt from "./pfpInpt";
 
-export type WelcomeInput = z.infer<typeof welcomeSchema>;
+export type ApplicationInput = z.infer<typeof applicationSchema>;
 
-export const WelcomeForm: React.FC = () => {
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
-  const [file, setFile] = useState<File | null>(null);
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const form = useForm<WelcomeInput>({
-    resolver: zodResolver(welcomeSchema),
+export const VentureApplication: React.FC<{ id: string }> = ({ id }) => {
+  const router = useRouter();
+  const form = useForm<ApplicationInput>({
+    resolver: zodResolver(applicationSchema),
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      country: "",
-      image: "",
+      projectInterest: "",
+      projectSkills: "",
     },
   });
 
-  const supabase = createClient();
-
-  const router = useRouter();
-
   const { mutate } = api.users.create.useMutation({
-    onSuccess: () => {
-      router.push("new-profile");
-      toast.success("Founder profile created!");
+    onSuccess: (data) => {
+      router.push(`/application/${data.id}`);
+      toast.success("Application submitted!");
     },
     onError: (e) => {
       const errorMessage = e.data?.zodError?.fieldErrors.content;
-      console.error("Error creating user profile:", errorMessage);
-      toast.error("Error creating user profile");
+      console.error("Error submitting application:", errorMessage);
+      toast.error("Error submitting application");
     },
   });
 
-  const onSubmit = async (formData: WelcomeInput) => {
-    setLoading(true);
-    if (imageUrl && file) {
-      const { data, error } = await supabase.storage
-        .from("avatars")
-        .upload(`avatar_${Date.now()}.png`, file);
-
-      if (error) {
-        console.error("Error uploading file:", error);
-        toast.error("Error uploading file");
-        return;
-      }
-      const { data: otherData } = supabase.storage
-        .from("avatars")
-        .getPublicUrl(data.path);
-
-      if (!otherData) {
-        toast.error("Error uploading file");
-      }
-
-      mutate({
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        country: formData.country,
-        image: otherData.publicUrl,
-      });
-    } else {
-      setSubmitted(true);
-      setLoading(false);
-    }
+  const onSubmit = async (data: ApplicationInput) => {
+    mutate({
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      country: formData.country,
+      image: otherData.publicUrl,
+    });
   };
 
   return (
@@ -159,7 +121,7 @@ export const WelcomeForm: React.FC = () => {
                 setImageUrl={setImageUrl}
                 submitted={submitted}
                 setFile={setFile}
-                loading
+                loading={loading}
               />
 
               <Button

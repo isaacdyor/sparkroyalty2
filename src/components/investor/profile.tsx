@@ -1,62 +1,24 @@
-import { api } from "@/trpc/server";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { getInitials } from "@/lib/utils";
-import {
-  MapPinIcon,
-  CheckBadgeIcon,
-  LinkIcon,
-} from "@heroicons/react/24/solid";
+import { api } from "@/trpc/server";
+import { MapPinIcon } from "@heroicons/react/24/solid";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import Link from "next/link";
-import LinkedAccount from "../profile/linkedAccount";
-import { SideBar } from "../profile/sideBar";
-import { MainContent } from "../profile/mainContent";
 import { EmploymentDetails } from "../profile/employmentDetails";
+import { MainContent } from "../profile/mainContent";
+import { SideBar } from "../profile/sideBar";
 
 export default async function FounderProfile() {
   const investor = await api.investors.getCurrent.query();
 
-  type Account = {
-    imageUrl: string;
-    firstName: string;
-    lastName: string;
-    account: string;
-    accountUrl: string;
-  };
-
   if (!investor) return null;
 
-  const linkedAccounts = [
-    {
-      imageUrl: investor.user.imageUrl,
-      firstName: investor.user.firstName,
-      lastName: investor.user.lastName,
-      account: "Github",
-      accountUrl: "https://github.com/isaacdyor",
-    },
-    {
-      imageUrl: investor.user.imageUrl,
-      firstName: investor.user.firstName,
-      lastName: investor.user.lastName,
-      account: "LinkedIn",
-      accountUrl: "https://www.linkedin.com/in/isaac-dyor/",
-    },
-  ];
-
   return (
-    <div className="flex w-full justify-center p-14">
-      <div className="flex flex-col gap-6">
-        <div className="flex w-full flex-col rounded-lg border border-border">
-          <div className="flex w-full justify-between border-b border-border p-8">
+    <div className="flex justify-center px-14 py-14 lg:px-20">
+      <div className="flex w-full flex-col gap-6">
+        <div className="flex flex-col rounded-lg border border-border">
+          <div className="flex justify-between border-b border-border p-8">
             <div className="flex gap-4 ">
               <Avatar size="xl">
                 <AvatarImage src={investor.user.imageUrl} />
