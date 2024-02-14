@@ -36,7 +36,7 @@ export const VentureDetailSide: React.FC<{ venture: FullVenture }> = ({
         <>
           {user.active === ActiveType.INVESTOR && (
             <div className="flex flex-col gap-4 border border-transparent border-b-border p-4">
-              <Link href={`/investments/${venture.id}/apply`} passHref>
+              <Link href={`/venture/${venture.id}/apply`} passHref>
                 <Button className="w-full">Apply</Button>
               </Link>
 

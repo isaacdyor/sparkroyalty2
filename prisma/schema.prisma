@@ -121,9 +121,9 @@ model Application {
   projectSkills String
   status ApplicationStatusType
 
-  investmentId String
-  @@index([investmentId])
-  venture Venture @relation(fields: [investmentId], references: [id], onDelete: Cascade)
+  ventureId String
+  @@index([ventureId])
+  venture Venture @relation(fields: [ventureId], references: [id], onDelete: Cascade)
   
   investorId String
   @@index([investorId])
@@ -179,9 +179,9 @@ model Report {
   progress String
   plans String
 
-  investmentId String
-  @@index([investmentId])
-  venture Venture @relation(fields: [investmentId], references: [id], onDelete: Cascade)
+  ventureId String
+  @@index([ventureId])
+  venture Venture @relation(fields: [ventureId], references: [id], onDelete: Cascade)
 }
 
 model Conversation {
