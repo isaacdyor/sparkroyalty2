@@ -3,7 +3,7 @@ import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 import { InvestorWithUser } from "@/types/types";
 import LinkedAccount from "../profile/linkedAccount";
 
-export const SideBar: React.FC<{ investor: InvestorWithUser }> = async ({
+export const SideBar: React.FC<{ investor: InvestorWithUser }> = ({
   investor,
 }) => {
   const linkedAccounts = [
@@ -24,19 +24,19 @@ export const SideBar: React.FC<{ investor: InvestorWithUser }> = async ({
   ];
 
   return (
-    <div className="flex w-1/3 flex-col gap-2 border-r border-border">
-      <div className="flex items-center justify-between border-b border-border  p-8">
+    <div className="flex w-full flex-col gap-2 border-border lg:w-96 lg:border-r">
+      <div className="flex items-center justify-between border-b border-border p-8 md:justify-normal md:gap-6 lg:justify-between lg:gap-2">
         <div className="flex flex-col">
           <p className="text-2xl">$10k+</p>
-          <p className="text-muted-foreground">Total Earnings</p>
+          <p className="text-sm text-muted-foreground">Total Earnings</p>
         </div>
         <div className="flex flex-col">
           <p className="text-2xl">6</p>
-          <p className="text-muted-foreground">Total Jobs</p>
+          <p className="text-sm text-muted-foreground">Total Jobs</p>
         </div>
         <div className="flex flex-col">
           <p className="text-2xl">2</p>
-          <p className="text-muted-foreground">Current Jobs</p>
+          <p className="text-sm text-muted-foreground">Current Jobs</p>
         </div>
       </div>
       <div className="flex flex-col gap-10 p-8">

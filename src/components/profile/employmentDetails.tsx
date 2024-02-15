@@ -22,13 +22,13 @@ export const EmploymentDetails: React.FC<{ investor: Investor }> = ({
   ];
 
   return (
-    <div className=" flex flex-col gap-8 rounded-lg border border-border p-8">
+    <div className=" flex flex-col gap-8 rounded-lg border-border p-8 md:border">
       <p className="text-4xl font-semibold">Employment details</p>
       {employmentDetails.map((employment, index) => (
         <div key={index} className={`flex flex-col gap-4 `}>
           {/* {index !== 0 && <hr className="border-t border-border" />} */}
           <hr className="border-t border-border" />
-          <div className="flex justify-between">
+          <div className="flex flex-col justify-between md:flex-row">
             <p className="text-2xl">
               {employment.title} | {employment.company}
             </p>

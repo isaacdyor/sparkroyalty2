@@ -10,27 +10,18 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import { Textarea } from "@/components/ui/textarea";
 
-import { investorSchema } from "@/lib/validators/investorSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 
-import { TrashIcon } from "@heroicons/react/24/outline";
 import { applicationSchema } from "@/lib/validators/applicationSchema";
 import { api } from "@/trpc/react";
-import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export type ApplicationInput = z.infer<typeof applicationSchema>;
 
@@ -46,7 +37,7 @@ export const VentureApplication: React.FC<{ id: string }> = ({ id }) => {
 
   const { mutate } = api.applications.create.useMutation({
     onSuccess: (data) => {
-      router.push(`/application/${data.id}`);
+      router.push("/applications");
       toast.success("Application submitted!");
     },
     onError: (e) => {

@@ -29,7 +29,12 @@ export const applicationRouter = createTRPCRouter({
           },
         },
       });
-
       return application;
     }),
+  getMany: privateProcedure.query(async ({ ctx }) => {
+    const applications = await ctx.db.application.findMany({
+      where: { investorId: ctx.user.id },
+    });
+    return applications;
+  }),
 });
