@@ -18,7 +18,7 @@ export const MultiStar: React.FC = () => {
     <div className="flex items-center">
       <p className="mr-1">{averageStars.toFixed(1)}</p>
       {Array.from({ length: 5 }).map((_, index) => (
-        <div key={index} style={{ width: "1.3em", height: "1.3em" }}>
+        <div key={index} style={{ width: "1.1em", height: "1.1em" }}>
           <AiFillStar
             className={
               index < integerPart
@@ -28,7 +28,7 @@ export const MultiStar: React.FC = () => {
                   : "absolute text-secondary"
             }
             style={{
-              fontSize: "1.3em",
+              fontSize: "1.1em",
               zIndex: 1,
               clipPath:
                 index === integerPart && fractionalPart > 0
@@ -39,7 +39,7 @@ export const MultiStar: React.FC = () => {
           <AiFillStar
             className=" text-secondary"
             style={{
-              fontSize: "1.3em",
+              fontSize: "1.1em",
             }}
           />
         </div>

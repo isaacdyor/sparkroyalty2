@@ -19,7 +19,7 @@ export const SwitchActiveButton: React.FC<{
       toast.error("Error switching active status");
     },
     onSuccess: async () => {
-      router.push("/profile");
+      // router.push("/profile");
       router.refresh();
     },
   });

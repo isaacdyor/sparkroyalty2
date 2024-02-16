@@ -1,6 +1,7 @@
 import { createTRPCRouter, privateProcedure } from "@/server/api/trpc";
 
 import { founderSchema } from "@/lib/validators/founderSchema";
+import { z } from "zod";
 
 export const founderRouter = createTRPCRouter({
   create: privateProcedure
@@ -49,4 +50,15 @@ export const founderRouter = createTRPCRouter({
     });
     return founder;
   }),
+  getOne: privateProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const founder = await ctx.db.founder.findUnique({
+        where: { id: input.id },
+        include: {
+          user: true,
+        },
+      });
+      return founder;
+    }),
 });

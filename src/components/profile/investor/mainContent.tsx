@@ -1,7 +1,7 @@
 import { InvestorWithUser } from "@/types/types";
 import React from "react";
 
-export const MainContent: React.FC<{ investor: InvestorWithUser }> = ({
+export const InvestorMainContent: React.FC<{ investor: InvestorWithUser }> = ({
   investor,
 }) => {
   return (

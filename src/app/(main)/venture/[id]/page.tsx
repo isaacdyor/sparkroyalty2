@@ -1,7 +1,7 @@
 import { VentureDetail } from "@/components/venture/detail/detail";
 import { api } from "@/trpc/server";
 
-export default async function Page({
+export default async function VentureDetailPage({
   params: { id },
 }: {
   params: { id: string };

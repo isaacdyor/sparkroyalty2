@@ -31,7 +31,7 @@ export const VentureDetailSide: React.FC<{ venture: FullVenture }> = ({
   ).length;
 
   return (
-    <div className="flex h-full w-1/4 shrink-0 flex-col">
+    <div className="flex h-full w-full shrink-0 flex-col lg:w-1/4">
       {venture.status === VentureStatusType.PENDING && (
         <>
           {user.active === ActiveType.INVESTOR && (
@@ -50,14 +50,14 @@ export const VentureDetailSide: React.FC<{ venture: FullVenture }> = ({
           {user.active === ActiveType.FOUNDER &&
             user.id === venture.founderId && (
               <div className="flex flex-col gap-4 border border-transparent border-b-border  p-4">
-                <Link href={`/investments/${venture.id}/edit`} passHref>
+                <Link href={`/venture/${venture.id}/edit`} passHref>
                   <Button className="w-full">Edit</Button>
                 </Link>
                 <DeleteVentureButton id={venture.id} />
 
                 <Link
                   className=" text-center text-primary hover:cursor-pointer hover:underline"
-                  href={`/investments/${venture.id}/applications`}
+                  href={`/venture/${venture.id}/applications`}
                 >
                   View Applications
                 </Link>

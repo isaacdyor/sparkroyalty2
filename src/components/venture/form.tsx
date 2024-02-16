@@ -253,10 +253,15 @@ export function VentureForm({ venture, onSubmit }: VentureFormProps) {
                   )}
                 />
               </div>
-
-              <Button variant="default" className="my-4 w-full" type="submit">
-                Submit
-              </Button>
+              {venture ? (
+                <Button variant="default" className="my-4 w-full" type="submit">
+                  Save
+                </Button>
+              ) : (
+                <Button variant="default" className="my-4 w-full" type="submit">
+                  Submit
+                </Button>
+              )}
             </form>
           </Form>
         </CardContent>

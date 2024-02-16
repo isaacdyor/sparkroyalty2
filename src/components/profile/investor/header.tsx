@@ -1,8 +1,10 @@
 import { InvestorWithUser } from "@/types/types";
 import React from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { getInitials } from "@/lib/utils";
 import { MapPinIcon } from "@heroicons/react/24/solid";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Button } from "../../ui/button";
+import Link from "next/link";
 
 export const InvestorHeader: React.FC<{ investor: InvestorWithUser }> = ({
   investor,
@@ -25,6 +27,14 @@ export const InvestorHeader: React.FC<{ investor: InvestorWithUser }> = ({
             </p>
           </div>
         </div>
+      </div>
+      <div className="flex gap-2">
+        <Button variant="outline">
+          <Link href={`investor/${investor.id}`}>See Public View</Link>
+        </Button>
+        <Button variant="default">
+          <Link href="profile/edit">Edit Profile</Link>
+        </Button>
       </div>
     </div>
   );

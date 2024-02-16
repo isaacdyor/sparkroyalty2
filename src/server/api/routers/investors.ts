@@ -1,6 +1,7 @@
 import { createTRPCRouter, privateProcedure } from "@/server/api/trpc";
 
 import { investorSchema } from "@/lib/validators/investorSchema";
+import { z } from "zod";
 
 export const investorRouter = createTRPCRouter({
   create: privateProcedure
@@ -61,4 +62,15 @@ export const investorRouter = createTRPCRouter({
     });
     return investor;
   }),
+  getOne: privateProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const investor = await ctx.db.investor.findUnique({
+        where: { id: input.id },
+        include: {
+          user: true,
+        },
+      });
+      return investor;
+    }),
 });

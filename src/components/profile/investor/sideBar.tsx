@@ -1,9 +1,9 @@
 import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 
 import { InvestorWithUser } from "@/types/types";
-import LinkedAccount from "../profile/linkedAccount";
+import LinkedAccount from "../linkedAccount";
 
-export const SideBar: React.FC<{ investor: InvestorWithUser }> = ({
+export const InvestorSideBar: React.FC<{ investor: InvestorWithUser }> = ({
   investor,
 }) => {
   const linkedAccounts = [

@@ -1,8 +1,8 @@
-import { Investor } from "@prisma/client";
+import { Founder, Investor } from "@prisma/client";
 import React from "react";
 
-export const EmploymentDetails: React.FC<{ investor: Investor }> = ({
-  investor,
+export const FounderEmploymentDetails: React.FC<{ founder: Founder }> = ({
+  founder,
 }) => {
   const employmentDetails = [
     {

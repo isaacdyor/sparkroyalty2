@@ -7,7 +7,7 @@ export const VentureDetailMain: React.FC<{ venture: FullVenture }> = ({
 }) => {
   const payoutPercent = (venture.currentPayout / venture.totalPayout) * 100;
   return (
-    <div className="flex w-3/4 flex-col">
+    <div className="flex w-full flex-col lg:w-3/4">
       <div className="flex flex-col gap-2 border border-transparent border-b-border border-r-border p-6">
         <div className="flex items-center">
           <h2 className="pr-4 text-2xl font-bold text-white ">
