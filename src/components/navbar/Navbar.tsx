@@ -78,7 +78,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
   children,
 }) => {
   return (
-    <div className="absolute right-0 top-16 flex h-[calc(100vh-64px)] w-full flex-col">
+    <div className="absolute right-0 top-16 z-50 flex h-[calc(100vh-64px)] w-full flex-col">
       <div className="flex  w-full grow flex-col gap-1 bg-background px-4 pb-2 sm:hidden">
         {routes.map((route, index) => (
           <Link

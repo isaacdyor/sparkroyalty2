@@ -4,7 +4,10 @@ import {
   privateProcedure,
   publicProcedure,
 } from "@/server/api/trpc";
+import { api } from "@/trpc/server";
+import { Prisma } from "@prisma/client";
 import { z } from "zod";
+import { ventureInclude } from "./types";
 
 export const ventureRouter = createTRPCRouter({
   create: privateProcedure
@@ -82,17 +85,11 @@ export const ventureRouter = createTRPCRouter({
   getAll: publicProcedure.query(async ({ ctx }) => {
     const venture = await ctx.db.venture.findMany({
       where: { status: "PENDING" },
-      include: {
-        applications: true,
-        founder: {
-          include: {
-            user: true,
-          },
-        },
-      },
+      include: ventureInclude,
     });
     return venture;
   }),
+
   getOne: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {
@@ -127,3 +124,7 @@ export const ventureRouter = createTRPCRouter({
       return venture;
     }),
 });
+
+export type UserWithCars = Prisma.VentureGetPayload<{
+  include: typeof ventureInclude;
+}>;

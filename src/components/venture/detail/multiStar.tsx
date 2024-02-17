@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { AiFillStar } from "react-icons/ai";
 
-export const MultiStar: React.FC = () => {
+export const MultiStar: React.FC<{ simple?: boolean }> = ({ simple }) => {
   // const totalStars = reviews.reduce((sum, review) => sum + review.stars, 0);
   // const averageStars = totalStars / reviews.length;
 
@@ -16,9 +16,10 @@ export const MultiStar: React.FC = () => {
 
   return (
     <div className="flex items-center">
-      <p className="mr-1">{averageStars.toFixed(1)}</p>
+      {!simple && <p className="mr-1">{averageStars.toFixed(1)}</p>}
+
       {Array.from({ length: 5 }).map((_, index) => (
-        <div key={index} style={{ width: "1.1em", height: "1.1em" }}>
+        <div key={index} style={{ width: "1em", height: "1em" }}>
           <AiFillStar
             className={
               index < integerPart
@@ -28,7 +29,7 @@ export const MultiStar: React.FC = () => {
                   : "absolute text-secondary"
             }
             style={{
-              fontSize: "1.1em",
+              fontSize: "1em",
               zIndex: 1,
               clipPath:
                 index === integerPart && fractionalPart > 0
@@ -39,15 +40,16 @@ export const MultiStar: React.FC = () => {
           <AiFillStar
             className=" text-secondary"
             style={{
-              fontSize: "1.1em",
+              fontSize: "1em",
             }}
           />
         </div>
       ))}
-      {/* <Link href={`/founder/${venture.founder.id}/reviews`}> */}
-      <Link href={`poop`}>
-        <p className="text-primary hover:underline">(10)</p>
-      </Link>
+      {!simple && (
+        <Link href={`poop`}>
+          <p className="text-primary hover:underline">(10)</p>
+        </Link>
+      )}
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import { timeAgo, formatCurrency } from "@/lib/utils";
 import { FullVenture } from "@/types/types";
 import { VentureStatusType } from "@prisma/client";
+import { Skills } from "../skills";
 
 export const VentureDetailMain: React.FC<{ venture: FullVenture }> = ({
   venture,
@@ -75,16 +76,7 @@ export const VentureDetailMain: React.FC<{ venture: FullVenture }> = ({
       <div className="flex flex-col border border-transparent border-r-border p-6">
         <div className="w-1/2">
           <h2 className="pb-2 font-bold text-white">Recommended Skills:</h2>
-          <div className="mt-2 flex flex-wrap ">
-            {venture.skills?.map((skill, index) => (
-              <p
-                className="mb-1 mr-1 rounded-2xl bg-secondary p-1 px-2"
-                key={index}
-              >
-                {skill}
-              </p>
-            ))}
-          </div>
+          <Skills skills={venture.skills} />
         </div>
       </div>
     </div>
