@@ -79,6 +79,20 @@ export const ventureRouter = createTRPCRouter({
     });
     return venture;
   }),
+  getAll: publicProcedure.query(async ({ ctx }) => {
+    const venture = await ctx.db.venture.findMany({
+      where: { status: "PENDING" },
+      include: {
+        applications: true,
+        founder: {
+          include: {
+            user: true,
+          },
+        },
+      },
+    });
+    return venture;
+  }),
   getOne: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {

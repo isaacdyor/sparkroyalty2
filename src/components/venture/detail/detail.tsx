@@ -2,13 +2,14 @@ import { VentureStatusType } from "@prisma/client";
 import VentureDetailPending from "./pending/detail";
 import { FullVenture } from "@/types/types";
 import { VentureDetailSide } from "./ventureDetailSide";
+import { FounderHistory } from "./history";
 
 export const VentureDetail: React.FC<{ venture: FullVenture }> = ({
   venture,
 }) => {
   return (
-    <div className="flex justify-center px-14 py-14 lg:px-20">
-      <div className="flex w-full flex-col rounded-lg border border-border lg:flex-row">
+    <div className="flex flex-col justify-center gap-8 sm:px-14 sm:py-14 lg:px-20">
+      <div className="flex w-full flex-col rounded-lg border-border sm:border lg:flex-row">
         {venture.status === VentureStatusType.PENDING ? (
           <VentureDetailPending venture={venture} />
         ) : venture.status === VentureStatusType.BUILDING ? (
@@ -19,6 +20,7 @@ export const VentureDetail: React.FC<{ venture: FullVenture }> = ({
           <p>Complete</p>
         )}
       </div>
+      <FounderHistory ventures={venture.founder.ventures} />
     </div>
   );
 };

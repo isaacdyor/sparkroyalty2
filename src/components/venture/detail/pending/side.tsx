@@ -11,10 +11,11 @@ import Link from "next/link";
 import { formatCurrency } from "@/lib/utils";
 import { MultiStar } from "../multiStar";
 import { DeleteVentureButton } from "../deleteVenture";
+import { VentureDetailPendingActions } from "./actions";
 
-export const VentureDetailPendingSide: React.FC<{ venture: FullVenture }> = ({
-  venture,
-}) => {
+export const VentureDetailPendingSide: React.FC<{
+  venture: FullVenture;
+}> = ({ venture }) => {
   const user = venture.founder.user;
 
   const totalSpent = venture.founder.ventures
@@ -33,38 +34,9 @@ export const VentureDetailPendingSide: React.FC<{ venture: FullVenture }> = ({
 
   return (
     <div className="flex h-full w-full shrink-0 flex-col lg:w-80">
-      {user.active === ActiveType.INVESTOR && (
-        <div className="flex flex-col gap-4 border border-transparent border-b-border p-4">
-          <Link href={`/venture/${venture.id}/apply`} passHref>
-            <Button className="w-full">Apply</Button>
-          </Link>
-
-          <Button variant="outline">Message</Button>
-          <div className="flex items-center justify-center text-primary hover:cursor-pointer hover:underline">
-            <BookmarkIcon className="h-5 w-5 pr-1" />
-            <p>Save Investment</p>
-          </div>
-        </div>
-      )}
-      {user.active === ActiveType.FOUNDER && user.id === venture.founderId && (
-        <div className="hidden flex-col items-center gap-4 border-b border-border p-4 lg:flex">
-          <Link
-            className="w-full"
-            href={`/venture/${venture.id}/edit`}
-            passHref
-          >
-            <Button className="w-full">Edit</Button>
-          </Link>
-          <DeleteVentureButton id={venture.id} />
-
-          <Link
-            className=" text-center text-primary hover:cursor-pointer hover:underline"
-            href={`/venture/${venture.id}/applications`}
-          >
-            View Applications
-          </Link>
-        </div>
-      )}
+      <div className="hidden lg:block">
+        <VentureDetailPendingActions venture={venture} />
+      </div>
 
       <div className="flex flex-col gap-4 p-6">
         <div className="flex flex-col gap-2">

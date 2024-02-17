@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { XMarkIcon, Bars3Icon } from "@heroicons/react/24/solid";
 import { getRoutes } from "@/utils/getRoutes";
 import type { ActiveType } from "@prisma/client";
+import { Input } from "@/components/ui/input";
+import { Search } from "./search";
 
 export type NavbarProps = {
   children: React.ReactNode;
@@ -39,8 +41,13 @@ export function Navbar({ children, active }: NavbarProps) {
           ))}
         </div>
       </div>
+      <div className="flex items-center gap-6">
+        <div className="hidden md:block md:w-64 lg:w-96">
+          <Search />
+        </div>
 
-      {children}
+        {children}
+      </div>
 
       {menuOpen && (
         <MobileMenu toggleMenu={toggleMenu} routes={routes}>

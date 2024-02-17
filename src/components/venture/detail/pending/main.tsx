@@ -1,48 +1,52 @@
-import { timeAgo, formatCurrency } from "@/lib/utils";
-import { FullVenture } from "@/types/types";
-import { VentureStatusType } from "@prisma/client";
-import { Status } from "../../status";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { formatCurrency, timeAgo } from "@/lib/utils";
+import { FullVenture } from "@/types/types";
+import Link from "next/link";
+import { Status } from "../../status";
 import { DeleteVentureButton } from "../deleteVenture";
+import { VentureDetailPendingActions } from "./actions";
+import { api } from "@/trpc/server";
+import { ActiveType } from "@prisma/client";
+import { BookmarkIcon } from "@heroicons/react/24/solid";
 
-export const VentureDetailPendingMain: React.FC<{ venture: FullVenture }> = ({
-  venture,
-}) => {
-  const payoutPercent = (venture.currentPayout / venture.totalPayout) * 100;
+export const VentureDetailPendingMain: React.FC<{
+  venture: FullVenture;
+}> = async ({ venture }) => {
+  const user = await api.users.getCurrent.query();
+  if (!user) return null;
   return (
     <div className="flex w-full flex-col border-r-0 border-border lg:w-3/4 lg:border-r">
       <div className="flex w-full items-center justify-between border-b border-border ">
         <div className="flex flex-col gap-2  p-6">
           <div className="flex items-center gap-2">
             <h2 className="text-2xl font-bold text-white ">{venture.title}</h2>
-            <Status status={venture.status} />
+            <div className="hidden sm:block">
+              <Status status={venture.status} />
+            </div>
           </div>
           <p className="text-muted-foreground">
             Posted {timeAgo(venture.createdAt)}
           </p>
-          <Link
-            className="text-primary hover:cursor-pointer hover:underline lg:hidden"
-            href={`/venture/${venture.id}/applications`}
-          >
-            View Applications
-          </Link>
+          <div>
+            {user.active === ActiveType.FOUNDER ? (
+              <Link
+                className="text-primary hover:cursor-pointer hover:underline lg:hidden"
+                href={`/venture/${venture.id}/applications`}
+              >
+                View Applications
+              </Link>
+            ) : (
+              <div className="flex items-center text-primary lg:hidden ">
+                <BookmarkIcon className="h-5 w-5 pr-1" />
+                <p className="hover:cursor-pointer hover:underline">
+                  Save Investment
+                </p>
+              </div>
+            )}
+          </div>
         </div>
-        <div className="flex w-64 flex-col items-center gap-4 p-4 lg:hidden">
-          <Link
-            className="w-full"
-            href={`/venture/${venture.id}/edit`}
-            passHref
-          >
-            <Button className="w-full">Edit</Button>
-          </Link>
-          <DeleteVentureButton id={venture.id} />
-          {/* <Link
-            className=" text-center text-primary hover:cursor-pointer hover:underline"
-            href={`/venture/${venture.id}/applications`}
-          >
-            View Applications
-          </Link> */}
+        <div className="block lg:hidden">
+          <VentureDetailPendingActions venture={venture} />
         </div>
       </div>
 

@@ -17,6 +17,9 @@ export const getRoutes = ({
       { title: "My Ventures", href: "/my-ventures" },
     ];
   } else {
-    return [{ title: "My Jobs ", href: "/investor/jobs" }];
+    return [
+      { title: "My Jobs ", href: "/investor/jobs" },
+      { title: "Find ventures ", href: "/find-ventures" },
+    ];
   }
 };
