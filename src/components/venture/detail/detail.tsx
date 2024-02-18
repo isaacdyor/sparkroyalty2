@@ -1,7 +1,6 @@
 import { VentureStatusType } from "@prisma/client";
 import VentureDetailPending from "./pending/detail";
 import { FullVenture } from "@/types/types";
-import { VentureDetailSide } from "./ventureDetailSide";
 import { FounderHistory } from "./history";
 
 export const VentureDetail: React.FC<{ venture: FullVenture }> = ({

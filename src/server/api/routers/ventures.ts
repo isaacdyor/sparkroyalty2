@@ -124,7 +124,3 @@ export const ventureRouter = createTRPCRouter({
       return venture;
     }),
 });
-
-export type UserWithCars = Prisma.VentureGetPayload<{
-  include: typeof ventureInclude;
-}>;

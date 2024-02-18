@@ -85,20 +85,20 @@ const ProfileButton: React.FC<{ user: User | null }> = ({ user }) => {
             </p>
 
             <Link
-              onClick={() =>
-                signOut().then(() => {
-                  setMenuOpen(false);
-                  router.refresh();
-                })
-              }
+              onClick={() => setMenuOpen(false)}
               className="text-lg text-muted-foreground hover:text-muted-foreground/70"
               href="/settings"
             >
               Settings
             </Link>
             <p
-              onClick={() => setMenuOpen(false)}
-              className="text-lg text-muted-foreground hover:text-muted-foreground/70"
+              onClick={() =>
+                signOut().then(() => {
+                  setMenuOpen(false);
+                  router.refresh();
+                })
+              }
+              className="text-lg text-muted-foreground hover:cursor-pointer hover:text-muted-foreground/70"
             >
               Sign out
             </p>

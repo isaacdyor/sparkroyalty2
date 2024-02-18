@@ -6,6 +6,7 @@ import { BookmarkIcon } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { DeleteVentureButton } from "../deleteVenture";
+import { ApplyButton } from "./applyButton";
 
 export const VentureDetailPendingActions: React.FC<{
   venture: FullVenture;
@@ -16,9 +17,7 @@ export const VentureDetailPendingActions: React.FC<{
     <>
       {user.active === ActiveType.INVESTOR && (
         <div className="flex w-40 flex-col gap-4 border-b-0 border-border p-4 md:w-64 lg:w-full lg:border-b">
-          <Link href={`/venture/${venture.id}/apply`} passHref>
-            <Button className="w-full">Apply</Button>
-          </Link>
+          <ApplyButton venture={venture} />
 
           <Button variant="outline">Message</Button>
           <div className="hidden items-center justify-center text-primary hover:cursor-pointer hover:underline lg:flex">

@@ -1,16 +1,13 @@
 import { FullVenture } from "@/types/types";
 import {
-  BookmarkIcon,
   ChatBubbleBottomCenterIcon,
   CheckBadgeIcon,
 } from "@heroicons/react/24/solid";
-import { VentureStatusType, ActiveType } from "@prisma/client";
-import { Button } from "@/components/ui/button";
+import { VentureStatusType } from "@prisma/client";
 import Link from "next/link";
 
 import { formatCurrency } from "@/lib/utils";
 import { MultiStar } from "../multiStar";
-import { DeleteVentureButton } from "../deleteVenture";
 import { VentureDetailPendingActions } from "./actions";
 
 export const VentureDetailPendingSide: React.FC<{

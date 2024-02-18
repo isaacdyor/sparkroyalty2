@@ -1,6 +1,4 @@
-import { FounderDetail } from "@/components/founder/detail";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { MiniVenture } from "@/components/venture/my-ventures/miniVenture";
 import { api } from "@/trpc/server";
 import Link from "next/link";

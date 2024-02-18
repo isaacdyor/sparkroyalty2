@@ -2,6 +2,7 @@ import { createTRPCRouter, privateProcedure } from "@/server/api/trpc";
 
 import { applicationSchema } from "@/lib/validators/applicationSchema";
 import { z } from "zod";
+import { applicationInclude } from "./types";
 
 export const applicationRouter = createTRPCRouter({
   create: privateProcedure
@@ -31,10 +32,53 @@ export const applicationRouter = createTRPCRouter({
       });
       return application;
     }),
+  update: privateProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        application: applicationSchema,
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const application = await ctx.db.application.update({
+        where: { id: input.id },
+        data: {
+          projectSkills: input.application.projectSkills,
+          projectInterest: input.application.projectInterest,
+        },
+      });
+      return application;
+    }),
   getMany: privateProcedure.query(async ({ ctx }) => {
     const applications = await ctx.db.application.findMany({
       where: { investorId: ctx.user.id },
+      include: applicationInclude,
     });
     return applications;
   }),
+  getForVenture: privateProcedure
+    .input(
+      z.object({
+        ventureId: z.string(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const applications = await ctx.db.application.findMany({
+        where: { ventureId: input.ventureId },
+        include: applicationInclude,
+      });
+      return applications;
+    }),
+  delete: privateProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const application = await ctx.db.application.delete({
+        where: { id: input.id },
+      });
+      return application;
+    }),
 });

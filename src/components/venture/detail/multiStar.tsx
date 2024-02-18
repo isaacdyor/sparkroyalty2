@@ -16,7 +16,7 @@ export const MultiStar: React.FC<{ simple?: boolean }> = ({ simple }) => {
 
   return (
     <div className="flex items-center">
-      {!simple && <p className="mr-1">{averageStars.toFixed(1)}</p>}
+      {!simple && <p className="mr-1 text-sm">{averageStars.toFixed(1)}</p>}
 
       {Array.from({ length: 5 }).map((_, index) => (
         <div key={index} style={{ width: "1em", height: "1em" }}>
@@ -47,7 +47,7 @@ export const MultiStar: React.FC<{ simple?: boolean }> = ({ simple }) => {
       ))}
       {!simple && (
         <Link href={`poop`}>
-          <p className="text-primary hover:underline">(10)</p>
+          <p className="text-sm hover:underline">(10)</p>
         </Link>
       )}
     </div>

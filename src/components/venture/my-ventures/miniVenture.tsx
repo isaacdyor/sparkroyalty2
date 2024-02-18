@@ -33,7 +33,7 @@ export const MiniVenture: React.FC<{ venture: VentureWithApplications }> = ({
               <p className="text-muted-foreground">Messaged</p>
             </div>
           </div>
-          <div className="items-cetner flex gap-4">
+          <div className="flex items-center gap-4">
             <Link
               className="hidden md:block"
               href={`/venture/${venture.id}/applications`}

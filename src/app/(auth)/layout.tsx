@@ -20,7 +20,9 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = async ({
   return (
     <>
       <Link href={"/"} className="absolute left-6 top-4 shrink-0 lg:left-14">
-        <h1 className="text-2xl font-bold text-accent-foreground">devlink</h1>
+        <h1 className="text-2xl font-bold text-accent-foreground">
+          spark royalty
+        </h1>
       </Link>
       {children}
     </>
