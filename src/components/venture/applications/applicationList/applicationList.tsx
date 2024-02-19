@@ -1,6 +1,9 @@
 "use client";
 
-import { ApplicationVenture } from "@/server/api/routers/types";
+import {
+  ApplicationVenture,
+  VentureApplicationUser,
+} from "@/server/api/routers/types";
 import React, { Fragment, useState } from "react";
 import { ApplicationPreview } from "./applicationPreview";
 import { Input } from "@/components/ui/input";
@@ -25,15 +28,16 @@ enum Filter {
 }
 
 export const VentureApplicationList: React.FC<{
-  applications: ApplicationVenture[];
-}> = ({ applications }) => {
+  venture: VentureApplicationUser;
+}> = ({ venture }) => {
   const [sort, setSort] = React.useState("newest");
   const [filter, setFilter] = useState<Filter>(Filter.ALL);
+  const applications = venture.applications;
   return (
     <div className="flex justify-center px-8 py-12 md:p-14 lg:px-20">
       <div className="flex w-full flex-col gap-8">
         <h1 className="text-3xl font-semibold">
-          Applications for {applications[0]?.venture.title}
+          Applications for {venture.title}
         </h1>
         <div className="flex items-center gap-4 overflow-x-auto border-b border-border pb-4 text-lg text-muted-foreground sm:pb-0.5">
           <p
@@ -95,6 +99,7 @@ export const VentureApplicationList: React.FC<{
           </div>
         </div>
         <div>
+          {applications.length === 0 && <p>No Applications</p>}
           {applications.map((application) => (
             <Fragment key={application.id}>
               <ApplicationPreview application={application} />

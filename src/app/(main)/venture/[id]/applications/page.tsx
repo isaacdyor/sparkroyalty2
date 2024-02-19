@@ -1,4 +1,4 @@
-import { VentureApplicationList } from "@/components/venture/applications/applicationList";
+import { VentureApplicationList } from "@/components/venture/applications/applicationList/applicationList";
 import { api } from "@/trpc/server";
 
 export default async function VentureApplicationPage({
@@ -6,12 +6,13 @@ export default async function VentureApplicationPage({
 }: {
   params: { id: string };
 }) {
-  const applications = await api.applications.getForVenture.query({
-    ventureId: id,
+  const venture = await api.ventures.getOne.query({
+    id,
   });
-  return applications ? (
-    <VentureApplicationList applications={applications} />
+
+  return venture ? (
+    <VentureApplicationList venture={venture} />
   ) : (
-    <p>Nobody has applied yet</p>
+    <p>Venture Not Found</p>
   );
 }

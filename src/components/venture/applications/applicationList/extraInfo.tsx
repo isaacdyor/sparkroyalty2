@@ -2,8 +2,8 @@ import { formatCurrency } from "@/lib/utils";
 import { ApplicationVenture } from "@/server/api/routers/types";
 import React from "react";
 import { ApplicationButtons } from "../applicantDetail/applicationButtons";
-import { MultiStar } from "../detail/multiStar";
-import { Skills } from "../skills";
+import { MultiStar } from "../../detail/multiStar";
+import { Skills } from "../../skills";
 
 export const ExtraInfo: React.FC<{ application: ApplicationVenture }> = ({
   application,
@@ -24,7 +24,7 @@ export const ExtraInfo: React.FC<{ application: ApplicationVenture }> = ({
       <p className="text-muted-foreground">{application.investor.bio}</p>
       <Skills skills={application.investor.skills} />
       <div className="flex gap-2 md:hidden">
-        <ApplicationButtons />
+        <ApplicationButtons application={application} />
       </div>
     </div>
   );

@@ -69,19 +69,7 @@ export const applicationRouter = createTRPCRouter({
       });
       return application;
     }),
-  getForVenture: privateProcedure
-    .input(
-      z.object({
-        ventureId: z.string(),
-      }),
-    )
-    .query(async ({ ctx, input }) => {
-      const applications = await ctx.db.application.findMany({
-        where: { ventureId: input.ventureId },
-        include: applicationInclude,
-      });
-      return applications;
-    }),
+
   delete: privateProcedure
     .input(
       z.object({
@@ -91,6 +79,41 @@ export const applicationRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const application = await ctx.db.application.delete({
         where: { id: input.id },
+      });
+      return application;
+    }),
+  acceptApplication: privateProcedure
+    .input(
+      z.object({
+        applicationId: z.string(),
+        ventureId: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const application = await ctx.db.application.update({
+        where: { id: input.applicationId },
+        data: {
+          status: "ACCEPTED",
+        },
+      });
+      await ctx.db.application.updateMany({
+        where: {
+          AND: [
+            { ventureId: input.ventureId },
+            { NOT: { id: input.applicationId } },
+          ],
+        },
+        data: {
+          status: "REJECTED",
+        },
+      });
+      await ctx.db.venture.update({
+        where: {
+          id: input.ventureId,
+        },
+        data: {
+          status: "BUILDING",
+        },
       });
       return application;
     }),

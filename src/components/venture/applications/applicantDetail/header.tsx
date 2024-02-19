@@ -1,3 +1,5 @@
+"use client";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { getInitials } from "@/lib/utils";
@@ -6,6 +8,7 @@ import { InvestorWithUser } from "@/types/types";
 import { HandThumbDownIcon, HeartIcon } from "@heroicons/react/24/outline";
 import { MapPinIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
+import { AcceptApplicationButton } from "../acceptApplication";
 
 export const ApplicantDetailHeader: React.FC<{
   application: ApplicationVenture;
@@ -36,23 +39,22 @@ export const ApplicantDetailHeader: React.FC<{
             </div>
           </div>
 
-          <div className="flex items-center">
-            <div className="flex items-center gap-2">
-              <div className="hidden gap-2 md:flex">
-                <div className="rounded-full p-2 hover:cursor-pointer hover:bg-secondary">
-                  <HandThumbDownIcon className="h-6 w-6 text-muted-foreground" />
-                </div>
-                <div className="rounded-full p-2 hover:cursor-pointer hover:bg-secondary">
-                  <HeartIcon className="h-6 w-6 text-muted-foreground" />
-                </div>
+          <div className="flex items-center gap-2">
+            <div className="hidden gap-2 md:flex">
+              <div className="rounded-full p-2 hover:cursor-pointer hover:bg-secondary">
+                <HandThumbDownIcon className="h-6 w-6 text-muted-foreground" />
               </div>
+              <div className="rounded-full p-2 hover:cursor-pointer hover:bg-secondary">
+                <HeartIcon className="h-6 w-6 text-muted-foreground" />
+              </div>
+            </div>
 
-              <div className="hidden w-40 flex-col gap-2 sm:flex md:flex-row">
-                <Button className="w-full bg-transparent" variant="outline">
-                  Message
-                </Button>
-                <Button className="w-full px-6">Hire</Button>
-              </div>
+            <div className=" flex flex-row gap-2 sm:flex ">
+              <Button className="w-full bg-transparent" variant="outline">
+                Message
+              </Button>
+
+              <AcceptApplicationButton application={application} />
             </div>
           </div>
         </div>

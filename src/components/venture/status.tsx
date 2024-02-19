@@ -18,10 +18,12 @@ export const Status: React.FC<{ status: VentureStatusType }> = ({ status }) => {
       toolTipText = "Pending acceptance";
       break;
     case VentureStatusType.BUILDING:
-      statusText = "The investor is building the venture";
+      statusText = "Building";
+      toolTipText = "The investor is building the venture";
       break;
     case VentureStatusType.PAYOUT:
-      statusText = "The royalties are being paid out";
+      statusText = "Payout";
+      toolTipText = "The royalties are being paid out";
       break;
     case VentureStatusType.COMPLETED:
       statusText = "Completed";

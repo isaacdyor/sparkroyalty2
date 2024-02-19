@@ -1,7 +1,16 @@
 import { Prisma } from "@prisma/client";
 
 export const ventureInclude = Prisma.validator<Prisma.VentureInclude>()({
-  applications: true,
+  applications: {
+    include: {
+      venture: true,
+      investor: {
+        include: {
+          user: true,
+        },
+      },
+    },
+  },
   founder: {
     include: {
       user: true,

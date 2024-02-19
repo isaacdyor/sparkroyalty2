@@ -1,30 +1,27 @@
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import { formatCurrency, getInitials, timeAgo } from "@/lib/utils";
+import { getInitials, timeAgo } from "@/lib/utils";
 import { ApplicationVenture } from "@/server/api/routers/types";
 import { HandThumbDownIcon } from "@heroicons/react/24/outline";
 import { MapPinIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
-import React from "react";
-import { MultiStar } from "../detail/multiStar";
-import { Skills } from "../skills";
 import { useRouter } from "next/navigation";
+import React from "react";
 import { ApplicationButtons } from "../applicantDetail/applicationButtons";
 import { ExtraInfo } from "./extraInfo";
+import { Application, Venture } from "@prisma/client";
 
 export const ApplicationPreview: React.FC<{
   application: ApplicationVenture;
 }> = ({ application }) => {
   const router = useRouter();
   const investor = application.investor;
+  const venture = application.venture;
   return (
     <div
       onClick={() =>
-        router.push(
-          `/venture/${application.venture.id}/applicant/${application.id}`,
-        )
+        router.push(`/venture/${venture.id}/applicant/${application.id}`)
       }
       className="flex w-full flex-col gap-6 border-b border-border p-2 hover:cursor-pointer hover:bg-secondary/50 sm:p-6"
     >
@@ -41,9 +38,7 @@ export const ApplicationPreview: React.FC<{
               <p className="text-sm text-muted-foreground">
                 {timeAgo(application.createdAt)}
               </p>
-              <Link
-                href={`/venture/${application.venture.id}/applicant/${application.id}`}
-              >
+              <Link href={`/venture/${venture.id}/applicant/${application.id}`}>
                 <p className="text-md font-semibold hover:underline">
                   {`${investor.user.firstName} ${investor.user.lastName} | Software Engineer`}
                 </p>
@@ -61,7 +56,7 @@ export const ApplicationPreview: React.FC<{
                 <HandThumbDownIcon className="h-6 w-6 text-muted-foreground" />
               </div>
               <div className="flex gap-4">
-                <ApplicationButtons />
+                <ApplicationButtons application={application} />
               </div>
             </div>
           </div>

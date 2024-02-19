@@ -95,19 +95,7 @@ export const ventureRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const venture = await ctx.db.venture.findUnique({
         where: { id: input.id },
-        include: {
-          founder: {
-            include: {
-              user: true,
-              ventures: true,
-            },
-          },
-          investor: {
-            include: {
-              user: true,
-            },
-          },
-        },
+        include: ventureInclude,
       });
       return venture;
     }),
