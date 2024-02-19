@@ -56,6 +56,19 @@ export const applicationRouter = createTRPCRouter({
     });
     return applications;
   }),
+  getOne: privateProcedure
+    .input(
+      z.object({
+        applicationId: z.string(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const application = await ctx.db.application.findUnique({
+        where: { id: input.applicationId },
+        include: applicationInclude,
+      });
+      return application;
+    }),
   getForVenture: privateProcedure
     .input(
       z.object({

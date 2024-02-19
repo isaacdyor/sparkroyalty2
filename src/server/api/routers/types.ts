@@ -15,13 +15,10 @@ export type VentureApplicationUser = Prisma.VentureGetPayload<{
 
 export const applicationInclude = Prisma.validator<Prisma.ApplicationInclude>()(
   {
-    venture: {
+    venture: true,
+    investor: {
       include: {
-        founder: {
-          include: {
-            user: true,
-          },
-        },
+        user: true,
       },
     },
   },

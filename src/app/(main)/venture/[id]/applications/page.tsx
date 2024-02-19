@@ -1,4 +1,4 @@
-import { ApplicationList } from "@/components/applications/applicationList";
+import { VentureApplicationList } from "@/components/venture/applications/applicationList";
 import { api } from "@/trpc/server";
 
 export default async function VentureApplicationPage({
@@ -10,7 +10,7 @@ export default async function VentureApplicationPage({
     ventureId: id,
   });
   return applications ? (
-    <ApplicationList applications={applications} />
+    <VentureApplicationList applications={applications} />
   ) : (
     <p>Nobody has applied yet</p>
   );

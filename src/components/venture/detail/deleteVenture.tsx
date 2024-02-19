@@ -9,7 +9,7 @@ export const DeleteVentureButton: React.FC<{ id: string }> = ({ id }) => {
     mutate({ id });
   };
   return (
-    <Button variant="outline" onClick={deleteVenture}>
+    <Button className="w-full" variant="outline" onClick={deleteVenture}>
       Delete
     </Button>
   );

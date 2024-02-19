@@ -17,7 +17,7 @@ export const Search = () => {
         placeholder="Search"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        onKeyPress={(e) => {
+        onKeyDown={(e) => {
           if (e.key === "Enter") {
             onSubmit();
           }
