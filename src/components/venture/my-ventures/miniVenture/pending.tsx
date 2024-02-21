@@ -3,14 +3,22 @@ import { timeAgo } from "@/lib/utils";
 import { VentureWithApplications } from "@/types/types";
 import Link from "next/link";
 import React from "react";
-import { Status } from "../status";
-import { PostActions } from "./postActions";
+import { Status } from "../../status";
+import { PostActions } from "../postActions";
+import { useRouter } from "next/navigation";
+import { VentureApplicationUser } from "@/server/api/routers/types";
 
-export const MiniVenture: React.FC<{ venture: VentureWithApplications }> = ({
-  venture,
-}) => {
+export const PendingMiniVenture: React.FC<{
+  venture: VentureApplicationUser;
+}> = ({ venture }) => {
+  const router = useRouter();
   return (
-    <div className="w-full border-b border-border py-6 ">
+    <div
+      onClick={() => {
+        router.push(`/venture/${venture.id}`);
+      }}
+      className="w-full border-b border-border p-6 hover:cursor-pointer hover:bg-secondary/50"
+    >
       <div className="flex flex-col items-start justify-between gap-6 sm:flex-row lg:gap-0">
         <div className="flex flex-col">
           <div className="flex items-center gap-2">
@@ -23,23 +31,22 @@ export const MiniVenture: React.FC<{ venture: VentureWithApplications }> = ({
           <p className="text-muted-foreground">{timeAgo(venture.createdAt)}</p>
         </div>
         <div className="flex items-start gap-4">
-          <div className="flex items-center gap-4">
-            <div className="flex flex-col">
-              <p className="text-xl">{venture.applications.length}</p>
-              <p className="text-muted-foreground">Applications</p>
-            </div>
-            <div className="flex flex-col pr-2">
-              <p className="text-xl">0</p>
-              <p className="text-muted-foreground">Messaged</p>
-            </div>
+          <div className="flex flex-col">
+            <p className="text-xl">{venture.applications.length}</p>
+            <p className="text-muted-foreground">Applications</p>
           </div>
+
           <div className="flex items-center gap-4">
             <Link
               className="hidden md:block"
               href={`/venture/${venture.id}/applications`}
               passHref
             >
-              <Button variant="outline" className="bg-transparent">
+              <Button
+                onClick={(e) => e.stopPropagation()}
+                variant="outline"
+                className="bg-transparent"
+              >
                 View Applications
               </Button>
             </Link>

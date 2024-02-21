@@ -98,10 +98,8 @@ export const applicationRouter = createTRPCRouter({
       });
       await ctx.db.application.updateMany({
         where: {
-          AND: [
-            { ventureId: input.ventureId },
-            { NOT: { id: input.applicationId } },
-          ],
+          ventureId: input.ventureId,
+          NOT: { id: input.applicationId },
         },
         data: {
           status: "REJECTED",

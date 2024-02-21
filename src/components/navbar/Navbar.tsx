@@ -4,16 +4,18 @@ import React, { useState } from "react";
 import { XMarkIcon, Bars3Icon } from "@heroicons/react/24/solid";
 import { getRoutes } from "@/utils/getRoutes";
 import { ActiveType } from "@prisma/client";
-import { Input } from "@/components/ui/input";
+import Image from "next/image";
 import { Search } from "./search";
+import { useActiveContext } from "@/utils/activeContext";
 
 export type NavbarProps = {
   children: React.ReactNode;
-  active: ActiveType | null;
 };
 
-export function Navbar({ children, active }: NavbarProps) {
+export function Navbar({ children }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const { active } = useActiveContext();
 
   const routes = getRoutes({ active });
 
@@ -25,9 +27,17 @@ export function Navbar({ children, active }: NavbarProps) {
     <div className="flex h-16 items-center justify-between border-b border-b-border px-6 lg:px-14">
       <div className="flex items-center">
         <Link href={"/"} className="shrink-0">
-          <h1 className="text-2xl font-bold text-accent-foreground">
-            spark royalty
-          </h1>
+          <div className="flex items-start gap-2">
+            <Image
+              src="/logo.png"
+              width={30}
+              height={30}
+              alt="Picture of the author"
+            />
+            <h1 className="text-2xl font-bold text-accent-foreground">
+              spark royalty
+            </h1>
+          </div>
         </Link>
         <div className="hidden w-full justify-end gap-1 bg-background px-4 py-2 sm:flex">
           {routes.map((route, index) => (

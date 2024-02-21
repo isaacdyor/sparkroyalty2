@@ -46,7 +46,10 @@ export const PostActions: React.FC<{ id: string }> = ({ id }) => {
   return (
     <>
       <DropdownMenu>
-        <DropdownMenuTrigger className="flex items-center justify-center rounded-md border p-2 transition-colors hover:bg-muted">
+        <DropdownMenuTrigger
+          onClick={(e) => e.stopPropagation()}
+          className="flex items-center justify-center rounded-md border p-2 transition-colors hover:bg-muted"
+        >
           <EllipsisHorizontalIcon className="h-5 w-5" />
           <span className="sr-only">Open</span>
         </DropdownMenuTrigger>

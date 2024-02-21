@@ -37,7 +37,8 @@ model Venture {
     
     status VentureStatusType
 
-    reports Report[]
+    payoutReports PayoutReport[]
+    buildingReports BuildingReport[]
     applications Application[]
 
     investorId String?
@@ -171,11 +172,23 @@ model Notification {
   investor Investor? @relation(fields: [investorId], references: [id], onDelete: Cascade)
 }
 
-model Report {
+model PayoutReport {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
  
   earnings Int
+  progress String
+  plans String
+
+  ventureId String
+  @@index([ventureId])
+  venture Venture @relation(fields: [ventureId], references: [id], onDelete: Cascade)
+}
+
+model BuildingReport {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+ 
   progress String
   plans String
 
