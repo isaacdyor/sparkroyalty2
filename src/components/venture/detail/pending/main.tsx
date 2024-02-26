@@ -8,9 +8,10 @@ import { VentureDetailPendingActions } from "./actions";
 import { api } from "@/trpc/server";
 import { ActiveType } from "@prisma/client";
 import { BookmarkIcon } from "@heroicons/react/24/solid";
+import { VentureApplicationUser } from "@/server/api/routers/types";
 
 export const VentureDetailPendingMain: React.FC<{
-  venture: FullVenture;
+  venture: VentureApplicationUser;
 }> = async ({ venture }) => {
   const user = await api.users.getCurrent.query();
   if (!user) return null;

@@ -7,9 +7,10 @@ import Link from "next/link";
 import React from "react";
 import { DeleteVentureButton } from "../deleteVenture";
 import { ApplyButton } from "./applyButton";
+import { VentureApplicationUser } from "@/server/api/routers/types";
 
 export const VentureDetailPendingActions: React.FC<{
-  venture: FullVenture;
+  venture: VentureApplicationUser;
 }> = async ({ venture }) => {
   const user = await api.users.getCurrent.query();
   if (!user) return null;

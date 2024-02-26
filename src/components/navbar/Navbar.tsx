@@ -27,11 +27,11 @@ export function Navbar({ children }: NavbarProps) {
     <div className="flex h-16 items-center justify-between border-b border-b-border px-6 lg:px-14">
       <div className="flex items-center">
         <Link href={"/"} className="shrink-0">
-          <div className="flex items-start gap-2">
+          <div className="flex items-center gap-2">
             <Image
               src="/logo.png"
-              width={30}
-              height={30}
+              width={28}
+              height={28}
               alt="Picture of the author"
             />
             <h1 className="text-2xl font-bold text-accent-foreground">
@@ -39,7 +39,7 @@ export function Navbar({ children }: NavbarProps) {
             </h1>
           </div>
         </Link>
-        <div className="hidden w-full justify-end gap-1 bg-background px-4 py-2 sm:flex">
+        <div className="hidden w-full justify-end gap-1 bg-background px-4 sm:flex">
           {routes.map((route, index) => (
             <Link
               key={index}

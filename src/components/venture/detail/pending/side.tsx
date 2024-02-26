@@ -9,9 +9,10 @@ import Link from "next/link";
 import { formatCurrency } from "@/lib/utils";
 import { MultiStar } from "../multiStar";
 import { VentureDetailPendingActions } from "./actions";
+import { VentureApplicationUser } from "@/server/api/routers/types";
 
 export const VentureDetailPendingSide: React.FC<{
-  venture: FullVenture;
+  venture: VentureApplicationUser;
 }> = ({ venture }) => {
   const user = venture.founder.user;
 

@@ -2,8 +2,9 @@ import { VentureStatusType } from "@prisma/client";
 import VentureDetailPending from "./pending/detail";
 import { FullVenture } from "@/types/types";
 import { FounderHistory } from "./history";
+import { VentureApplicationUser } from "@/server/api/routers/types";
 
-export const VentureDetail: React.FC<{ venture: FullVenture }> = ({
+export const VentureDetail: React.FC<{ venture: VentureApplicationUser }> = ({
   venture,
 }) => {
   return (

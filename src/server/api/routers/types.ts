@@ -13,6 +13,12 @@ export const ventureInclude = Prisma.validator<Prisma.VentureInclude>()({
   },
   founder: {
     include: {
+      ventures: true,
+      user: true,
+    },
+  },
+  investor: {
+    include: {
       user: true,
     },
   },
