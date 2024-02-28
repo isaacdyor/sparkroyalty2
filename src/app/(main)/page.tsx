@@ -10,7 +10,7 @@ export default async function AuthButton() {
         alt="Picture of the author"
       />
       <Image
-        src="https://media.tenor.com/WWBL18qey9IAAAAM/hello.gif"
+        src="/hello.webp"
         width={500}
         height={500}
         alt="Picture of the author"
