@@ -7,6 +7,7 @@ import { ActiveType } from "@prisma/client";
 import Image from "next/image";
 import { Search } from "./search";
 import { useActiveContext } from "@/utils/activeContext";
+import logo from "../../../public/logo.png";
 
 export type NavbarProps = {
   children: React.ReactNode;
@@ -29,7 +30,7 @@ export function Navbar({ children }: NavbarProps) {
         <Link href={"/"} className="shrink-0">
           <div className="flex items-start gap-2">
             <Image
-              src="/logo.png"
+              src={logo}
               width={125.2}
               height={91.6}
               className="h-9 w-7"
