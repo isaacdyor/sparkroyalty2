@@ -35,6 +35,7 @@ export function Navbar({ children }: NavbarProps) {
               className="h-9 w-7"
               alt="Picture of the author"
             />
+
             <h1 className="text-2xl font-bold text-accent-foreground">
               spark royalty
             </h1>
