@@ -1,10 +1,11 @@
 import Image from "next/image";
+import logo from "../../../public/logo.png";
 
 export default async function AuthButton() {
   return (
     <div className="flex h-screen w-screen items-center justify-center gap-12 ">
       <Image
-        src="https://raw.githubusercontent.com/isaacdyor/sparkroyalty2/main/public/logo.png"
+        src={logo}
         width={125.2}
         height={91.6}
         alt="Picture of the author"
