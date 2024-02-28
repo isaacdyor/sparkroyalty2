@@ -29,6 +29,7 @@ export function Navbar({ children }: NavbarProps) {
         <Link href={"/"} className="shrink-0">
           <div className="flex items-center gap-2">
             <Image
+              unoptimized
               src="/logo.png"
               width={28}
               height={28}
