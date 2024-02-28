@@ -3,7 +3,7 @@
 import { formatCurrency, timeAgo } from "@/lib/utils";
 import { HandThumbDownIcon, HeartIcon } from "@heroicons/react/24/outline";
 
-import { VentureApplicationUser } from "@/server/api/routers/types";
+import type { VentureApplicationUser } from "@/server/api/routers/types";
 import { CheckBadgeIcon, MapPinIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { MultiStar } from "../detail/multiStar";

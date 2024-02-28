@@ -1,4 +1,3 @@
-import { Review } from "@prisma/client";
 import Link from "next/link";
 import React from "react";
 import { AiFillStar } from "react-icons/ai";
@@ -11,8 +10,6 @@ export const MultiStar: React.FC<{ simple?: boolean }> = ({ simple }) => {
 
   const integerPart = Math.floor(averageStars);
   const fractionalPart = averageStars - integerPart;
-
-  const length = 1;
 
   return (
     <div className="flex items-center">

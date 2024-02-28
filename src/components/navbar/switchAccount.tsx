@@ -1,12 +1,11 @@
 "use client";
 
 import { api } from "@/trpc/react";
-import { ActiveType, User } from "@prisma/client";
+import { useActiveContext } from "@/utils/activeContext";
+import type { ActiveType } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
-import { useActiveContext } from "@/utils/activeContext";
-import { set } from "zod";
 
 export const SwitchActiveButton: React.FC<{
   setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;

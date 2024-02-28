@@ -4,8 +4,6 @@ import {
   privateProcedure,
   publicProcedure,
 } from "@/server/api/trpc";
-import { api } from "@/trpc/server";
-import { Prisma } from "@prisma/client";
 import { z } from "zod";
 import { ventureInclude } from "./types";
 
@@ -65,20 +63,7 @@ export const ventureRouter = createTRPCRouter({
   getCurrent: privateProcedure.query(async ({ ctx }) => {
     const venture = await ctx.db.venture.findMany({
       where: { founderId: ctx.user.id },
-      include: {
-        applications: true,
-        founder: {
-          include: {
-            user: true,
-            ventures: true,
-          },
-        },
-        investor: {
-          include: {
-            user: true,
-          },
-        },
-      },
+      include: ventureInclude,
     });
     return venture;
   }),

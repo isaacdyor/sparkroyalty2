@@ -1,4 +1,4 @@
-import { InvestorWithUser } from "@/types/types";
+import type { InvestorWithUser } from "@/types/types";
 import React from "react";
 import { InvestorHeader } from "./header";
 import { InvestorMainContent } from "./mainContent";

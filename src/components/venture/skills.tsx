@@ -1,4 +1,4 @@
-export const Skills: React.FC<{ skills: String[] }> = ({ skills }) => {
+export const Skills: React.FC<{ skills: string[] }> = ({ skills }) => {
   return (
     <div className="flex flex-wrap gap-1.5">
       {skills?.map((skill, index) => (

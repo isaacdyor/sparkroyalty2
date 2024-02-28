@@ -1,12 +1,5 @@
 "use client";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
@@ -16,22 +9,27 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { EllipsisHorizontalIcon } from "@heroicons/react/24/solid";
-import Link from "next/link";
-import { useState } from "react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { api } from "@/trpc/react";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { Loader2 } from "lucide-react";
 import { TrashIcon } from "@heroicons/react/24/outline";
+import { EllipsisHorizontalIcon } from "@heroicons/react/24/solid";
+import type { Application, Venture } from "@prisma/client";
+import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
 import { ApplicationDialog } from "./applicationDialog";
-import { ApplicationInput } from "../venture/detail/pending/applyButton";
-import { Application, Venture } from "@prisma/client";
 
 export const ApplicationActions: React.FC<{
   application: Application;
   venture: Venture;
-}> = ({ application, venture }) => {
+}> = ({ application }) => {
   const router = useRouter();
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
   const [isDeleteLoading, setIsDeleteLoading] = useState(false);
@@ -95,7 +93,7 @@ export const ApplicationActions: React.FC<{
                 event.preventDefault();
                 setIsDeleteLoading(true);
 
-                const deleted = deleteApplication({ id: application.id });
+                deleteApplication({ id: application.id });
               }}
               className="bg-destructive hover:bg-destructive/70 focus:ring-destructive"
             >

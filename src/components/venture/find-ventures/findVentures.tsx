@@ -1,4 +1,4 @@
-import { VentureApplicationUser } from "@/server/api/routers/types";
+import type { VentureApplicationUser } from "@/server/api/routers/types";
 import { FindVenturesMain } from "./main";
 import { FindVentureSide } from "./side";
 

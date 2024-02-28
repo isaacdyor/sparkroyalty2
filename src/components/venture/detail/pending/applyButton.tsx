@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -25,11 +24,10 @@ import { useForm } from "react-hook-form";
 
 import { applicationSchema } from "@/lib/validators/applicationSchema";
 import { api } from "@/trpc/react";
-import { Venture } from "@prisma/client";
-import { toast } from "sonner";
-import { z } from "zod";
-import { ApplicationDialog } from "@/components/applications/applicationDialog";
+import type { Venture } from "@prisma/client";
 import { useState } from "react";
+import { toast } from "sonner";
+import type { z } from "zod";
 
 export type ApplicationInput = z.infer<typeof applicationSchema>;
 

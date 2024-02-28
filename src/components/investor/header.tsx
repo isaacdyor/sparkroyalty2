@@ -1,4 +1,4 @@
-import { InvestorWithUser } from "@/types/types";
+import type { InvestorWithUser } from "@/types/types";
 import React from "react";
 import { getInitials } from "@/lib/utils";
 import { MapPinIcon } from "@heroicons/react/24/solid";

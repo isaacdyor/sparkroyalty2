@@ -1,16 +1,13 @@
-import { VentureApplicationUser } from "@/server/api/routers/types";
+import { Button } from "@/components/ui/button";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { Button } from "@/components/ui/button";
+import { ChevronDown } from "lucide-react";
 import { useState } from "react";
-import { ChevronDown, ChevronsUpDown } from "lucide-react";
 
-export const Filters: React.FC<{
-  setVentures: React.Dispatch<React.SetStateAction<VentureApplicationUser[]>>;
-}> = ({ setVentures }) => {
+export const Filters: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="w-80">

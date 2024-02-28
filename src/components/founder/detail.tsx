@@ -1,4 +1,4 @@
-import { FounderWithUser } from "@/types/types";
+import type { FounderWithUser } from "@/types/types";
 import { FounderEmploymentDetails } from "../profile/founder/employmentDetails";
 import { FounderMainContent } from "../profile/founder/mainContent";
 import { FounderSideBar } from "../profile/founder/sideBar";

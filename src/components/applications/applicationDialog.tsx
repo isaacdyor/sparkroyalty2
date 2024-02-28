@@ -1,14 +1,9 @@
-import { Application, Venture } from "@prisma/client";
-import React from "react";
-import { ApplicationInput } from "../venture/detail/pending/applyButton";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import {
   Form,
@@ -18,12 +13,15 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { applicationSchema } from "@/lib/validators/applicationSchema";
-import { Textarea } from "../ui/textarea";
 import { api } from "@/trpc/react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import type { Application } from "@prisma/client";
+import React from "react";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { Textarea } from "../ui/textarea";
+import type { ApplicationInput } from "../venture/detail/pending/applyButton";
 
 type ApplicationDialogProps = {
   showDialog: boolean;

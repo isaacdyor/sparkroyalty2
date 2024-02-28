@@ -1,13 +1,12 @@
 import { Button } from "@/components/ui/button";
+import type { VentureApplicationUser } from "@/server/api/routers/types";
 import { api } from "@/trpc/server";
-import { FullVenture } from "@/types/types";
 import { ActiveType } from "@prisma/client";
 import { BookmarkIcon } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { DeleteVentureButton } from "../deleteVenture";
 import { ApplyButton } from "./applyButton";
-import { VentureApplicationUser } from "@/server/api/routers/types";
 
 export const VentureDetailPendingActions: React.FC<{
   venture: VentureApplicationUser;

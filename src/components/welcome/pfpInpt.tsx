@@ -1,11 +1,10 @@
-import { createClient } from "@/utils/supabase/client";
+import { Loader2 } from "lucide-react";
 import React from "react";
-import { UseFormReturn } from "react-hook-form";
+import type { UseFormReturn } from "react-hook-form";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { Input } from "../ui/input";
-import { WelcomeInput } from "./welcomeForm";
-import { Loader2 } from "lucide-react";
+import type { WelcomeInput } from "./welcomeForm";
 
 const PfpInpt: React.FC<{
   form: UseFormReturn<WelcomeInput>;
@@ -15,8 +14,6 @@ const PfpInpt: React.FC<{
   setFile: React.Dispatch<React.SetStateAction<File | null>>;
   loading: boolean;
 }> = ({ form, imageUrl, setImageUrl, submitted, setFile, loading }) => {
-  const supabase = createClient();
-
   const handleFileInputChange = async (
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
@@ -42,7 +39,8 @@ const PfpInpt: React.FC<{
         <FormField
           control={form.control}
           name="image"
-          render={({ field: { onChange, value, ...rest } }) => (
+          // eslint-disable-next-line
+          render={({ field: { onChange, ...rest } }) => (
             <FormItem>
               <FormLabel mandatory>Profile Picture</FormLabel>
               <FormControl>

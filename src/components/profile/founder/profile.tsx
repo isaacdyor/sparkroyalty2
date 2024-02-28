@@ -1,4 +1,4 @@
-import { FounderWithUser } from "@/types/types";
+import type { FounderWithUser } from "@/types/types";
 import { FounderHeader } from "./header";
 import { FounderMainContent } from "./mainContent";
 import { FounderSideBar } from "./sideBar";

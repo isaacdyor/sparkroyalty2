@@ -1,4 +1,4 @@
-import { FounderWithUser, InvestorWithUser } from "@/types/types";
+import type { FounderWithUser } from "@/types/types";
 import React from "react";
 
 export const FounderMainContent: React.FC<{ founder: FounderWithUser }> = ({

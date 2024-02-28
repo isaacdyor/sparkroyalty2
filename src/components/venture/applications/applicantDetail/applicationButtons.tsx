@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
 import { AcceptApplicationButton } from "../acceptApplication";
-import { ApplicationVenture } from "@/server/api/routers/types";
+import type { ApplicationVenture } from "@/server/api/routers/types";
 
 export const ApplicationButtons: React.FC<{
   application: ApplicationVenture;

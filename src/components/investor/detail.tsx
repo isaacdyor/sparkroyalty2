@@ -1,4 +1,4 @@
-import { InvestorWithUser } from "@/types/types";
+import type { InvestorWithUser } from "@/types/types";
 import { InvestorHeader } from "./header";
 import { InvestorEmploymentDetails } from "../profile/investor/employmentDetails";
 import { InvestorMainContent } from "../profile/investor/mainContent";

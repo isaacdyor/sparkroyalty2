@@ -1,4 +1,10 @@
-import { Application, Founder, Investor, User, Venture } from "@prisma/client";
+import type {
+  Application,
+  Founder,
+  Investor,
+  User,
+  Venture,
+} from "@prisma/client";
 
 export type InvestorWithUser = Investor & { user: User };
 export type FounderWithUser = Founder & { user: User };

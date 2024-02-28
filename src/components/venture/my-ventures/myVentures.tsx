@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { VentureWithApplications } from "@/types/types";
+import type { VentureApplicationUser } from "@/server/api/routers/types";
 import Link from "next/link";
 import React, { useState } from "react";
 import { MiniVenture } from "./miniVenture/miniVenture";
@@ -14,7 +14,7 @@ enum Filter {
   COMPLETED = "COMPLETED",
 }
 
-export const MyVentures: React.FC<{ ventures: VentureWithApplications[] }> = ({
+export const MyVentures: React.FC<{ ventures: VentureApplicationUser[] }> = ({
   ventures,
 }) => {
   const [filter, setFilter] = useState<Filter>(Filter.ALL);
@@ -80,7 +80,9 @@ export const MyVentures: React.FC<{ ventures: VentureWithApplications[] }> = ({
         </div>
         <div>
           {filteredVentures.map((venture) => (
-            <MiniVenture venture={venture} />
+            <React.Fragment key={venture.id}>
+              <MiniVenture venture={venture} />
+            </React.Fragment>
           ))}
         </div>
       </div>

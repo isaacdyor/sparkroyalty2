@@ -1,9 +1,10 @@
-import { Investor } from "@prisma/client";
+import type { Investor } from "@prisma/client";
 import React from "react";
 
 export const InvestorEmploymentDetails: React.FC<{ investor: Investor }> = ({
   investor,
 }) => {
+  console.log(investor);
   const employmentDetails = [
     {
       title: "Fullstack Engineer",

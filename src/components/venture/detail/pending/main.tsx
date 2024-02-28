@@ -1,14 +1,11 @@
-import { Button } from "@/components/ui/button";
 import { formatCurrency, timeAgo } from "@/lib/utils";
-import { FullVenture } from "@/types/types";
+import type { VentureApplicationUser } from "@/server/api/routers/types";
+import { api } from "@/trpc/server";
+import { BookmarkIcon } from "@heroicons/react/24/solid";
+import { ActiveType } from "@prisma/client";
 import Link from "next/link";
 import { Status } from "../../status";
-import { DeleteVentureButton } from "../deleteVenture";
 import { VentureDetailPendingActions } from "./actions";
-import { api } from "@/trpc/server";
-import { ActiveType } from "@prisma/client";
-import { BookmarkIcon } from "@heroicons/react/24/solid";
-import { VentureApplicationUser } from "@/server/api/routers/types";
 
 export const VentureDetailPendingMain: React.FC<{
   venture: VentureApplicationUser;

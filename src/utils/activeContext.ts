@@ -1,4 +1,4 @@
-import { ActiveType } from "@prisma/client";
+import type { ActiveType } from "@prisma/client";
 import { createContext, useContext } from "react";
 
 type ActiveProps = {

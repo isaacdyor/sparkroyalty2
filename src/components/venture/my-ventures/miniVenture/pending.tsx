@@ -1,12 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { timeAgo } from "@/lib/utils";
-import { VentureWithApplications } from "@/types/types";
+import type { VentureApplicationUser } from "@/server/api/routers/types";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { Status } from "../../status";
 import { PostActions } from "../postActions";
-import { useRouter } from "next/navigation";
-import { VentureApplicationUser } from "@/server/api/routers/types";
 
 export const PendingMiniVenture: React.FC<{
   venture: VentureApplicationUser;

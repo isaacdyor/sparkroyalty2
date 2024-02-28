@@ -1,11 +1,9 @@
 "use client";
 
 import { Search } from "@/components/navbar/search";
-import { Venture } from "@prisma/client";
-import { VenturePreview } from "./venturePreview";
+import type { VentureApplicationUser } from "@/server/api/routers/types";
 import { Fragment, useState } from "react";
-import { VentureWithFounder } from "@/types/types";
-import { VentureApplicationUser } from "@/server/api/routers/types";
+import { VenturePreview } from "./venturePreview";
 
 enum Filter {
   BestMatches = "bestMatches",

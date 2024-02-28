@@ -1,25 +1,21 @@
 "use client";
 
-import {
-  ApplicationVenture,
-  VentureApplicationUser,
-} from "@/server/api/routers/types";
-import React, { Fragment, useState } from "react";
-import { ApplicationPreview } from "./applicationPreview";
 import { Input } from "@/components/ui/input";
-import {
-  AdjustmentsHorizontalIcon,
-  MagnifyingGlassIcon,
-} from "@heroicons/react/24/outline";
 import {
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import type { VentureApplicationUser } from "@/server/api/routers/types";
+import {
+  AdjustmentsHorizontalIcon,
+  MagnifyingGlassIcon,
+} from "@heroicons/react/24/outline";
+import React, { Fragment, useState } from "react";
+import { ApplicationPreview } from "./applicationPreview";
 
 enum Filter {
   ALL = "all",

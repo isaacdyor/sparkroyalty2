@@ -91,7 +91,7 @@ export const PostActions: React.FC<{ id: string }> = ({ id }) => {
                 event.preventDefault();
                 setIsDeleteLoading(true);
 
-                const deleted = mutate({ id });
+                mutate({ id });
               }}
               className="bg-destructive hover:bg-destructive/70 focus:ring-destructive"
             >

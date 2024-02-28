@@ -1,8 +1,8 @@
-import { FounderWithUser, InvestorWithUser } from "@/types/types";
+import { getInitials } from "@/lib/utils";
+import type { FounderWithUser } from "@/types/types";
+import { MapPinIcon } from "@heroicons/react/24/solid";
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { getInitials } from "@/lib/utils";
-import { MapPinIcon } from "@heroicons/react/24/solid";
 
 export const FounderHeader: React.FC<{ founder: FounderWithUser }> = ({
   founder,

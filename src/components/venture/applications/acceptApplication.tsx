@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ApplicationVenture } from "@/server/api/routers/types";
+import type { ApplicationVenture } from "@/server/api/routers/types";
 import React, { useState } from "react";
 
 import {
@@ -12,10 +12,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { Loader2 } from "lucide-react";
-import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
-import { CheckIcon } from "@heroicons/react/24/solid";
 import { api } from "@/trpc/react";
+import { CheckIcon } from "@heroicons/react/24/solid";
+import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
 export const AcceptApplicationButton: React.FC<{
@@ -25,7 +24,7 @@ export const AcceptApplicationButton: React.FC<{
   const [isHireLoading, setIsHireLoading] = useState(false);
 
   const { mutate } = api.applications.acceptApplication.useMutation({
-    onSuccess: (data) => {
+    onSuccess: () => {
       setIsHireLoading(false);
       setShowDialog(false);
       toast.success("Venture updated!");
@@ -71,11 +70,11 @@ export const AcceptApplicationButton: React.FC<{
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
-              onClick={(event) => {
+              onClick={async (event) => {
                 event.preventDefault();
                 setIsHireLoading(true);
 
-                acceptApplication(application.id, application.ventureId);
+                await acceptApplication(application.id, application.ventureId);
               }}
               className="bg-primary hover:bg-primary/70"
             >

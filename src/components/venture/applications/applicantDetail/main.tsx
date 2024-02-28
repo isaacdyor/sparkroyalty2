@@ -1,5 +1,5 @@
 import { formatCurrency } from "@/lib/utils";
-import { ApplicationVenture } from "@/server/api/routers/types";
+import type { ApplicationVenture } from "@/server/api/routers/types";
 import React from "react";
 
 export const ApplicationDetailMain: React.FC<{

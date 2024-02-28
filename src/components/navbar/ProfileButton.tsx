@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { createClient } from "@/utils/supabase/client";
-import { User } from "@prisma/client";
+import type { User } from "@prisma/client";
 import { getInitials } from "@/lib/utils";
 import { SwitchActiveButton } from "./switchAccount";
 
@@ -70,7 +70,7 @@ const ProfileButton: React.FC<{ user: User | null }> = ({ user }) => {
                 <p className="text-md text-muted-foreground">{user?.email}</p>
               </div>
             </div>
-            <SwitchActiveButton user={user} setMenuOpen={setMenuOpen} />
+            <SwitchActiveButton setMenuOpen={setMenuOpen} />
           </div>
           <hr className="my-4 border-t border-border" />
           <div className="flex flex-col gap-3">

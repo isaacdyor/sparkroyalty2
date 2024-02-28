@@ -1,5 +1,5 @@
 import { Search } from "@/components/navbar/search";
-import { VentureApplicationUser } from "@/server/api/routers/types";
+import type { VentureApplicationUser } from "@/server/api/routers/types";
 import React, { Fragment } from "react";
 import { VenturePreview } from "../find-ventures/venturePreview";
 

@@ -1,7 +1,8 @@
 import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 
-import { InvestorWithUser } from "@/types/types";
+import type { InvestorWithUser } from "@/types/types";
 import LinkedAccount from "../linkedAccount";
+import React from "react";
 
 export const InvestorSideBar: React.FC<{ investor: InvestorWithUser }> = ({
   investor,
@@ -70,7 +71,9 @@ export const InvestorSideBar: React.FC<{ investor: InvestorWithUser }> = ({
           <p className="pb-1 text-2xl font-semibold">Linked Accounts:</p>
           <div className="flex flex-col gap-2">
             {linkedAccounts.map((account) => (
-              <LinkedAccount account={account} />
+              <React.Fragment key={account.account}>
+                <LinkedAccount account={account} />
+              </React.Fragment>
             ))}
           </div>
         </div>

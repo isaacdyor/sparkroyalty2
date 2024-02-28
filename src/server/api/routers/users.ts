@@ -1,6 +1,6 @@
 import { welcomeSchema } from "@/lib/validators/welcomeSchema";
 import { createTRPCRouter, privateProcedure } from "@/server/api/trpc";
-import { ActiveType, User } from "@prisma/client";
+import { ActiveType } from "@prisma/client";
 import { z } from "zod";
 
 export const userRouter = createTRPCRouter({

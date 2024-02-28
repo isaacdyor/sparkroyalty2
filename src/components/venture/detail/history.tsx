@@ -1,5 +1,5 @@
 import { timeAgo } from "@/lib/utils";
-import { Venture } from "@prisma/client";
+import type { Venture } from "@prisma/client";
 import Link from "next/link";
 import { Status } from "../status";
 

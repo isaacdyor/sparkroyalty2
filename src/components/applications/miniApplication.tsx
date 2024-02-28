@@ -1,6 +1,5 @@
 import { timeAgo } from "@/lib/utils";
-import { ApplicationVenture } from "@/server/api/routers/types";
-import { Application } from "@prisma/client";
+import type { ApplicationVenture } from "@/server/api/routers/types";
 import Link from "next/link";
 import React from "react";
 import { ApplicationActions } from "./applicationActions";

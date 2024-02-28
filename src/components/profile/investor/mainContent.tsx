@@ -1,4 +1,4 @@
-import { InvestorWithUser } from "@/types/types";
+import type { InvestorWithUser } from "@/types/types";
 import React from "react";
 
 export const InvestorMainContent: React.FC<{ investor: InvestorWithUser }> = ({
@@ -21,8 +21,10 @@ export const InvestorMainContent: React.FC<{ investor: InvestorWithUser }> = ({
       <div className="flex flex-col border-border p-8 lg:border-b">
         <p className="pb-1 text-2xl font-semibold">Skills</p>
         <div className="flex gap-1">
-          {investor.skills.map((skill) => (
-            <p className="rounded-full bg-secondary px-3 py-1">{skill}</p>
+          {investor.skills.map((skill, index) => (
+            <p key={index} className="rounded-full bg-secondary px-3 py-1">
+              {skill}
+            </p>
           ))}
         </div>
       </div>

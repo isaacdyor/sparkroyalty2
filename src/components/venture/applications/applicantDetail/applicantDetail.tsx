@@ -1,14 +1,12 @@
-import { InvestorWithUser } from "@/types/types";
-import { ChevronLeftIcon } from "@heroicons/react/24/outline";
-import { Venture } from "@prisma/client";
-import Link from "next/link";
-import React from "react";
-import { ApplicantDetailHeader } from "./header";
-import { ApplicationVenture } from "@/server/api/routers/types";
-import { ApplicationDetailMain } from "./main";
 import { InvestorEmploymentDetails } from "@/components/profile/investor/employmentDetails";
 import { InvestorMainContent } from "@/components/profile/investor/mainContent";
 import { InvestorSideBar } from "@/components/profile/investor/sideBar";
+import type { ApplicationVenture } from "@/server/api/routers/types";
+import { ChevronLeftIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
+import React from "react";
+import { ApplicantDetailHeader } from "./header";
+import { ApplicationDetailMain } from "./main";
 
 export const ApplicantDetail: React.FC<{
   application: ApplicationVenture;

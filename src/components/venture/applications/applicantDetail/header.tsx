@@ -3,8 +3,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { getInitials } from "@/lib/utils";
-import { ApplicationVenture } from "@/server/api/routers/types";
-import { InvestorWithUser } from "@/types/types";
+import type { ApplicationVenture } from "@/server/api/routers/types";
 import { HandThumbDownIcon, HeartIcon } from "@heroicons/react/24/outline";
 import { MapPinIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";

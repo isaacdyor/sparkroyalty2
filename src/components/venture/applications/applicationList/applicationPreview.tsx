@@ -2,7 +2,7 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getInitials, timeAgo } from "@/lib/utils";
-import { ApplicationVenture } from "@/server/api/routers/types";
+import type { ApplicationVenture } from "@/server/api/routers/types";
 import { HandThumbDownIcon } from "@heroicons/react/24/outline";
 import { MapPinIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
@@ -10,7 +10,6 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { ApplicationButtons } from "../applicantDetail/applicationButtons";
 import { ExtraInfo } from "./extraInfo";
-import { Application, Venture } from "@prisma/client";
 
 export const ApplicationPreview: React.FC<{
   application: ApplicationVenture;

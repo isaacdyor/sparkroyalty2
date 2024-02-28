@@ -1,5 +1,4 @@
 import { ApplicantDetail } from "@/components/venture/applications/applicantDetail/applicantDetail";
-import { VentureDetail } from "@/components/venture/detail/detail";
 import { api } from "@/trpc/server";
 
 export default async function VentureDetailPage({

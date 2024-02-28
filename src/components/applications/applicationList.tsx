@@ -1,4 +1,4 @@
-import { ApplicationVenture } from "@/server/api/routers/types";
+import type { ApplicationVenture } from "@/server/api/routers/types";
 import React from "react";
 import { MiniApplication } from "./miniApplication";
 
@@ -12,7 +12,9 @@ export const ApplicationList: React.FC<{
         <div>
           <hr className="border-b-0.5 border-border" />
           {applications.map((application) => (
-            <MiniApplication application={application} />
+            <React.Fragment key={application.id}>
+              <MiniApplication application={application} />
+            </React.Fragment>
           ))}
         </div>
       </div>

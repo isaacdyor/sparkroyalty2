@@ -1,4 +1,3 @@
-import { FullVenture } from "@/types/types";
 import {
   ChatBubbleBottomCenterIcon,
   CheckBadgeIcon,
@@ -7,9 +6,9 @@ import { VentureStatusType } from "@prisma/client";
 import Link from "next/link";
 
 import { formatCurrency } from "@/lib/utils";
+import type { VentureApplicationUser } from "@/server/api/routers/types";
 import { MultiStar } from "../multiStar";
 import { VentureDetailPendingActions } from "./actions";
-import { VentureApplicationUser } from "@/server/api/routers/types";
 
 export const VentureDetailPendingSide: React.FC<{
   venture: VentureApplicationUser;

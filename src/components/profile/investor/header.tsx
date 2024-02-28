@@ -1,4 +1,4 @@
-import { InvestorWithUser } from "@/types/types";
+import type { InvestorWithUser } from "@/types/types";
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { getInitials } from "@/lib/utils";

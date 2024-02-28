@@ -10,13 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import { Textarea } from "@/components/ui/textarea";
 
