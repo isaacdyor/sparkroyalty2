@@ -3,7 +3,7 @@ import { createContext, useContext } from "react";
 
 type ActiveProps = {
   active: ActiveType | null;
-  setActive: (active: ActiveType) => void;
+  setActive: (active: ActiveType | null) => void;
 };
 
 export const ActiveContext = createContext<ActiveProps | null>(null);

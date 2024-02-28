@@ -8,14 +8,17 @@ import { createClient } from "@/utils/supabase/client";
 import type { User } from "@prisma/client";
 import { getInitials } from "@/lib/utils";
 import { SwitchActiveButton } from "./switchAccount";
+import { useActiveContext } from "@/utils/activeContext";
 
 const ProfileButton: React.FC<{ user: User | null }> = ({ user }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { active, setActive } = useActiveContext();
 
   const router = useRouter();
   const supabase = createClient();
 
   const signOut = async () => {
+    setActive(null);
     await supabase.auth.signOut();
     router.refresh();
   };
@@ -37,7 +40,7 @@ const ProfileButton: React.FC<{ user: User | null }> = ({ user }) => {
     };
   }, [ref]);
 
-  if (!user) return null;
+  if (!user || !active) return null;
   return (
     <div ref={ref} className="hidden sm:block">
       <Avatar
@@ -95,6 +98,7 @@ const ProfileButton: React.FC<{ user: User | null }> = ({ user }) => {
               onClick={() =>
                 signOut().then(() => {
                   setMenuOpen(false);
+
                   router.refresh();
                 })
               }
