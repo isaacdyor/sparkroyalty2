@@ -111,6 +111,7 @@ export const applicationRouter = createTRPCRouter({
         },
         data: {
           status: "BUILDING",
+          investorId: ctx.user.id,
         },
       });
       return application;

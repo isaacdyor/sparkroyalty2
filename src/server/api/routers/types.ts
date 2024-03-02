@@ -22,8 +22,8 @@ export const ventureInclude = Prisma.validator<Prisma.VentureInclude>()({
       user: true,
     },
   },
-  payoutReports: true,
-  buildingReports: true,
+  payoutUpdates: true,
+  buildingUpdates: true,
 });
 
 export type VentureApplicationUser = Prisma.VentureGetPayload<{

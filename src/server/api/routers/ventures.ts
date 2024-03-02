@@ -67,6 +67,13 @@ export const ventureRouter = createTRPCRouter({
     });
     return venture;
   }),
+  getJobs: privateProcedure.query(async ({ ctx }) => {
+    const ventures = await ctx.db.venture.findMany({
+      where: { investorId: ctx.user.id },
+      include: ventureInclude,
+    });
+    return ventures;
+  }),
   getAll: publicProcedure.query(async ({ ctx }) => {
     const venture = await ctx.db.venture.findMany({
       where: { status: "PENDING" },

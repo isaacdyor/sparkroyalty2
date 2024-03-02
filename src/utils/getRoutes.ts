@@ -18,7 +18,7 @@ export const getRoutes = ({
     ];
   } else {
     return [
-      { title: "My Jobs ", href: "/investor/jobs" },
+      { title: "My Jobs ", href: "/my-jobs" },
       { title: "Find ventures ", href: "/find-ventures" },
     ];
   }

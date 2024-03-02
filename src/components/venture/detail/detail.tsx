@@ -2,6 +2,7 @@ import type { VentureApplicationUser } from "@/server/api/routers/types";
 import { VentureStatusType } from "@prisma/client";
 import { FounderHistory } from "./history";
 import VentureDetailPending from "./pending/detail";
+import VentureDetailBuilding from "./building/detail";
 
 export const VentureDetail: React.FC<{ venture: VentureApplicationUser }> = ({
   venture,
@@ -12,7 +13,7 @@ export const VentureDetail: React.FC<{ venture: VentureApplicationUser }> = ({
         {venture.status === VentureStatusType.PENDING ? (
           <VentureDetailPending venture={venture} />
         ) : venture.status === VentureStatusType.BUILDING ? (
-          <p>Building</p>
+          <VentureDetailBuilding venture={venture} />
         ) : venture.status === VentureStatusType.PAYOUT ? (
           <p>Payout</p>
         ) : (

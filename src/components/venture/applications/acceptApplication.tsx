@@ -27,14 +27,14 @@ export const AcceptApplicationButton: React.FC<{
     onSuccess: () => {
       setIsHireLoading(false);
       setShowDialog(false);
-      toast.success("Venture updated!");
+      toast.success("Accepted application!");
     },
     onError: (e) => {
       const errorMessage = e.data?.zodError?.fieldErrors.content;
-      console.error("Error updating venture:", errorMessage);
+      console.error("Error accepting application:", errorMessage);
       setIsHireLoading(false);
       setShowDialog(false);
-      toast.error("Error updating venture");
+      toast.error("Error accepting application");
     },
   });
 

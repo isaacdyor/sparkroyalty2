@@ -30,7 +30,7 @@ export const BuildingMiniVenture: React.FC<{
           <p className="text-muted-foreground">{timeAgo(venture.createdAt)}</p>
         </div>
         <div className="flex items-start gap-4">
-          <div className="flex items-center gap-4">
+          <div className="flex w-24 items-center gap-4">
             <div className="flex flex-col">
               <p className="text-xl">{venture.buildingReports?.length ?? 0}</p>
               <p className="text-muted-foreground">Reports</p>
@@ -45,7 +45,7 @@ export const BuildingMiniVenture: React.FC<{
               <Button
                 onClick={(e) => e.stopPropagation()}
                 variant="outline"
-                className="bg-transparent"
+                className="w-40 bg-transparent"
               >
                 View Reports
               </Button>
