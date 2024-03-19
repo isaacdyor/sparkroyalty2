@@ -52,3 +52,31 @@ export const timeAgo = (createdAt: Date): string => {
     return `${months} month${months === 1 ? "" : "s"} ago`;
   }
 };
+
+// export const removeQuotesAndNewLines = (inputString: string) => {
+//   console.log();
+//   // This regex looks for quotes, captures content inside quotes allowing for leading/trailing spaces
+//   const regex = /" *([^"]*?) *"/g;
+
+//   // Replace matches by trimming spaces inside quotes and removing the quotes themselves
+//   let result = inputString.replace(regex, function (match, p1) {
+//     return p1.trim();
+//   });
+
+//   // Additionally, replace any newline characters with a space
+//   result = result.replace(/\n/g, " ");
+
+//   return result;
+// };
+
+export const removeQuotesAndNewLines = (inputString: string) => {
+  // Adjusting for escaped newline characters in JSON strings
+  let result = inputString.replace(/\\n/g, " ");
+
+  // Additionally, since JSON.stringify adds quotes around the string,
+  // we need to remove them if they are not part of the original content.
+  // This strips the leading and trailing quote from a JSON-stringified string.
+  result = result.replace(/^"|"$/g, "");
+
+  return result;
+};

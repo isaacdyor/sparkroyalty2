@@ -1,13 +1,13 @@
 "use client";
-import Link from "next/link";
-import React, { useState } from "react";
-import { XMarkIcon, Bars3Icon } from "@heroicons/react/24/solid";
+import { useActiveContext } from "@/utils/activeContext";
 import { getRoutes } from "@/utils/getRoutes";
 import { ActiveType } from "@prisma/client";
 import Image from "next/image";
-import { Search } from "./search";
-import { useActiveContext } from "@/utils/activeContext";
+import Link from "next/link";
+import React, { useState } from "react";
 import logo from "../../../public/logo.png";
+import { Search } from "./search";
+import { Menu, X } from "lucide-react";
 
 export type NavbarProps = {
   children: React.ReactNode;
@@ -71,11 +71,7 @@ export function Navbar({ children }: NavbarProps) {
       )}
 
       <button onClick={toggleMenu} className="sm:hidden">
-        {menuOpen ? (
-          <XMarkIcon className="h-7 w-7" />
-        ) : (
-          <Bars3Icon className="h-7 w-7" />
-        )}
+        {menuOpen ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
       </button>
     </div>
   );

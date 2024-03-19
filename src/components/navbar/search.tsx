@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/navigation";
+import { SearchIcon } from "lucide-react";
 
 export const Search = () => {
   const router = useRouter();
@@ -27,7 +27,7 @@ export const Search = () => {
         onClick={onSubmit}
         className=" absolute right-0 top-0 rounded-r-md  bg-secondary p-2 hover:cursor-pointer hover:bg-secondary/70"
       >
-        <MagnifyingGlassIcon className="h-6 w-6 " />
+        <SearchIcon className="h-6 w-6 " />
       </div>
     </div>
   );

@@ -27,10 +27,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
 import type { z } from "zod";
 
-import { TrashIcon } from "@heroicons/react/24/outline";
-
 import { ventureSchema } from "@/lib/validators/ventureSchema";
 import type { Venture } from "@prisma/client";
+import { Trash } from "lucide-react";
 
 export type NewVentureInput = z.infer<typeof ventureSchema>;
 
@@ -179,7 +178,7 @@ export function VentureForm({ venture, onSubmit }: VentureFormProps) {
                               />
                             </FormControl>
                             {fields.length > 1 && (
-                              <TrashIcon
+                              <Trash
                                 className="invisible absolute right-1 h-6 w-6 text-muted-foreground/40 hover:cursor-pointer hover:text-muted-foreground/30 group-hover:visible"
                                 onClick={() => remove(index)}
                               />

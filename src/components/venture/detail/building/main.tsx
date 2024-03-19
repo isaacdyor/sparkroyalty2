@@ -1,10 +1,7 @@
 import { formatCurrency, timeAgo } from "@/lib/utils";
 import type { VentureApplicationUser } from "@/server/api/routers/types";
 import { api } from "@/trpc/server";
-import {
-  BookmarkIcon,
-  ChatBubbleBottomCenterIcon,
-} from "@heroicons/react/24/solid";
+import { BookmarkIcon, ChatBubbleBottomCenterIcon } from "@heroicons/react/24/solid";
 import { ActiveType } from "@prisma/client";
 import Link from "next/link";
 import { Status } from "../../status";
@@ -28,12 +25,6 @@ export const VentureDetailBuildingMain: React.FC<{
           <p className="text-muted-foreground">
             Posted {timeAgo(venture.createdAt)}
           </p>
-          <div className="flex items-center text-primary lg:hidden ">
-            <ChatBubbleBottomCenterIcon className="h-5 w-5 pr-1" />
-            <p className="hover:cursor-pointer hover:underline">
-              Save Investment
-            </p>
-          </div>
         </div>
         <div className="block lg:hidden">
           <VentureDetailBuildingActions venture={venture} />
