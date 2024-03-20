@@ -1,24 +1,15 @@
 "use server";
 
-import { Client } from "@octoai/client";
+import { ChatCompletionRole, Client } from "@octoai/client";
 import { env } from "@/env";
+import { CompletionMessage, Message } from "./chat";
 
 const OCTOAI_TOKEN = env.OCTOAI_TOKEN;
 const client = new Client(OCTOAI_TOKEN);
 
-export const getParams = async (prompt: string) => {
+export const getParams = async (messages: CompletionMessage[]) => {
   const response = await client.chat.completions.create({
-    messages: [
-      {
-        role: "system",
-        content:
-          "You are a contract builder. Your goal is to discern the amount to be paid in cash and the amount to be paid in royalties. The amount to be paid in royalties may be paid in different traunches. You should return each traunch seperately in the json object.",
-      },
-      {
-        role: "user",
-        content: prompt,
-      },
-    ],
+    messages: messages,
     model: "codellama-13b-instruct",
     response_format: {
       type: "json_object",

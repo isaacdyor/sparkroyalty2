@@ -25,9 +25,9 @@ const CreateContractPage: React.FC = () => {
   });
 
   return (
-    <div className="flex justify-center px-4 py-4 sm:py-12 md:p-14 lg:px-20">
-      <div className="flex w-full rounded-lg border border-border">
-        <ContractChat form={form} fieldArray={fieldArray} />
+    <div className="flex h-[90vh] justify-center  px-4 py-4 sm:py-12 md:p-14 lg:px-20">
+      <div className="flex w-full rounded-lg border border-border ">
+        <ContractChat form={form} />
         <ContractParamaters form={form} fieldArray={fieldArray} />
       </div>
     </div>
