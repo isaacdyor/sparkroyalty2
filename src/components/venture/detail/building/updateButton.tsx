@@ -23,34 +23,32 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { buildingUpdateSchema } from "@/lib/validators/buildingUpdateSchema";
-import { api } from "@/trpc/react";
 import type { Venture } from "@prisma/client";
 import { useState } from "react";
-import { toast } from "sonner";
 import type { z } from "zod";
 
 export type BuildingUpdateInput = z.infer<typeof buildingUpdateSchema>;
 
 export const UpdateButton: React.FC<{ venture: Venture }> = ({ venture }) => {
   const [showDialog, setShowDialog] = useState(false);
-  const { mutate } = api.buildingUpdates.create.useMutation({
-    onSuccess: () => {
-      toast.success("Update submitted!");
-      setShowDialog(false);
-    },
-    onError: (e) => {
-      const errorMessage = e.data?.zodError?.fieldErrors.content;
-      console.error("Error submitting update:", errorMessage);
-      toast.error("Error submitting update");
-    },
-  });
+  // const { mutate } = api.buildingUpdates.create.useMutation({
+  //   onSuccess: () => {
+  //     toast.success("Update submitted!");
+  //     setShowDialog(false);
+  //   },
+  //   onError: (e) => {
+  //     const errorMessage = e.data?.zodError?.fieldErrors.content;
+  //     console.error("Error submitting update:", errorMessage);
+  //     toast.error("Error submitting update");
+  //   },
+  // });
 
   const onSubmit = async (data: BuildingUpdateInput) => {
-    console.log("bang");
-    mutate({
-      update: data,
-      ventureId: venture.id,
-    });
+    console.log(data.progress);
+    // mutate({
+    //   update: data,
+    //   ventureId: venture.id,
+    // });
   };
 
   const form = useForm<BuildingUpdateInput>({

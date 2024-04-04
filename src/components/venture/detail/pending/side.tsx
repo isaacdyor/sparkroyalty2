@@ -1,7 +1,4 @@
-import {
-  ChatBubbleBottomCenterIcon,
-  CheckBadgeIcon,
-} from "@heroicons/react/24/solid";
+import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 import { VentureStatusType } from "@prisma/client";
 import Link from "next/link";
 

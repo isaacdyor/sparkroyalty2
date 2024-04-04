@@ -1,7 +1,4 @@
-import {
-  ChatBubbleBottomCenterIcon,
-  CheckBadgeIcon,
-} from "@heroicons/react/24/solid";
+import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 import { VentureStatusType } from "@prisma/client";
 import Link from "next/link";
 
@@ -25,9 +22,9 @@ export const VentureDetailBuildingSide: React.FC<{
     (venture) => venture.status === VentureStatusType.PENDING,
   ).length;
 
-  const paidInvesmtnets = venture.founder.ventures.filter(
-    (venture) => venture.currentPayout > 0,
-  ).length;
+  // const paidInvesmtnets = venture.founder.ventures.filter(
+  //   (venture) => venture.currentPayout > 0,
+  // ).length;
 
   const investor = venture.investor!;
 

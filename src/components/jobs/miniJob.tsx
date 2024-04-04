@@ -1,7 +1,7 @@
 "use client";
 
 import { timeAgo } from "@/lib/utils";
-import { VentureApplicationUser } from "@/server/api/routers/types";
+import type { VentureApplicationUser } from "@/server/api/routers/types";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";

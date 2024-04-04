@@ -1,4 +1,3 @@
-import { buildingUpdateSchema } from "@/lib/validators/buildingUpdateSchema";
 import { createTRPCRouter, privateProcedure } from "@/server/api/trpc";
 import { z } from "zod";
 
@@ -7,13 +6,13 @@ export const buildingUpdateRouter = createTRPCRouter({
     .input(
       z.object({
         ventureId: z.string(),
-        update: buildingUpdateSchema,
+        progress: z.string(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
       const user = await ctx.db.buildingUpdate.create({
         data: {
-          progress: input.update.progress,
+          progress: input.progress,
           ventureId: input.ventureId,
         },
       });

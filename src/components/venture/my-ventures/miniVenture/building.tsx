@@ -32,7 +32,7 @@ export const BuildingMiniVenture: React.FC<{
         <div className="flex items-start gap-4">
           <div className="flex w-24 items-center gap-4">
             <div className="flex flex-col">
-              <p className="text-xl">{venture.buildingReports?.length ?? 0}</p>
+              <p className="text-xl">{venture.buildingUpdates?.length ?? 0}</p>
               <p className="text-muted-foreground">Reports</p>
             </div>
           </div>

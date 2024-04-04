@@ -1,6 +1,6 @@
 "use client";
 
-import { VentureApplicationUser } from "@/server/api/routers/types";
+import type { VentureApplicationUser } from "@/server/api/routers/types";
 import React, { useState } from "react";
 import { MiniJob } from "./miniJob";
 

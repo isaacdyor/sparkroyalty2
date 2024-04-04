@@ -1,9 +1,6 @@
 import { formatCurrency, timeAgo } from "@/lib/utils";
 import type { VentureApplicationUser } from "@/server/api/routers/types";
 import { api } from "@/trpc/server";
-import { BookmarkIcon, ChatBubbleBottomCenterIcon } from "@heroicons/react/24/solid";
-import { ActiveType } from "@prisma/client";
-import Link from "next/link";
 import { Status } from "../../status";
 import { VentureDetailBuildingActions } from "./actions";
 

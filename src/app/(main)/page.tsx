@@ -16,7 +16,7 @@ export default function HomePage() {
         Introducing Spark Royalty
       </h1>
       <p className="text-center text-3xl font-semibold text-muted-foreground">
-        The World's First Royalty Based Freelancing Marketplace
+        The World&apos;s First Royalty Based Freelancing Marketplace
       </p>
       <Button>
         <Link href="/signup">Get Started</Link>
