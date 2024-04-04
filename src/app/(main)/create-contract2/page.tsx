@@ -1,11 +1,11 @@
 "use client";
 
-import { ContractChat } from "@/components/create-contract/chat";
-import { ContractParamaters } from "@/components/create-contract/paramters";
-import { contractSchema } from "@/lib/validators/contractSchema";
+import { ContractChat } from "@/components/create-contract2/chat";
+import { ContractForm } from "@/components/create-contract2/form";
+import { contractSchema } from "@/lib/validators/contractSchema2";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 export type ContractInput = z.infer<typeof contractSchema>;
@@ -14,21 +14,16 @@ const CreateContractPage: React.FC = () => {
   const form = useForm<ContractInput>({
     resolver: zodResolver(contractSchema),
     defaultValues: {
-      cashPayout: "",
-      royaltyPayments: [{ percent: "", payout: "" }],
+      cashPayout: 0,
+      royaltyPayments: [{ percent: 0, payout: 0 }],
     },
-  });
-
-  const fieldArray = useFieldArray({
-    control: form.control,
-    name: "royaltyPayments",
   });
 
   return (
     <div className="flex justify-center py-4 sm:p-12 md:p-14 lg:h-[90vh] lg:px-20">
       <div className="flex w-full flex-col rounded-t-lg border-border sm:border lg:flex-row lg:rounded-lg">
         <ContractChat form={form} />
-        <ContractParamaters form={form} fieldArray={fieldArray} />
+        <ContractForm form={form} />
       </div>
     </div>
   );

@@ -2,16 +2,14 @@
 
 import { ContractInput } from "@/app/(main)/create-contract/page";
 import { removeQuotesAndNewLines } from "@/lib/utils";
-import React, { useState } from "react";
+import { ChatCompletionRole } from "@octoai/client";
+import { Loader2, Send } from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
 import { UseFormReturn } from "react-hook-form";
+import { AutosizeTextarea } from "../ui/auto-resizable";
 import { getParams, getQuestion } from "./actions";
 import { FirstMessage } from "./firstMessage";
-import { Input } from "../ui/input";
-import { Loader2, Send } from "lucide-react";
-import { Button } from "../ui/button";
-import { Textarea } from "../ui/textarea";
-import { AutosizeTextarea } from "../ui/auto-resizable";
-import { ChatCompletionRole } from "@octoai/client";
+import { StreamMessage } from "./streamMessage";
 
 export type CompletionType = {
   cashPayout: string;
@@ -40,6 +38,7 @@ export const ContractChat: React.FC<{
   const [loading, setLoading] = useState(false);
   const [question, setQuestion] = useState<string | null>(null);
   const [rerender, setRerender] = useState(true);
+  const [systemMessage, setSystemMessage] = useState<string | null>(null);
 
   const onClick = async () => {
     const updatedConversation = [
@@ -61,12 +60,14 @@ export const ContractChat: React.FC<{
     ];
 
     // Use updatedConversation here instead of the conversation state
-    updatedConversation.forEach((message) => {
-      newMessages.push({
-        role: message.sentByUser ? "user" : "assistant",
-        content: message.message,
+    if (updatedConversation) {
+      updatedConversation.forEach((message) => {
+        newMessages.push({
+          role: message.sentByUser ? "user" : "assistant",
+          content: message.message,
+        });
       });
-    });
+    }
 
     setLoading(true);
 
@@ -82,6 +83,7 @@ export const ContractChat: React.FC<{
     });
     form.setValue("royaltyPayments", data.royaltyPayments);
     form.setValue("cashPayout", data.cashPayout);
+    completionMessage();
   };
 
   const askQuestion = async (payments: RoyaltyPayments[]) => {
@@ -104,27 +106,31 @@ export const ContractChat: React.FC<{
       response.choices[0]?.message.content ?? "",
     );
     const parsedQuestion = removeQuotesAndNewLines(unparsedQuestion);
-    setConversation((prevConversation) => [
-      ...prevConversation,
-      // Assuming `anotherMessage` is the new piece of state you want to add
-      { message: parsedQuestion, sentByUser: false },
-    ]);
+    setSystemMessage(parsedQuestion);
   };
 
-  const printConversation = () => {
-    console.log(conversation);
+  const completionMessage = () => {
+    setSystemMessage("I have successfully completed the contract");
   };
+
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (conversation) {
+      ref.current?.scrollIntoView({
+        behavior: "instant",
+        block: "end",
+      });
+    }
+  }, [conversation]);
 
   return (
-    <div className="flex w-full flex-col gap-6 border-r border-border p-8">
-      <Button onClick={printConversation} variant="secondary">
-        Print Conversation
-      </Button>
+    <div className="flex w-full flex-col gap-6 border-b border-border p-8 lg:border-b-0 lg:border-r">
       <div className="flex flex-col">
         <h1 className="text-2xl font-semibold">AI Contract builder</h1>
       </div>
       <div className="flex h-full flex-col justify-between rounded-lg border border-border p-4">
-        <div className="flex flex-col gap-2">
+        <div className="flex h-[352px] flex-col gap-2 overflow-scroll ">
           <FirstMessage />
           {conversation.map((message, index) => (
             <div
@@ -148,6 +154,14 @@ export const ContractChat: React.FC<{
               </div>
             </div>
           ))}
+          {systemMessage && (
+            <StreamMessage
+              message={systemMessage}
+              setConversation={setConversation}
+            />
+          )}
+
+          <div ref={ref} />
         </div>
         <div className="relative flex">
           <AutosizeTextarea

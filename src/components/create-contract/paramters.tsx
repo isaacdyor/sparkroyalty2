@@ -116,22 +116,43 @@ export const ContractParamaters: React.FC<{
                         Total Payout
                       </FormDescription>
                     </div>
-                    <Button
-                      type="button"
-                      variant="secondary"
-                      disabled={
-                        watchRoyaltyPayments.length === 0 ||
-                        watchRoyaltyPayments.some(
-                          (field) => !field.percent || !field.payout,
-                        )
-                      }
-                      onClick={() =>
-                        fieldArray.append({ percent: "", payout: "" })
-                      }
-                      className="max-w-min"
-                    >
-                      Add Royalty Payment
-                    </Button>
+                    <div className="flex gap-2">
+                      <Button
+                        type="button"
+                        variant="secondary"
+                        disabled={
+                          watchRoyaltyPayments.length === 0 ||
+                          watchRoyaltyPayments.some(
+                            (field) => !field.percent || !field.payout,
+                          )
+                        }
+                        onClick={() =>
+                          fieldArray.append({ percent: "", payout: "" })
+                        }
+                        className="max-w-min"
+                      >
+                        Add Royalty Payment
+                      </Button>
+                      {watchCashPayout == "0" ||
+                        (watchCashPayout == "" && (
+                          <Button
+                            type="button"
+                            variant="secondary"
+                            disabled={
+                              watchRoyaltyPayments.length === 0 ||
+                              watchRoyaltyPayments.some(
+                                (field) => !field.percent || !field.payout,
+                              )
+                            }
+                            onClick={() =>
+                              fieldArray.append({ percent: "", payout: "" })
+                            }
+                            className="max-w-min"
+                          >
+                            Add Cash Payment
+                          </Button>
+                        ))}
+                    </div>
                   </FormItem>
                 )}
               />
