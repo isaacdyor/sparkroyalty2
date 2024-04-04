@@ -90,6 +90,7 @@ export const WelcomeForm: React.FC = () => {
         country: formData.country,
         image: otherData.publicUrl,
       });
+      setLoading(false);
     } else {
       setSubmitted(true);
       setLoading(false);
@@ -159,7 +160,7 @@ export const WelcomeForm: React.FC = () => {
                 setImageUrl={setImageUrl}
                 submitted={submitted}
                 setFile={setFile}
-                loading
+                loading={loading}
               />
 
               <Button

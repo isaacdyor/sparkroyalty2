@@ -38,7 +38,7 @@ export function Navbar({ children }: NavbarProps) {
             />
 
             <h1 className="text-2xl font-bold text-accent-foreground">
-              spark royalty
+              Spark Royalty
             </h1>
           </div>
         </Link>
