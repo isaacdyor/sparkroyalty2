@@ -1,28 +1,29 @@
 import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 
 import type { InvestorWithUser } from "@/types/types";
-import LinkedAccount from "../linkedAccount";
+// import LinkedAccount from "../linkedAccount";
 import React from "react";
 
 export const InvestorSideBar: React.FC<{ investor: InvestorWithUser }> = ({
   investor,
 }) => {
-  const linkedAccounts = [
-    {
-      imageUrl: investor.user.imageUrl,
-      firstName: investor.user.firstName,
-      lastName: investor.user.lastName,
-      account: "Github",
-      accountUrl: "https://github.com/isaacdyor",
-    },
-    {
-      imageUrl: investor.user.imageUrl,
-      firstName: investor.user.firstName,
-      lastName: investor.user.lastName,
-      account: "LinkedIn",
-      accountUrl: "https://www.linkedin.com/in/isaac-dyor/",
-    },
-  ];
+  console.log(investor);
+  // const linkedAccounts = [
+  //   {
+  //     imageUrl: investor.user.imageUrl,
+  //     firstName: investor.user.firstName,
+  //     lastName: investor.user.lastName,
+  //     account: "Github",
+  //     accountUrl: "https://github.com/isaacdyor",
+  //   },
+  //   {
+  //     imageUrl: investor.user.imageUrl,
+  //     firstName: investor.user.firstName,
+  //     lastName: investor.user.lastName,
+  //     account: "LinkedIn",
+  //     accountUrl: "https://www.linkedin.com/in/isaac-dyor/",
+  //   },
+  // ];
 
   return (
     <div className="flex w-full flex-col gap-2 border-border lg:w-96 lg:border-r">
