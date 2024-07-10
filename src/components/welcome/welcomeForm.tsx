@@ -55,7 +55,7 @@ export const WelcomeForm: React.FC = () => {
   const { mutate } = api.users.create.useMutation({
     onSuccess: () => {
       router.push("new-profile");
-      toast.success("Founder profile created!");
+      toast.success("User profile created!");
     },
     onError: (e) => {
       const errorMessage = e.data?.zodError?.fieldErrors.content;

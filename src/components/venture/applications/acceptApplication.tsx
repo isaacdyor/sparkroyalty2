@@ -47,8 +47,9 @@ export const AcceptApplicationButton: React.FC<{
   const acceptApplication = async (
     applicationId: string,
     ventureId: string,
+    investorId: string,
   ) => {
-    mutate({ applicationId, ventureId });
+    mutate({ applicationId, ventureId, investorId });
   };
 
   const user = application?.investor.user;
@@ -73,8 +74,12 @@ export const AcceptApplicationButton: React.FC<{
               onClick={async (event) => {
                 event.preventDefault();
                 setIsHireLoading(true);
-
-                await acceptApplication(application.id, application.ventureId);
+                console.log(application.investorId);
+                await acceptApplication(
+                  application.id,
+                  application.ventureId,
+                  application.investorId,
+                );
               }}
               className="bg-primary hover:bg-primary/70"
             >

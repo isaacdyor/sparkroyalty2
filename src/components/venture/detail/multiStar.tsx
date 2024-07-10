@@ -42,11 +42,11 @@ export const MultiStar: React.FC<{ simple?: boolean }> = ({ simple }) => {
           />
         </div>
       ))}
-      {!simple && (
+      {/* {!simple && (
         <Link href={`poop`}>
           <p className="text-sm hover:underline">(10)</p>
         </Link>
-      )}
+      )} */}
     </div>
   );
 };

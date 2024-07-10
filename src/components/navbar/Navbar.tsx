@@ -30,6 +30,7 @@ export function Navbar({ children }: NavbarProps) {
         <Link href={"/"} className="shrink-0">
           <div className="flex items-start gap-2">
             <Image
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
               src={logo}
               width={125.2}
               height={91.6}

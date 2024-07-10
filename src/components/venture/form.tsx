@@ -170,7 +170,7 @@ export function VentureForm({ venture, onSubmit }: VentureFormProps) {
                           <div className="group relative flex items-center">
                             <FormControl>
                               <Input
-                                placeholder="Your skill"
+                                placeholder="Helpful skills for the project"
                                 className="group-hover:pr-8"
                                 {...form.register(
                                   `skills.${index}.name` as const,

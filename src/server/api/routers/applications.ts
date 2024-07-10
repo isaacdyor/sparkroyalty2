@@ -87,9 +87,11 @@ export const applicationRouter = createTRPCRouter({
       z.object({
         applicationId: z.string(),
         ventureId: z.string(),
+        investorId: z.string(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      console.log(input.investorId);
       const application = await ctx.db.application.update({
         where: { id: input.applicationId },
         data: {
@@ -111,7 +113,7 @@ export const applicationRouter = createTRPCRouter({
         },
         data: {
           status: "BUILDING",
-          investorId: ctx.user.id,
+          investorId: input.investorId,
         },
       });
       return application;

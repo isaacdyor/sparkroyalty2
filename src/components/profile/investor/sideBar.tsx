@@ -28,15 +28,15 @@ export const InvestorSideBar: React.FC<{ investor: InvestorWithUser }> = ({
     <div className="flex w-full flex-col gap-2 border-border lg:w-96 lg:border-r">
       <div className="flex items-center justify-between border-b border-border p-8 md:justify-normal md:gap-6 lg:justify-between lg:gap-2">
         <div className="flex flex-col">
-          <p className="text-2xl">$10k+</p>
+          <p className="text-2xl">$--</p>
           <p className="text-sm text-muted-foreground">Total Earnings</p>
         </div>
         <div className="flex flex-col">
-          <p className="text-2xl">6</p>
+          <p className="text-2xl">--</p>
           <p className="text-sm text-muted-foreground">Total Jobs</p>
         </div>
         <div className="flex flex-col">
-          <p className="text-2xl">2</p>
+          <p className="text-2xl">--</p>
           <p className="text-sm text-muted-foreground">Current Jobs</p>
         </div>
       </div>
@@ -44,8 +44,7 @@ export const InvestorSideBar: React.FC<{ investor: InvestorWithUser }> = ({
         <div className="flex flex-col">
           <p className="pb-1 text-2xl font-semibold">Languages:</p>
           <p className="text-lg">
-            English:{" "}
-            <span className="text-muted-foreground">Native or Billingual</span>
+            English: <span className="text-muted-foreground">Native</span>
           </p>
         </div>
         <div className="flex flex-col">
@@ -61,13 +60,13 @@ export const InvestorSideBar: React.FC<{ investor: InvestorWithUser }> = ({
         </div>
         <div className="flex flex-col">
           <p className="pb-1 text-2xl font-semibold">Education:</p>
-          <p className="text-lg">Univeristy of Washington</p>
+          {/* <p className="text-lg">Univeristy of Washington</p>
           <p className="text-lg text-muted-foreground">
             Computer Science (B.S.)
           </p>
-          <p className="text-lg text-muted-foreground">2023-2027</p>
+          <p className="text-lg text-muted-foreground">2023-2027</p> */}
         </div>
-        <div className="flex flex-col">
+        {/* <div className="flex flex-col">
           <p className="pb-1 text-2xl font-semibold">Linked Accounts:</p>
           <div className="flex flex-col gap-2">
             {linkedAccounts.map((account) => (
@@ -76,7 +75,7 @@ export const InvestorSideBar: React.FC<{ investor: InvestorWithUser }> = ({
               </React.Fragment>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

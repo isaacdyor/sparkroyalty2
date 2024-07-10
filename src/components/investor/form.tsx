@@ -148,6 +148,7 @@ export function InvestorForm({ investor, onSubmit }: InvestorFormProps) {
                   </FormItem>
                 )}
               />
+              <p className="font-bold">Optional</p>
               <div className="flex flex-row gap-4">
                 <FormField
                   control={form.control}

@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const investorSchema = z.object({
-  bio: z.string().min(100).max(500),
+  bio: z.string().min(10).max(500),
   skills: z
     .object({ name: z.string().min(1) })
     .array()

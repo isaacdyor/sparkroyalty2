@@ -87,13 +87,13 @@ const ProfileButton: React.FC<{ user: User | null }> = ({ user }) => {
               </Link>
             </p>
 
-            <Link
+            {/* <Link
               onClick={() => setMenuOpen(false)}
               className="text-lg text-muted-foreground hover:text-muted-foreground/70"
               href="/settings"
-            >
-              Settings
-            </Link>
+            > */}
+            <p className="text-muted-foreground">Settings</p>
+            {/* </Link> */}
             <p
               onClick={() =>
                 signOut().then(() => {

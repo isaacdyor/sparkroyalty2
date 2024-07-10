@@ -20,6 +20,7 @@ export const getRoutes = ({
     return [
       { title: "My Jobs ", href: "/my-jobs" },
       { title: "Find ventures ", href: "/find-ventures" },
+      { title: "My Applications ", href: "/my-applications" },
     ];
   }
 };

@@ -1,15 +1,10 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { removeQuotesAndNewLines } from "@/lib/utils";
+
 import Link from "next/link";
 
 export default function HomePage() {
-  const unparsedQuestion =
-    '" What percent of revenue will be paid out for royalty payment 1?\nWhat is the payout for royalty payment 2?\nWhat percent of revenue will be paid out for royalty payment 3?"';
-  console.log(unparsedQuestion);
-  const parsedQuestion = removeQuotesAndNewLines(unparsedQuestion);
-  console.log(parsedQuestion);
   return (
     <div className="flex flex-col items-center justify-center gap-10 pt-40">
       <h1 className="text-center text-7xl font-semibold">

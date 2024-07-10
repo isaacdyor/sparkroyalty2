@@ -1,7 +1,7 @@
 import type { InvestorWithUser } from "@/types/types";
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
-import { getInitials } from "@/lib/utils";
+import { capitalizeFirstLetter, getInitials } from "@/lib/utils";
 import { MapPinIcon } from "@heroicons/react/24/solid";
 import { Button } from "../../ui/button";
 import Link from "next/link";
@@ -23,7 +23,7 @@ export const InvestorHeader: React.FC<{ investor: InvestorWithUser }> = ({
           <div className="flex items-center gap-1">
             <MapPinIcon className="h-5 w-5 text-muted-foreground" />
             <p className="text-lg text-muted-foreground">
-              {investor.user.country}
+              {capitalizeFirstLetter(investor.user.country)}
             </p>
           </div>
         </div>

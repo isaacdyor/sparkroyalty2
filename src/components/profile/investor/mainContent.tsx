@@ -10,14 +10,14 @@ export const InvestorMainContent: React.FC<{ investor: InvestorWithUser }> = ({
         <p className="pb-1 text-2xl font-semibold">Fullstack Engineer</p>
         <p>{investor.bio}</p>
       </div>
-      <div className="flex flex-col border-b border-border p-8">
+      {/* <div className="flex flex-col border-b border-border p-8">
         <p className="pb-1 text-2xl font-semibold">History</p>
         <p>{investor.bio}</p>
       </div>
       <div className="flex flex-col border-b border-border p-8">
         <p className="pb-1 text-2xl font-semibold">Portfolio</p>
         <p>{investor.bio}</p>
-      </div>
+      </div> */}
       <div className="flex flex-col border-border p-8 lg:border-b">
         <p className="pb-1 text-2xl font-semibold">Skills</p>
         <div className="flex gap-1">
