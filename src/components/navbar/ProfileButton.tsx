@@ -7,7 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { createClient } from "@/utils/supabase/client";
 import type { User } from "@prisma/client";
 import { getInitials } from "@/lib/utils";
-import { SwitchActiveButton } from "./switchAccount";
+// import { SwitchActiveButton } from "./switchAccount";
 import { useActiveContext } from "@/utils/activeContext";
 
 const ProfileButton: React.FC<{ user: User | null }> = ({ user }) => {
@@ -59,7 +59,7 @@ const ProfileButton: React.FC<{ user: User | null }> = ({ user }) => {
           <div className="flex flex-col gap-2">
             <div className="flex items-center">
               <div className="pr-4">
-                <Avatar onClick={() => setMenuOpen(!menuOpen)}>
+                <Avatar>
                   <AvatarImage src={user.imageUrl} />
                   <AvatarFallback>
                     {getInitials(user.firstName, user.lastName)}
@@ -73,7 +73,7 @@ const ProfileButton: React.FC<{ user: User | null }> = ({ user }) => {
                 <p className="text-md text-muted-foreground">{user?.email}</p>
               </div>
             </div>
-            <SwitchActiveButton setMenuOpen={setMenuOpen} />
+            {/* <SwitchActiveButton setMenuOpen={setMenuOpen} /> */}
           </div>
           <hr className="my-4 border-t border-border" />
           <div className="flex flex-col gap-3">
